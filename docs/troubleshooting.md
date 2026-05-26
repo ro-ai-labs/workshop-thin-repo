@@ -68,19 +68,17 @@ Then restart `claude`.
 Decline. Demo 3 doesn't need GitHub auth. If you want it for your own repos
 later, sign in then.
 
-## Apple Silicon (M1/M2/M3) performance is poor
+## Apple Silicon (M1/M2/M3) or ARM PC — image won't run
 
-Confirm the arm64 image was pulled (not the amd64 emulated):
+The container is `linux/amd64` only and we don't ship `linux/arm64`. Running
+the amd64 image under Docker Desktop on Apple Silicon technically works via
+Rosetta/QEMU emulation, but it's 5–10× slower and Twenty's dev server is
+unusable in practice.
 
-```bash
-docker inspect ghcr.io/ro-ai-labs/itss-workshop:2026.05.28 | grep Architecture
-```
-
-Should show `"Architecture": "arm64"`. If `amd64`, re-pull explicitly:
-
-```bash
-docker pull --platform linux/arm64 ghcr.io/ro-ai-labs/itss-workshop:2026.05.28
-```
+Use the host-side manual setup recipe instead: [HOST_SETUP.md](HOST_SETUP.md).
+You install Node 24.5, Java 21, Rust, Bun, Maven, and Claude Code directly on
+your Mac/ARM machine, clone the demo repos, and run the same demos without the
+container. Takes ~30 min one-time.
 
 ## Last resort: offline image install
 

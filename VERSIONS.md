@@ -43,4 +43,4 @@ plugins:
 
 # Image
 image: ghcr.io/ro-ai-labs/itss-workshop:2026.05.28
-platforms: linux/amd64, linux/arm64
+platforms: linux/amd64   # x86_64 only. Apple Silicon / ARM PCs follow docs/HOST_SETUP.md

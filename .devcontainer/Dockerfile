@@ -1,6 +1,8 @@
 # syntax=docker/dockerfile:1.6
-# ITSS Workshop 2026 — multi-arch devcontainer image
-# Build with: docker buildx build --platform linux/amd64,linux/arm64 ...
+# ITSS Workshop 2026 — devcontainer image (linux/amd64 only)
+# Apple Silicon and ARM PCs are NOT supported by this image. Those users follow
+# docs/HOST_SETUP.md for manual host setup instead.
+# Build with: docker buildx build --platform linux/amd64 ...
 #   --build-arg CODEX_SHA=<sha>
 #   --build-arg OPENCODE_SHA=<sha>
 #   --build-arg TWENTY_SHA=<sha>
@@ -85,10 +87,11 @@ RUN mkdir -p /home/vscode/.cache /home/vscode/.bun \
 USER vscode
 WORKDIR /home/vscode
 
-# ---- Layer 7: Claude Code plugins (copied from host, rebuilt per-arch) ----
+# ---- Layer 7: Claude Code plugins (copied from host, rebuilt in container) ----
 # Host plugins are staged at build-context/claude-plugins/ by
 # scripts/prepare-build-context.sh. node_modules are stripped during staging
-# so we rebuild them per TARGETARCH below (linux/amd64 vs linux/arm64 have
+# so we rebuild them inside the container below — handles the host-WSL2 vs
+# Linux-container path differences cleanly, and would naturally extend to other
 # different native binaries: esbuild, rollup, lightningcss, tailwind-oxide).
 USER root
 RUN mkdir -p /home/vscode/.claude/plugins/cache \

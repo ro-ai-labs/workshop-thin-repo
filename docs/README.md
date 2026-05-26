@@ -5,6 +5,16 @@ sources for Codex CLI, opencode, Twenty CRM, and a Spring Boot PR demo; all
 their dependencies; Claude Code with 8 workshop plugins pre-installed;
 Playwright Chromium; and the workshop's cheatsheets / handouts as offline docs.
 
+> ## ⚠️ Host requirement: x86_64 (Intel/AMD) only
+>
+> The container image is `linux/amd64` only. **Apple Silicon (M1/M2/M3) Macs
+> and ARM-based PCs are not supported** by this devcontainer.
+>
+> If you're on an unsupported host, follow [HOST_SETUP.md](HOST_SETUP.md) for
+> the manual setup recipe — it walks you through installing the same
+> toolchains and cloning the same repos on your host directly. The demos
+> still work; you just skip the container.
+
 ## Before workshop day
 
 Do these once, on your host machine.

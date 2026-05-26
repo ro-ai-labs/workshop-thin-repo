@@ -79,33 +79,33 @@ Inside the running container, verify by hand:
 
 If any fail, fix in the Dockerfile / scripts, rebuild via `build-local.sh`, retry.
 
-## Step 4 — Multi-arch push to ghcr.io (~30-60 min wallclock)
+## Step 4 — Build and push to ghcr.io (~15-25 min wallclock)
+
+> **Note (2026-05-27 design change):** dropped multi-arch in favor of amd64-only.
+> Apple Silicon and ARM PCs now follow `docs/HOST_SETUP.md` for manual host setup
+> instead. Build time drops from 30-60 min to 15-25 min, removing a category of
+> QEMU-related failure modes on T-1 day.
 
 ```bash
-# One-time setup if you don't have buildx with arm64
-docker run --privileged --rm tonistiigi/binfmt --install all
-docker buildx create --use --name itss-builder --bootstrap 2>/dev/null || \
-  docker buildx use itss-builder
-
 # Authenticate to ghcr.io
 docker login ghcr.io -u ro-ai-labs
 # Password = a GitHub PAT with write:packages + read:packages scopes
 # Generate at: https://github.com/settings/tokens
 
-# Build + push
+# Build + push (single-arch amd64, ~15-25 min)
 cd /home/mihai/workshop-thin-repo
-bash scripts/build-multiarch.sh
+bash scripts/build-and-push.sh
 ```
 
 Expected wallclock: 30–60 min (arm64 leg uses QEMU emulation; slow).
 
-Verify both arches present:
+Verify the image is pushed:
 
 ```bash
 docker buildx imagetools inspect ghcr.io/ro-ai-labs/itss-workshop:2026.05.28
 ```
 
-Should show `linux/amd64` AND `linux/arm64` in the manifest list.
+Should show `linux/amd64` in the manifest.
 
 ## Step 5 — Make package public
 
@@ -160,6 +160,13 @@ Body:
 > Hi all,
 >
 > Tomorrow's workshop ships with a one-click setup. Please do this **tonight**:
+>
+> **Important: the container image is x86_64 (Intel/AMD) only. If you're on
+> Apple Silicon (M1/M2/M3) or an ARM PC, skip steps 1–4 and follow the manual
+> recipe at:**
+> https://github.com/ro-ai-labs/itss-workshop-2026/blob/main/docs/HOST_SETUP.md
+>
+> For everyone on x86_64:
 >
 > 1. Install Docker Desktop + VS Code (+ "Dev Containers" extension)
 > 2. Allocate at least 8 GB RAM / 4 CPU / 32 GB disk to Docker Desktop
