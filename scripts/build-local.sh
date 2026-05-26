@@ -18,11 +18,9 @@ source /tmp/itss-build-vars.sh
 # Stage build context
 bash scripts/prepare-build-context.sh
 
-# Stage understand-anything graphs (must have been generated on host already)
-bash scripts/prep-understand-graphs.sh || {
-  echo "ERROR: prep-understand-graphs.sh failed; see message above."
-  exit 1
-}
+# Note: .understand-anything/ knowledge graphs are committed to the ro-ai-labs
+# forks (twenty + opencode confirmed; codex TBD). They arrive via `git clone`
+# inside the Dockerfile, so no host staging step here.
 
 echo ""
 echo "==> Building itss-workshop:local (linux/amd64 only, for fast iteration)..."

@@ -14,7 +14,7 @@ fi
 source /tmp/itss-build-vars.sh
 
 bash scripts/prepare-build-context.sh
-bash scripts/prep-understand-graphs.sh
+# Understand-Anything graphs come from the cloned forks (committed in repo).
 
 echo ""
 echo "==> Building $IMAGE_TAG for linux/amd64"

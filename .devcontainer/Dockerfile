@@ -204,12 +204,9 @@ COPY --chown=vscode:vscode build-context/twenty.env /home/vscode/workshop/twenty
 RUN cd /home/vscode/workshop/twenty \
  && yarn install --immutable
 
-# ---- Layer 14: Pre-generated Understand-Anything knowledge graphs ----
-# Generated on host by `claude /understand` in each repo; baked here to save
-# participants 3-5 min per repo on workshop day.
-COPY --chown=vscode:vscode build-context/understand-anything/codex     /home/vscode/workshop/codex/.understand-anything
-COPY --chown=vscode:vscode build-context/understand-anything/opencode  /home/vscode/workshop/opencode/.understand-anything
-COPY --chown=vscode:vscode build-context/understand-anything/twenty    /home/vscode/workshop/twenty/.understand-anything
+# Layer 14 (Understand-Anything graph staging) intentionally removed —
+# the .understand-anything/ dirs are committed to the upstream forks
+# (ro-ai-labs/{codex,opencode,twenty}) and arrive via `git clone`.
 
 # ---- Layer 15: Finalize ----
 USER root

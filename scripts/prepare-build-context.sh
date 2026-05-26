@@ -67,5 +67,4 @@ echo ""
 echo "Build context ready:"
 du -sh "$DEST"/*
 echo ""
-echo "Next step: ensure understand-anything knowledge graphs are staged."
-echo "Run: bash scripts/prep-understand-graphs.sh"
+# Understand-Anything graphs travel with the cloned forks (committed in-repo).

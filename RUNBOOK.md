@@ -22,23 +22,27 @@ a79010c config: devcontainer.json + post-create/start scripts + multi-root works
 5f955de init: thin repo skeleton with LICENSE, .gitignore, .dockerignore
 ```
 
-## Step 1 — Generate Understand-Anything knowledge graphs (~15 min, interactive)
+## Step 1 — (no-op) Understand-Anything graphs already in the forks
 
-Three Claude sessions, each runs `/understand`. Each takes 3–5 min and costs tokens.
+The `.understand-anything/` knowledge graphs for `ro-ai-labs/twenty` and
+`ro-ai-labs/opencode` are already committed to those forks. They arrive
+inside the container via `git clone` at build time — no host staging needed.
 
-```bash
-cd /home/mihai/workshop/codex     && claude    # type: /understand
-cd /home/mihai/workshop/opencode  && claude    # type: /understand
-cd /home/mihai/workshop/twenty    && claude    # type: /understand
-```
-
-Verify each produced a graph:
+**Open question — `ro-ai-labs/codex`:** Demo 1 Step P2.5 specifically uses the
+codex dashboard. If you haven't committed `.understand-anything/` to the codex
+fork yet, do this now (~5 min):
 
 ```bash
-ls /home/mihai/workshop/{codex,opencode,twenty}/.understand-anything/knowledge-graph.json
+cd /home/mihai/workshop/codex
+claude            # then type: /understand
+# wait 3-5 min, exit claude
+git add .understand-anything/
+git commit -m "data: pre-generated /understand knowledge graph for Demo 1 P2.5"
+git push origin demo-arch
 ```
 
-If any are missing, re-run `/understand` in that repo.
+If you skip this, Demo 1 P2.5 still works but participants pay the 3-5 min
+generation cost (plus tokens) when they run `/understand-dashboard` themselves.
 
 ## Step 2 — Local build + smoke test loop (~20-40 min wallclock)
 
@@ -46,15 +50,15 @@ If any are missing, re-run `/understand` in that repo.
 cd /home/mihai/workshop-thin-repo
 source /tmp/itss-build-vars.sh
 
-# Stage everything the Dockerfile needs (deliverables + host plugins + graphs)
+# Stage build context (deliverables + host plugins) and build
 bash scripts/build-local.sh        # ~10-20 min on first cold build
 bash scripts/run-smoke-test.sh     # ~10 sec; must exit 0
 ```
 
 If smoke-test reports failures:
 
-- `understand-anything` checks — re-run Step 1
-- Plugin checks — `ls ~/workshop-thin-repo/build-context/claude-plugins/cache/` should have all 8 plugin dirs; if not, your host plugins aren't installed
+- `understand-anything` graph checks for codex — see Step 1 (commit `.understand-anything/` to ro-ai-labs/codex), then rebuild. Graph checks for twenty/opencode failing means the fork doesn't have the committed graphs (re-verify they're there)
+- Plugin checks — `ls /home/mihai/workshop-thin-repo/build-context/claude-plugins/cache/` should have all 8 plugin dirs; if not, your host plugins aren't installed
 - Twenty/codex/opencode source checks — your ro-ai-labs forks may not have the expected branch (verify `git ls-remote https://github.com/ro-ai-labs/twenty | grep demo`)
 - Toolchain checks — Dockerfile issue; inspect with `docker run --rm -it itss-workshop:local bash`
 
