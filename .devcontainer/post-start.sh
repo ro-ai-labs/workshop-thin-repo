@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# post-start.sh — runs every time the container starts.
+# Ensures Twenty's compose stack is up and prints the welcome banner.
+set -u
+
+WORKSHOP=${WORKSHOP_HOME:-/home/vscode/workshop}
+COMPOSE_FILE=$WORKSHOP/twenty/packages/twenty-docker/docker-compose.dev.yml
+
+# Re-ensure compose is up (no-op if already running)
+if [ -f "$COMPOSE_FILE" ]; then
+  docker compose -f "$COMPOSE_FILE" up -d >/dev/null 2>&1 || true
+fi
+
+# Welcome banner
+cat <<'EOF'
+
+  ╭─────────────────────────────────────────────────────────────╮
+  │  ITSS Workshop 2026 — Container ready                       │
+  ╰─────────────────────────────────────────────────────────────╯
+
+  Demos live under ~/workshop/:
+    • codex/                  Demo 1 — Rust architecture (read-only)
+    • opencode/               Demo 1 — TypeScript architecture (read-only)
+    • twenty/                 Demo 2 — Superpowers feature build
+    • spring-boot-pr-demo/    Demo 3 — pr-review-toolkit on risky-changes
+
+  Start Twenty UI:   cd ~/workshop/twenty && yarn start
+                     (then http://localhost:3001)
+  View architecture: right-click ~/workshop/demo-examples/*.html → Show Preview
+  Cheatsheets:       ~/workshop/docs/
+  Take-home plugin:  claude --plugin-dir ~/workshop/plugins/ailabs-arch-flows
+
+  Run `claude` in any demo dir to start a session.
+
+EOF

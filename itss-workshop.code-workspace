@@ -1,0 +1,18 @@
+{
+  "folders": [
+    { "name": "ITSS Workshop (this repo)", "path": "." },
+    { "name": "Demo 1a — Codex", "path": "/home/vscode/workshop/codex" },
+    { "name": "Demo 1b — opencode", "path": "/home/vscode/workshop/opencode" },
+    { "name": "Demo 2 — Twenty", "path": "/home/vscode/workshop/twenty" },
+    { "name": "Demo 3 — Spring Boot", "path": "/home/vscode/workshop/spring-boot-pr-demo" },
+    { "name": "Docs", "path": "/home/vscode/workshop/docs" }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/.git": true,
+      "**/node_modules": true,
+      "**/target": true,
+      "**/.yarn/cache": true
+    }
+  }
+}

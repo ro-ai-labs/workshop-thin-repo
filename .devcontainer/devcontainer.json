@@ -1,0 +1,71 @@
+{
+  "name": "ITSS Workshop 2026",
+  "image": "ghcr.io/ro-ai-labs/itss-workshop:2026.05.28",
+
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "version": "latest",
+      "moby": true
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "username": "vscode",
+      "userUid": "automatic",
+      "userGid": "automatic"
+    }
+  },
+
+  "remoteUser": "vscode",
+  "updateRemoteUserUID": true,
+
+  "mounts": [
+    "source=${localEnv:HOME}/.claude.json,target=/home/vscode/.claude.json,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.claude/.credentials.json,target=/home/vscode/.claude/.credentials.json,type=bind,consistency=cached"
+  ],
+
+  "containerEnv": {
+    "WORKSHOP_HOME": "/home/vscode/workshop",
+    "EDITOR": "code --wait",
+    "TZ": "Europe/Bucharest"
+  },
+  "remoteEnv": {
+    "GIT_AUTHOR_NAME":  "${localEnv:GIT_AUTHOR_NAME}",
+    "GIT_AUTHOR_EMAIL": "${localEnv:GIT_AUTHOR_EMAIL}"
+  },
+
+  "userEnvProbe": "loginInteractiveShell",
+  "hostRequirements": { "cpus": 4, "memory": "8gb", "storage": "32gb" },
+
+  "forwardPorts": [3000, 3001, 3002, 8080],
+  "portsAttributes": {
+    "3000": { "label": "Twenty backend",  "onAutoForward": "silent" },
+    "3001": { "label": "Twenty frontend", "onAutoForward": "openBrowser" },
+    "3002": { "label": "Live Preview",    "onAutoForward": "silent" },
+    "8080": { "label": "Spring Boot (optional)" }
+  },
+
+  "postCreateCommand": "bash ${containerWorkspaceFolder}/.devcontainer/post-create.sh",
+  "postStartCommand":  "bash ${containerWorkspaceFolder}/.devcontainer/post-start.sh",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "anthropic.claude-code",
+        "ms-vscode.live-server",
+        "ms-azuretools.vscode-docker",
+        "vscjava.vscode-java-pack",
+        "rust-lang.rust-analyzer",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "redhat.vscode-yaml",
+        "GitHub.vscode-pull-request-github"
+      ],
+      "settings": {
+        "livePreview.serverRoot": "/home/vscode/workshop",
+        "livePreview.portNumber": 3002,
+        "java.configuration.updateBuildConfiguration": "automatic",
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  }
+}
