@@ -1,0 +1,19 @@
+# Build artifacts / local-only
+/build/
+/dist/
+/.local/
+*.tar
+*.tar.gz
+
+# Build context (staged from deliverables at build time; not source)
+/build-context/
+
+# Editor / OS
+.DS_Store
+.vscode/settings.json
+.idea/
+
+# Secrets / env
+.env
+.env.local
+*.pem
