@@ -28,21 +28,10 @@ The `.understand-anything/` knowledge graphs for `ro-ai-labs/twenty` and
 `ro-ai-labs/opencode` are already committed to those forks. They arrive
 inside the container via `git clone` at build time — no host staging needed.
 
-**Open question — `ro-ai-labs/codex`:** Demo 1 Step P2.5 specifically uses the
-codex dashboard. If you haven't committed `.understand-anything/` to the codex
-fork yet, do this now (~5 min):
-
-```bash
-cd /home/mihai/workshop/codex
-claude            # then type: /understand
-# wait 3-5 min, exit claude
-git add .understand-anything/
-git commit -m "data: pre-generated /understand knowledge graph for Demo 1 P2.5"
-git push origin demo-arch
-```
-
-If you skip this, Demo 1 P2.5 still works but participants pay the 3-5 min
-generation cost (plus tokens) when they run `/understand-dashboard` themselves.
+Codex's graph is intentionally not baked (decided 2026-05-27). Demo 1 Step
+P2.5 falls back to the pre-rendered codex architecture HTML; if a participant
+wants the live dashboard, they run `/understand` themselves on the day
+(3-5 min, costs tokens).
 
 ## Step 2 — Local build + smoke test loop (~20-40 min wallclock)
 

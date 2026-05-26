@@ -72,9 +72,15 @@ check "ship-it-with-ai"         test -f "$WORKSHOP/docs/ship-it-with-ai/Ship_It_
 check "knowledge-base index"    test -f "$WORKSHOP/docs/knowledge-base/INDEX.md"
 
 echo "== Understand-Anything pre-gen =="
-check "codex graph baked"       test -f "$WORKSHOP/codex/.understand-anything/knowledge-graph.json"
+# Twenty + opencode forks have .understand-anything/ committed; codex doesn't
+# (decided 2026-05-27 — P2.5 covered by pre-rendered HTML fallback either way).
 check "opencode graph baked"    test -f "$WORKSHOP/opencode/.understand-anything/knowledge-graph.json"
 check "twenty graph baked"      test -f "$WORKSHOP/twenty/.understand-anything/knowledge-graph.json"
+if [ -f "$WORKSHOP/codex/.understand-anything/knowledge-graph.json" ]; then
+  ok "codex graph baked (bonus — not required)"
+else
+  printf "  \033[0;33m!\033[0m codex graph not baked (expected — P2.5 falls back to pre-rendered HTML)\n"
+fi
 
 echo "== Twenty compose ready =="
 check "Twenty compose file"     test -f "$WORKSHOP/twenty/packages/twenty-docker/docker-compose.dev.yml"
