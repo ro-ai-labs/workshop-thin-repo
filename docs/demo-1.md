@@ -11,15 +11,22 @@ Target repos:
 
 One-time per container; persisted by the `itss-workshop-plugins` named volume.
 
+`claude-plugins-official` ships built-in — no `marketplace add` needed.
+Only the third-party `Lum1104/Understand-Anything` requires an explicit
+`marketplace add`.
+
 ```
-/plugin marketplace add anthropics/claude-plugins-official
 /plugin marketplace add Lum1104/Understand-Anything
 /plugin install superpowers@claude-plugins-official
 /plugin install plugin-dev@claude-plugins-official
+/plugin install security-guidance@claude-plugins-official
+/plugin install pr-review-toolkit@claude-plugins-official
 /plugin install understand-anything@understand-anything
 ```
 
-`hookify` is **not** installed here — it gets installed live in P4.
+`hookify` is **not** installed here — it gets installed live in P4. If
+hookify is already installed from a prior container session, uninstall it
+first (`/plugin uninstall hookify`) so the P4 install is a real live moment.
 
 Verify:
 
@@ -84,7 +91,7 @@ coding runtime** (open set):
 Pane A (Codex):
 
 ```
-Generate an interactive HTML architecture page at `./../demo-examples/codex-architecture.html`.
+Generate an interactive HTML architecture page at `./demo-examples/codex-architecture.html`.
 
 Map this repo's implementation of the 8 named primitives of an agentic coding runtime:
 1. context window — how the conversation/turn state is assembled, what gets in, what gets evicted
@@ -110,7 +117,7 @@ The 8 primitives are an open set — surface anything additional that emerges fr
 Pane B (opencode):
 
 ```
-Generate an interactive HTML architecture page at `./../demo-examples/opencode-architecture.html`.
+Generate an interactive HTML architecture page at `./demo-examples/opencode-architecture.html`.
 
 Map this repo's implementation of the 8 named primitives of an agentic coding runtime:
 1. context window — how the conversation/turn state is assembled, what gets in, what gets evicted
@@ -239,20 +246,18 @@ Wallclock: ~8–10 min for average-sized repos, longer for monorepos.
 Live generation takes ~8–10 min. Open pre-rehearsed fallbacks instead:
 
 ```bash
-chrome-workshop ./workshop/demo-examples/demo-codex-architecture.html
-chrome-workshop ./workshop/demo-examples/demo-opencode-architecture.html
+chrome-workshop ./workshop/drive-share/demo-codex-architecture.html
+chrome-workshop ./workshop/drive-share/demo-opencode-architecture.html
 ```
 
 ---
 
 ## P2.5 — Understand-Anything dashboard
 
-Inside the existing Pane A `claude` session:
+Inside the existing Pane A `claude` session (`understand-anything` was
+installed in Pre-flight; just open the pre-generated dashboard):
 
 ```
-/plugin marketplace add Lum1104/Understand-Anything
-/plugin install understand-anything@understand-anything
-/reload-plugins
 /understand-dashboard
 ```
 
@@ -281,8 +286,9 @@ Inside the `claude` session:
 
 ```
 /plugin install hookify@claude-plugins-official
-/reload-plugins
 ```
+
+Rules are active immediately — no restart or reload step needed.
 
 ### P4.2 — Inspect the bundled rules
 
@@ -336,60 +342,57 @@ Run this for me: rm -rf /tmp/hookify-demo-target
 The hookify rule blocks the bash call and surfaces the rule's message to
 Claude. Claude reports back that the operation was blocked.
 
-### P4.4 — Author a new rule live: "block commit without a test"
+### P4.4 — Author a new rule live: "test-first for components"
 
-The frontend-TDD pattern the workshop teaches needs a guardrail: don't let
-the agent commit a component without a sibling test. Author the rule via
-`/hookify` (interactive scaffold) — or paste the bootstrap below.
+The frontend-TDD pattern the workshop teaches needs a guardrail. Hookify
+can't see git's staged-files state from a bash event (the `command` field
+only has the literal command string), so the closest enforceable rule is at
+the **file write**: block the creation of a `.tsx` file whose path doesn't
+contain `.test.`. Effect: write the test file first, then the component.
+Tighter discipline than "block commit", and it works with the real hookify
+schema (`field`s: `file_path / new_text / old_text / content` for file
+events; `operator`s: `regex_match / contains / equals / not_contains /
+starts_with / ends_with`).
+
+Author the rule via `/hookify` (interactive) — or paste the bootstrap below.
 
 **Live prompt (via interactive `/hookify`):**
 
 ```
-/hookify
-```
-
-Then describe the rule when prompted:
-
-```
-Block bash commands that try to `git commit` when the staged changes include a *.tsx file without a matching *.test.tsx sibling in the same directory.
+/hookify Block writing a *.tsx file unless the path also contains .test. — frontend TDD discipline, write the test file first.
 ```
 
 **Bootstrap fallback** (paste verbatim if the interactive flow stalls):
 
 ```bash
 mkdir -p .claude
-cat > .claude/hookify.require-test-for-tsx.local.md <<'EOF'
+cat > .claude/hookify.test-first-for-tsx.local.md <<'EOF'
 ---
-name: require-test-for-tsx
+name: test-first-for-tsx
 enabled: true
-event: bash
+event: file
 action: block
 conditions:
-  - field: command
+  - field: file_path
     operator: regex_match
-    pattern: ^git\s+commit
-  - field: staged_files_summary
-    operator: matches_pattern
-    pattern: "\\.tsx$"
-  - field: staged_files_summary
-    operator: not_matches_pattern
-    pattern: "\\.test\\.tsx$"
+    pattern: \.tsx$
+  - field: file_path
+    operator: not_contains
+    pattern: .test.
 ---
 
-🚫 **Component committed without a sibling test**
+🚫 **Test-first rule: write `.test.tsx` before `.tsx`**
 
-You're committing one or more `.tsx` files that don't have a matching
-`.test.tsx` sibling in the same directory.
-
-Workshop rule (Frontend TDD pattern, Demo 2 Phase 5):
+Frontend TDD discipline (Demo 2 Phase 5 pattern):
 - accessibility-tree selectors, not pixel screenshots
 - one test file per component, sibling to the component
-- a hookify rule (this one) blocks the commit until the test exists
+- the test file gets written FIRST, then the component
 
-To proceed:
-1. Add the test file (`Component.test.tsx` next to `Component.tsx`)
-2. Stage it: `git add path/to/Component.test.tsx`
-3. Retry the commit
+This rule blocks creating a `.tsx` file whose path doesn't contain
+`.test.`. To proceed:
+
+1. Create the test first: e.g. `Component.test.tsx`
+2. Then create the component: `Component.tsx`
 EOF
 ```
 
@@ -399,17 +402,19 @@ EOF
 /hookify:list
 ```
 
-The list now shows `require-test-for-tsx` alongside the bundled examples.
+The list now shows `test-first-for-tsx` alongside the bundled examples.
+Rules are active immediately — no restart needed.
 
 ### P4.6 — Trigger the new rule
 
-Stage a `.tsx` file without a sibling test and ask Claude to commit:
+Ask Claude to create a component without writing the test first:
 
 ```
-Stage src/components/Demo.tsx and commit it with message "add demo component". Don't add a test file.
+Create src/components/Demo.tsx with a small placeholder component that renders "Hello demo". Don't write a test file.
 ```
 
-The hookify rule blocks the `git commit` and surfaces the rule's message.
+The hookify rule blocks the file write at the tool layer and surfaces the
+rule's message. Claude reports back that the operation was blocked.
 
 ---
 
@@ -641,7 +646,6 @@ Inside the Pane C `claude` session:
 ```
 /plugin marketplace add ./workshop/itss-plugins
 /plugin install architecture-html@itss-plugins
-/reload-plugins
 ```
 
 Run the skill on a NON-agentic repo to prove it generalizes — Twenty CRM
