@@ -7,35 +7,17 @@ set -euo pipefail
 ROOT=$(cd "$(dirname "$0")/.." && pwd)
 cd "$ROOT"
 
-# Pull build args from /tmp/itss-build-vars.sh (created by Task 0)
-if [ ! -f /tmp/itss-build-vars.sh ]; then
-  echo "ERROR: /tmp/itss-build-vars.sh not found."
-  echo "Run Task 0 first to capture host state (SHAs, paths)."
-  exit 1
-fi
-source /tmp/itss-build-vars.sh
+# Image is toolchain-only — demo SHAs live in .devcontainer/versions.env and
+# are consumed by post-create.sh inside the container, not at build time.
 
-# Stage build context
 bash scripts/prepare-build-context.sh
 
-# Note: .understand-anything/ knowledge graphs are committed to the ro-ai-labs
-# forks (twenty + opencode). Codex graph intentionally not baked — Demo 1 P2.5
-# falls back to pre-rendered HTML. Graphs arrive via `git clone` in Dockerfile.
-
 echo ""
-echo "==> Building itss-workshop:local (linux/amd64 only, for fast iteration)..."
-echo "    CODEX_SHA=$CODEX_SHA"
-echo "    OPENCODE_SHA=$OPENCODE_SHA"
-echo "    TWENTY_SHA=$TWENTY_SHA"
-echo "    TWENTY_BRANCH=$TWENTY_BRANCH"
+echo "==> Building itss-workshop:local (linux/amd64 only, toolchain-only image)..."
 echo ""
 
 docker buildx build \
   --platform linux/amd64 \
-  --build-arg CODEX_SHA="$CODEX_SHA" \
-  --build-arg OPENCODE_SHA="$OPENCODE_SHA" \
-  --build-arg TWENTY_SHA="$TWENTY_SHA" \
-  --build-arg TWENTY_BRANCH="$TWENTY_BRANCH" \
   -t itss-workshop:local \
   --load \
   -f .devcontainer/Dockerfile .

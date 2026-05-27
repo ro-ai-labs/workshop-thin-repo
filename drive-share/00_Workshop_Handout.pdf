@@ -1,0 +1,933 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [36 0 R 37 0 R 38 0 R 39 0 R 40 0 R 41 0 R 42 0 R 43 0 R 44 0 R 45 0 R 46 0 R 47 0 R 48 0 R] /Count 13 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Length 4577 >>
+stream
+BT /F2 18.0 Tf 50.0 786.0 Td (ITSS Workshop -- Participant Handout) Tj ET
+BT /F2 14.0 Tf 50.0 754.0 Td (Agentic AI for Software Engineering | May 28, 2026) Tj ET
+BT /F1 9.8 Tf 50.0 734.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 718.2 Td (Companion cheatsheets \(printable, in deliverables/cheatsheets/\):) Tj ET
+BT /F1 9.6 Tf 62.0 705.4 Td (- CLAUDE.md / AGENTS.md Cheatsheet) Tj ET
+BT /F1 9.6 Tf 62.0 692.8 Td (- Kill Signal Decision Card) Tj ET
+BT /F1 9.6 Tf 62.0 680.2 Td (- MCP \(Model Context Protocol\) & Plugin Supply Chain Review Checklist) Tj ET
+BT /F1 9.6 Tf 62.0 667.6 Td (- Repo Architecture Mapping Prompt \(parallel-subagent prompt for any codebase\)) Tj ET
+BT /F1 9.6 Tf 62.0 655.0 Td (- Documentation Mind-Map Prompt \(parallel-subagent prompt for any documentation corpus\)) Tj ET
+BT /F1 9.8 Tf 50.0 642.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 626.6 Td (Run on: vendor API docs before integration, Confluence onboarding spaces, regulatory) Tj ET
+BT /F1 9.8 Tf 50.0 613.8 Td (archives, an exported /docs folder. Typical: 80-150 documents, 10-20 minutes wall-clock, dual) Tj ET
+BT /F1 9.8 Tf 50.0 601.0 Td (HTML+INDEX output with page citations.) Tj ET
+BT /F1 9.8 Tf 50.0 588.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 572.4 Td (MCP = Model Context Protocol -- vendor-neutral integration layer connecting AI agents to) Tj ET
+BT /F1 9.8 Tf 50.0 559.6 Td (external systems \(Jira, Confluence, GitHub, databases\). Think of it as the JDBC of AI agents.) Tj ET
+BT /F1 9.8 Tf 50.0 546.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 531.0 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 518.2 Td () Tj ET
+BT /F2 12.0 Tf 50.0 502.4 Td (YOUR STARTER PACK -- Install This Week) Tj ET
+BT /F1 9.8 Tf 50.0 484.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 468.6 Td (The claude-plugins-official marketplace ships built-in with Claude Code -- no /plugin) Tj ET
+BT /F1 9.8 Tf 50.0 455.8 Td (marketplace add step needed. Open a Claude Code session \(claude in your terminal\), then run) Tj ET
+BT /F1 9.8 Tf 50.0 443.0 Td (these slash commands inside it \(NOT bash\):) Tj ET
+BT /F1 9.8 Tf 50.0 430.2 Td () Tj ET
+BT /F3 8.6 Tf 50.0 414.4 Td (/plugin install hookify@claude-plugins-official           # Custom team rules in markdown) Tj ET
+BT /F3 8.6 Tf 50.0 402.8 Td (/plugin install security-guidance@claude-plugins-official # Vulnerability prevention \(8 categories\)) Tj ET
+BT /F3 8.6 Tf 50.0 391.2 Td (/plugin install superpowers@claude-plugins-official       # 6-phase delivery methodology) Tj ET
+BT /F3 8.6 Tf 50.0 379.6 Td (/plugin install pr-review-toolkit@claude-plugins-official # 6-agent code review) Tj ET
+BT /F1 9.8 Tf 50.0 368.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 352.2 Td (> Install fallback: If claude-plugins-official is not listed in the marketplace, run /plugin) Tj ET
+BT /F1 9.8 Tf 50.0 339.4 Td (marketplace add anthropics/claude-plugins-official first, then retry the install commands) Tj ET
+BT /F1 9.8 Tf 50.0 326.6 Td (above. Source: Anthropic Claude Code plugins documentation) Tj ET
+BT /F1 9.8 Tf 50.0 313.8 Td (\(https://docs.anthropic.com/en/docs/claude-code/plugins\).) Tj ET
+BT /F1 9.8 Tf 50.0 301.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 285.2 Td (Verify: /plugin list) Tj ET
+BT /F1 9.8 Tf 50.0 272.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 256.6 Td (AI Labs bonus plugin -- ailabs-arch-flows) Tj ET
+BT /F1 9.8 Tf 50.0 243.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 228.0 Td (The plugin is itself a worked example of a governance pattern -- see "Governance is also) Tj ET
+BT /F1 9.8 Tf 50.0 215.2 Td (positive" later in this handout. AI Labs built it in ~2 hours using Superpowers methodology,) Tj ET
+BT /F1 9.8 Tf 50.0 202.4 Td (deliberately, as a demonstration of what your team can build internally. The point is not) Tj ET
+BT /F1 9.8 Tf 50.0 189.6 Td (just to install it; the point is to install it, look at the source, and build your own.) Tj ET
+BT /F1 9.8 Tf 50.0 176.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 161.0 Td (Generates interactive HTML visualizations of system architectures and flows from structured) Tj ET
+BT /F1 9.8 Tf 50.0 148.2 Td (JSON data. Self-contained single-file output, clickable flow paths, no server or build step.) Tj ET
+BT /F1 9.8 Tf 50.0 135.4 Td (Useful for onboarding documentation, architecture reviews, and walking new joiners through a) Tj ET
+BT /F1 9.8 Tf 50.0 122.6 Td (service mesh in 10 minutes.) Tj ET
+BT /F1 9.8 Tf 50.0 109.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 94.0 Td (Local install \(not yet on a marketplace -- you'll get ailabs-arch-flows.zip in the workshop) Tj ET
+BT /F1 9.8 Tf 50.0 81.2 Td (take-home pack\):) Tj ET
+BT /F1 9.8 Tf 50.0 68.4 Td () Tj ET
+BT /F1 8 Tf 50 24 Td (ITSS_Participant_Handout.md) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Type /Annot /Subtype /Link /Rect [50.0 311.8 340.5 325.6] /Border [0 0 0] /A << /S /URI /URI (https://docs.anthropic.com/en/docs/claude-code/plugins) >> >>
+endobj
+8 0 obj
+<< /Length 5082 >>
+stream
+BT /F3 8.6 Tf 50.0 794.0 Td (# Claude Code v2.1.128+ can load the ZIP directly:) Tj ET
+BT /F3 8.6 Tf 50.0 782.4 Td (claude --plugin-dir /path/to/ailabs-arch-flows.zip) Tj ET
+BT /F3 8.6 Tf 50.0 770.8 Td () Tj ET
+BT /F3 8.6 Tf 50.0 756.2 Td (# Fallback: unzip first, then load the folder:) Tj ET
+BT /F3 8.6 Tf 50.0 744.6 Td (unzip ailabs-arch-flows.zip) Tj ET
+BT /F3 8.6 Tf 50.0 733.0 Td (claude --plugin-dir ./ailabs-arch-flows) Tj ET
+BT /F1 9.8 Tf 50.0 721.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 705.6 Td (Then inside the Claude Code session, ask in natural language: "Visualize the architecture of) Tj ET
+BT /F1 9.8 Tf 50.0 692.8 Td ([your system]..." -- the skill activates on triggers like "visualize architecture", "system) Tj ET
+BT /F1 9.8 Tf 50.0 680.0 Td (map", "arch flows diagram".) Tj ET
+BT /F1 9.8 Tf 50.0 667.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 651.4 Td (Requires Python 3.10+ \(stdlib only -- no pip dependencies\). See the plugin's README.md for) Tj ET
+BT /F1 9.8 Tf 50.0 638.6 Td (the full data contract and example. Source for local plugin loading:) Tj ET
+BT /F1 9.8 Tf 50.0 625.8 Td (https://code.claude.com/docs/en/plugins) Tj ET
+BT /F1 9.8 Tf 50.0 613.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 597.2 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 584.4 Td () Tj ET
+BT /F2 12.0 Tf 50.0 568.6 Td (Diana's 12 Challenges -> Workshop Landing) Tj ET
+BT /F1 9.8 Tf 50.0 550.6 Td () Tj ET
+BT /F1 9.8 Tf 50.0 534.8 Td (This table maps each item from the pre-workshop intake to where it lands today, the take-home) Tj ET
+BT /F1 9.8 Tf 50.0 522.0 Td (artifact, and any follow-up out of scope for half a day.) Tj ET
+BT /F1 9.8 Tf 50.0 509.2 Td () Tj ET
+BT /F3 8.3 Tf 50.0 493.4 Td (# | Challenge | Where it lands today | Take-home artifact / Follow-up) Tj ET
+BT /F3 8.3 Tf 50.0 482.1 Td (--- | --- | --- | ---) Tj ET
+BT /F3 8.3 Tf 50.0 470.8 Td (1 | Enterprise AI integration \(auth platforms\) | Theme 1 governance + MCP cheatsheet | MCP Supply) Tj ET
+BT /F3 8.3 Tf 50.0 459.5 Td (Chain Checklist \(handout\) / Follow-up: MCP integration deep-dive) Tj ET
+BT /F3 8.3 Tf 50.0 448.2 Td (2 | Documentation analysis | Theme 1 -- Documentation Mindmap Prompt | Documentation_Mindmap_Prompt.md) Tj ET
+BT /F3 8.3 Tf 50.0 436.9 Td (cheatsheet) Tj ET
+BT /F3 8.3 Tf 50.0 425.6 Td (3 | Frontend TDD | Demo 2 Phase 5 VERIFY \(Playwright\) | Frontend testing pattern \(this handout\)) Tj ET
+BT /F3 8.3 Tf 50.0 414.3 Td (4 | Security / control over AI on client repos | Theme 1 four-layer governance | MCP Supply Chain) Tj ET
+BT /F3 8.3 Tf 50.0 403.0 Td (Checklist / Follow-up: security review with security lead) Tj ET
+BT /F3 8.3 Tf 50.0 391.7 Td (5 | Responsible AI | Theme 1 governance + Brownfield kill signals | Kill-Signal Decision Card) Tj ET
+BT /F3 8.3 Tf 50.0 380.4 Td (6 | Task decomposition | Demo 2 Phase 2 PLAN review \(push-back\) | Expected-plan outline pattern \(this) Tj ET
+BT /F3 8.3 Tf 50.0 369.1 Td (handout\)) Tj ET
+BT /F3 8.3 Tf 50.0 357.8 Td (7 | Iterative work | Demo 2 6-phase methodology | Six-phase loop section \(above\)) Tj ET
+BT /F3 8.3 Tf 50.0 346.5 Td (8 | Maturity in deciding when AI is appropriate | Theme 3 Kill Signals | Kill-Signal Decision Card) Tj ET
+BT /F3 8.3 Tf 50.0 335.2 Td (9 | Internal best practices | CLAUDE.md / AGENTS.md templates | CLAUDE_AGENTS_md_Cheatsheet.md) Tj ET
+BT /F3 8.3 Tf 50.0 323.9 Td (10 | Underused testing automation | Demo 2 Phase 5 + Demo 3 pr-review-toolkit | Frontend testing + AI) Tj ET
+BT /F3 8.3 Tf 50.0 312.6 Td (Code Review Checklist) Tj ET
+BT /F3 8.3 Tf 50.0 301.3 Td (11 | Anthropic / Claude Code focus | All themes \(Claude Code, Superpowers, Plugins, MCP\) | Starter) Tj ET
+BT /F3 8.3 Tf 50.0 290.0 Td (pack install instructions \(above\)) Tj ET
+BT /F3 8.3 Tf 50.0 278.7 Td (12 | Managerial adoption gap | Theme 3 90-day rollout | Manager Day-7 Worksheet \(cheatsheet, new\)) Tj ET
+BT /F1 9.8 Tf 50.0 267.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 251.6 Td (> Reading guide: Items 1, 4, 5, 9, 11 land in the Governance bucket; Items 2, 3, 6, 7, 10 in) Tj ET
+BT /F1 9.8 Tf 50.0 238.8 Td (Delivery methodology; Items 8 and 12 in Brownfield quality + adoption. The deck repeats this) Tj ET
+BT /F1 9.8 Tf 50.0 226.0 Td (mapping at Slide 18A as a closing artifact.) Tj ET
+BT /F1 9.8 Tf 50.0 213.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 197.4 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 184.6 Td () Tj ET
+BT /F2 12.0 Tf 50.0 168.8 Td (THE 6-PHASE AGENTIC DELIVERY WORKFLOW \(Superpowers\)) Tj ET
+BT /F1 9.8 Tf 50.0 150.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 135.0 Td (Term: a subagent is a fresh, isolated Claude Code worker the orchestrator dispatches via the) Tj ET
+BT /F1 9.8 Tf 50.0 122.2 Td (Task tool. It has its own context window, no memory of prior subagent work, and returns a) Tj ET
+BT /F1 9.8 Tf 50.0 109.4 Td (structured report. The orchestrator coordinates 2-5 subagents in parallel and synthesizes) Tj ET
+BT /F1 9.8 Tf 50.0 96.6 Td (their outputs. This is how "parallel exploration" gets done inside a single Claude Code) Tj ET
+BT /F1 9.8 Tf 50.0 83.8 Td (session.) Tj ET
+BT /F1 9.8 Tf 50.0 71.0 Td () Tj ET
+BT /F1 8 Tf 50 24 Td (ITSS_Participant_Handout.md) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Annot /Subtype /Link /Rect [50.0 623.8 248.7 637.6] /Border [0 0 0] /A << /S /URI /URI (https://code.claude.com/docs/en/plugins) >> >>
+endobj
+10 0 obj
+<< /Length 4968 >>
+stream
+BT /F1 9.6 Tf 62.0 794.0 Td (1. RESEARCH -- Ask questions, don't jump into code. "Do not start work yet.") Tj ET
+BT /F1 9.6 Tf 62.0 781.4 Td (2. PLAN -- File-level decomposition. Tasks of 2-5 min each. Checkpoint: approve the plan.) Tj ET
+BT /F1 9.6 Tf 62.0 768.8 Td (3. EXECUTE -- One subagent per task. Orchestrator coordinates, never implements.) Tj ET
+BT /F1 9.6 Tf 62.0 756.2 Td (4. REVIEW -- Spec compliance + code quality. Two separate subagents. Then human review.) Tj ET
+BT /F1 9.6 Tf 62.0 743.6 Td (5. VERIFY -- Run ALL tests. Check against original spec. 3 random regression features.) Tj ET
+BT /F1 9.6 Tf 62.0 731.0 Td (6. SHIP -- PR via GitHub MCP, linked to Jira, Slack notification. Clean up worktree.) Tj ET
+BT /F1 9.8 Tf 50.0 718.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 702.6 Td (The critical prompt: "Do not start work yet. Let me know if you have any questions.") Tj ET
+BT /F1 9.8 Tf 50.0 689.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 674.0 Td (#### Worked Phase 5 example -- Spring Boot reconciliation service) Tj ET
+BT /F1 9.8 Tf 50.0 661.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 645.4 Td (You just finished a feature: a new exception handler for DataAccessException in the) Tj ET
+BT /F1 9.8 Tf 50.0 632.6 Td (reconciliation pipeline. The agent says "done.") Tj ET
+BT /F1 9.8 Tf 50.0 619.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 604.0 Td (What Phase 5 VERIFY actually requires before you accept "done":) Tj ET
+BT /F1 9.8 Tf 50.0 591.2 Td () Tj ET
+BT /F1 9.6 Tf 62.0 575.4 Td (1. Run all tests, not just the new ones: ./gradlew :reconciliation-service:test --rerun-tasks.) Tj ET
+BT /F1 9.6 Tf 50.0 562.8 Td (  If any pre-existing test fails, the work is NOT done -- regression.) Tj ET
+BT /F1 9.6 Tf 62.0 550.2 Td (2. Spec compliance check: re-read the original ticket. Did the agent solve what was asked, or) Tj ET
+BT /F1 9.6 Tf 50.0 537.6 Td (  what it interpreted? Skill verification-before-completion makes the agent write evidence) Tj ET
+BT /F1 9.6 Tf 50.0 525.0 Td (  inline.) Tj ET
+BT /F1 9.6 Tf 62.0 512.4 Td (3. Working tree cleanup: git status should show only the files the agent claimed. Lock files,) Tj ET
+BT /F1 9.6 Tf 50.0 499.8 Td (  screenshots, leftover *.tmp -- agents leave these. Delete before PR.) Tj ET
+BT /F1 9.6 Tf 62.0 487.2 Td (4. 3-random-regression: pick 3 features completed in the last 2 weeks. Run their tests. Catches) Tj ET
+BT /F1 9.6 Tf 50.0 474.6 Td (  cross-contamination -- the new exception handler may have shifted shared state.) Tj ET
+BT /F1 9.6 Tf 62.0 462.0 Td (5. Evidence in PR: paste the test command, the pass count, and a 1-line note for each) Tj ET
+BT /F1 9.6 Tf 50.0 449.4 Td (  previously-failing test that now passes \(or stays passing\).) Tj ET
+BT /F1 9.8 Tf 50.0 436.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 421.0 Td (The output is code_review.md \(auto-generated by requesting-code-review skill\) plus your) Tj ET
+BT /F1 9.8 Tf 50.0 408.2 Td (verification log. Both committed; PM and QA read the artifacts, don't interrogate the dev.) Tj ET
+BT /F1 9.8 Tf 50.0 395.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 379.6 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 366.8 Td () Tj ET
+BT /F2 12.0 Tf 50.0 351.0 Td (CLAUDE.md TEMPLATE -- Adapt for Your Project) Tj ET
+BT /F1 9.8 Tf 50.0 333.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 317.2 Td (Design principle: failure-mode-driven, not preferences-driven. Every rule answers: "what) Tj ET
+BT /F1 9.8 Tf 50.0 304.4 Td (mistake does this prevent?" CLAUDE.md is not a wishlist; it's a behavioral contract that) Tj ET
+BT /F1 9.8 Tf 50.0 291.6 Td (closes specific failure modes your team has observed in code review. If a rule sounds like) Tj ET
+BT /F1 9.8 Tf 50.0 278.8 Td ("we prefer X", rewrite it as "we've seen Y go wrong, so never X.") Tj ET
+BT /F1 9.8 Tf 50.0 266.0 Td () Tj ET
+BT /F3 8.6 Tf 50.0 250.2 Td (## Project) Tj ET
+BT /F3 8.6 Tf 50.0 238.6 Td (Spring Boot 3.x [service name]. Production system.) Tj ET
+BT /F3 8.6 Tf 50.0 227.0 Td (Java 21, Gradle, PostgreSQL 16.) Tj ET
+BT /F3 8.6 Tf 50.0 215.4 Td () Tj ET
+BT /F3 8.6 Tf 50.0 200.8 Td (## Architecture) Tj ET
+BT /F3 8.6 Tf 50.0 189.2 Td (- Controller -> Service -> Repository \(strict layers\)) Tj ET
+BT /F3 8.6 Tf 50.0 177.6 Td (- Package: com.itss.[domain].{controller,service,repository,model,config}) Tj ET
+BT /F3 8.6 Tf 50.0 166.0 Td (- DTOs for API boundaries, entities for persistence. Never expose entities.) Tj ET
+BT /F3 8.6 Tf 50.0 154.4 Td () Tj ET
+BT /F3 8.6 Tf 50.0 139.8 Td (## Forbidden Patterns) Tj ET
+BT /F3 8.6 Tf 50.0 128.2 Td (- Never expose PII in logs \(mask card numbers, account IDs\)) Tj ET
+BT /F3 8.6 Tf 50.0 116.6 Td (- Always use parameterized queries \(no string concatenation in SQL\)) Tj ET
+BT /F3 8.6 Tf 50.0 105.0 Td (- No @Autowired on fields -- constructor injection only) Tj ET
+BT /F3 8.6 Tf 50.0 93.4 Td (- No business logic in controllers) Tj ET
+BT /F3 8.6 Tf 50.0 81.8 Td (- [Add your most common code review comments here]) Tj ET
+BT /F3 8.6 Tf 50.0 70.2 Td () Tj ET
+BT /F1 8 Tf 50 24 Td (ITSS_Participant_Handout.md) Tj ET
+endstream
+endobj
+11 0 obj
+<< /Length 4941 >>
+stream
+BT /F3 8.6 Tf 50.0 794.0 Td (## Mistake Journal) Tj ET
+BT /F3 8.6 Tf 50.0 782.4 Td (- [Date]: Claude did X, should have done Y. Root cause: missing context about Z.) Tj ET
+BT /F3 8.6 Tf 50.0 770.8 Td () Tj ET
+BT /F3 8.6 Tf 50.0 756.2 Td (## Testing) Tj ET
+BT /F3 8.6 Tf 50.0 744.6 Td (- Framework: JUnit 5 + Mockito + Testcontainers) Tj ET
+BT /F3 8.6 Tf 50.0 733.0 Td (- Run: ./gradlew test) Tj ET
+BT /F3 8.6 Tf 50.0 721.4 Td (- Every public service method has a test) Tj ET
+BT /F1 9.8 Tf 50.0 709.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 694.0 Td (Rules: Keep under 200 lines. Commit to repo. Review in PRs. Split overflow into) Tj ET
+BT /F1 9.8 Tf 50.0 681.2 Td (.claude/rules/*.md.) Tj ET
+BT /F1 9.8 Tf 50.0 668.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 652.6 Td (What belongs here: project architecture, forbidden patterns, test commands, sensitive-data) Tj ET
+BT /F1 9.8 Tf 50.0 639.8 Td (rules, and the mistake journal. If a rule must be enforced deterministically, mirror it as a) Tj ET
+BT /F1 9.8 Tf 50.0 627.0 Td (hook or sandbox rule; CLAUDE.md is guidance loaded into context, not a security boundary.) Tj ET
+BT /F1 9.8 Tf 50.0 614.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 598.4 Td (Large-codebase rule: launch Claude Code from the package/service directory you are changing.) Tj ET
+BT /F1 9.8 Tf 50.0 585.6 Td (Claude walks upward and loads relevant parent CLAUDE.md files, so monorepo context is) Tj ET
+BT /F1 9.8 Tf 50.0 572.8 Td (preserved without drowning the task in unrelated rules. Use .claude/rules/*.md for scoped) Tj ET
+BT /F1 9.8 Tf 50.0 560.0 Td (domains; use claudeMdExcludes when a parent memory file is irrelevant or contradictory.) Tj ET
+BT /F1 9.8 Tf 50.0 547.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 531.4 Td (Feature placement rule: recurring context goes in CLAUDE.md; deterministic lifecycle checks) Tj ET
+BT /F1 9.8 Tf 50.0 518.6 Td (go in hooks/hookify; external system access goes through MCP; independent parallel work gets) Tj ET
+BT /F1 9.8 Tf 50.0 505.8 Td (a subagent, worktree, or agent team.) Tj ET
+BT /F1 9.8 Tf 50.0 493.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 477.2 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 464.4 Td () Tj ET
+BT /F2 12.0 Tf 50.0 448.6 Td (AGENTS.md TEMPLATE -- Multi-Agent Orchestration Context) Tj ET
+BT /F1 9.8 Tf 50.0 430.6 Td () Tj ET
+BT /F1 9.8 Tf 50.0 414.8 Td (CLAUDE.md is for the agent doing the work. AGENTS.md is for teams of agents and for cross-) Tj ET
+BT /F1 9.8 Tf 50.0 402.0 Td (tool compatibility. Codex reads AGENTS.md directly; Claude Code does not.) Tj ET
+BT /F1 9.8 Tf 50.0 389.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 373.4 Td (Important: Claude Code does NOT read AGENTS.md natively - it only reads CLAUDE.md. To make) Tj ET
+BT /F1 9.8 Tf 50.0 360.6 Td (AGENTS.md active in a Claude Code session, import it from CLAUDE.md by adding a line like See) Tj ET
+BT /F1 9.8 Tf 50.0 347.8 Td (@AGENTS.md for multi-agent orchestration. \(or symlink AGENTS.md -> CLAUDE.md\).) Tj ET
+BT /F1 9.8 Tf 50.0 335.0 Td () Tj ET
+BT /F3 8.6 Tf 50.0 319.2 Td (## Roles) Tj ET
+BT /F3 8.6 Tf 50.0 307.6 Td (- Lead agent: planning + orchestration; never implements) Tj ET
+BT /F3 8.6 Tf 50.0 296.0 Td (- Implementer subagents: one per task, fresh context, no inheritance) Tj ET
+BT /F3 8.6 Tf 50.0 284.4 Td (- Reviewer subagents: spec compliance + code quality \(separate agents\)) Tj ET
+BT /F3 8.6 Tf 50.0 272.8 Td (- QA fleet: pr-review-toolkit \(6 agents\) before human review) Tj ET
+BT /F3 8.6 Tf 50.0 261.2 Td () Tj ET
+BT /F3 8.6 Tf 50.0 246.6 Td (## Handoff Protocol) Tj ET
+BT /F3 8.6 Tf 50.0 235.0 Td (- Lead -> Implementer: task packet \(Goal + Files + Forbidden + Success Criteria\)) Tj ET
+BT /F3 8.6 Tf 50.0 223.4 Td (- Implementer -> Reviewer: diff + tests + claim of done. No implementation context inherited.) Tj ET
+BT /F3 8.6 Tf 50.0 211.8 Td (- Reviewer -> Lead: severity-ranked findings with file:line, NOT free-form prose) Tj ET
+BT /F3 8.6 Tf 50.0 200.2 Td (- QA -> Human: GO / NO-GO with reproduction evidence) Tj ET
+BT /F3 8.6 Tf 50.0 188.6 Td () Tj ET
+BT /F3 8.6 Tf 50.0 174.0 Td (## Shared Conventions) Tj ET
+BT /F3 8.6 Tf 50.0 162.4 Td (- Read CLAUDE.md FIRST. AGENTS.md augments, never contradicts.) Tj ET
+BT /F3 8.6 Tf 50.0 150.8 Td (- Run kill signal classification \(GREEN/YELLOW/RED\) on every task before starting) Tj ET
+BT /F3 8.6 Tf 50.0 139.2 Td (- Forbidden Patterns from CLAUDE.md are inherited by all subagents) Tj ET
+BT /F3 8.6 Tf 50.0 127.6 Td (- Every subagent runs in its own git worktree \(isolation, parallelism\)) Tj ET
+BT /F3 8.6 Tf 50.0 116.0 Td (- 3-random-features regression: pick the next feature + 3 completed features, run their tests first) Tj ET
+BT /F3 8.6 Tf 50.0 104.4 Td () Tj ET
+BT /F3 8.6 Tf 50.0 89.8 Td (## Test Authority) Tj ET
+BT /F3 8.6 Tf 50.0 78.2 Td (- Implementer MUST run tests before claiming done) Tj ET
+BT /F3 8.6 Tf 50.0 66.6 Td (- Reviewer MUST run independent verification \(not the implementer's tests\)) Tj ET
+BT /F1 8 Tf 50 24 Td (ITSS_Participant_Handout.md) Tj ET
+endstream
+endobj
+12 0 obj
+<< /Length 5190 >>
+stream
+BT /F3 8.6 Tf 50.0 794.0 Td (- Final QA fleet runs full regression + 3 random completed features) Tj ET
+BT /F3 8.6 Tf 50.0 782.4 Td () Tj ET
+BT /F3 8.6 Tf 50.0 767.8 Td (## Cross-Tool Compatibility) Tj ET
+BT /F3 8.6 Tf 50.0 756.2 Td (Codex reads AGENTS.md directly.) Tj ET
+BT /F3 8.6 Tf 50.0 744.6 Td (For Claude Code: import via @AGENTS.md inside CLAUDE.md OR symlink AGENTS.md -> CLAUDE.md.) Tj ET
+BT /F3 8.6 Tf 50.0 733.0 Td (For GitHub Copilot: official repo instructions live in .github/copilot-instructions.md; mirror only) Tj ET
+BT /F3 8.6 Tf 50.0 721.4 Td (the essential AGENTS.md rules there if Copilot is in scope.) Tj ET
+BT /F3 8.6 Tf 50.0 709.8 Td (Tool-specific notes belong in .claude/, .cursor/, .aider/. Never collide.) Tj ET
+BT /F1 9.8 Tf 50.0 698.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 682.4 Td (Rules: Same as CLAUDE.md -- under 200 lines, committed, PR-reviewed. Use when you orchestrate) Tj ET
+BT /F1 9.8 Tf 50.0 669.6 Td (2+ agents on a single feature.) Tj ET
+BT /F1 9.8 Tf 50.0 656.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 641.0 Td (What belongs here: agent roles, handoff protocol, worktree isolation, review gates, and test) Tj ET
+BT /F1 9.8 Tf 50.0 628.2 Td (authority. Do not copy the whole CLAUDE.md into AGENTS.md. Import or point to it, then keep) Tj ET
+BT /F1 9.8 Tf 50.0 615.4 Td (AGENTS.md focused on orchestration.) Tj ET
+BT /F1 9.8 Tf 50.0 602.6 Td () Tj ET
+BT /F1 9.8 Tf 50.0 586.8 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 574.0 Td () Tj ET
+BT /F2 12.0 Tf 50.0 558.2 Td (GOVERNANCE -- FOUR LAYERS) Tj ET
+BT /F1 9.8 Tf 50.0 540.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 524.4 Td (Permissions alone are not enough. Each layer catches what the others miss; PocketOS happened) Tj ET
+BT /F1 9.8 Tf 50.0 511.6 Td (because three of four were absent.) Tj ET
+BT /F1 9.8 Tf 50.0 498.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 483.0 Td (> Honest scope note \(from the May 28 session\): Layer 1 was the only layer built live on the) Tj ET
+BT /F1 9.8 Tf 50.0 470.2 Td (whiteboard during the exercise -- granular Allow/Ask/Deny overrides on top of auto mode.) Tj ET
+BT /F1 9.8 Tf 50.0 457.4 Td (Layers 2-4 \(Sandbox, Secrets, Security hooks\) were described on stage but each is its own 1-2) Tj ET
+BT /F1 9.8 Tf 50.0 444.6 Td (week build with your security lead; baselines + starter JSON are below. Plan for 90-day) Tj ET
+BT /F1 9.8 Tf 50.0 431.8 Td (construction, not one-afternoon adoption.) Tj ET
+BT /F1 9.8 Tf 50.0 419.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 403.2 Td (Layer 1: Permissions -- start with permissions.defaultMode: "auto" as the default \(the key) Tj ET
+BT /F1 9.8 Tf 50.0 390.4 Td (lives inside the permissions block, not at the top level - easy to get wrong by hand\).) Tj ET
+BT /F1 9.8 Tf 50.0 377.6 Td (Claude's classifier decides per-action whether to ask, based on risk and context. For most) Tj ET
+BT /F1 9.8 Tf 50.0 364.8 Td (repos, auto handles 80-90% of the decisions correctly with far less friction than approving) Tj ET
+BT /F1 9.8 Tf 50.0 352.0 Td (each file read manually.) Tj ET
+BT /F1 9.8 Tf 50.0 339.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 323.4 Td (Allow / Ask / Deny rules are granular overrides on top of auto - declarative exceptions for) Tj ET
+BT /F1 9.8 Tf 50.0 310.6 Td (cases where the classifier is wrong, or where compliance requires explicit declarative rules.) Tj ET
+BT /F1 9.8 Tf 50.0 297.8 Td (Most teams need 10-15 override rules per repo, not dozens.) Tj ET
+BT /F1 9.8 Tf 50.0 285.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 269.2 Td (Settings.json scopes \(most-restrictive first\): managed > local > project > user. Evaluation) Tj ET
+BT /F1 9.8 Tf 50.0 256.4 Td (order within scope: Deny -> Ask -> Allow, first match wins; unmatched defaults to auto.) Tj ET
+BT /F1 9.8 Tf 50.0 243.6 Td () Tj ET
+BT /F3 8.3 Tf 50.0 227.8 Td (DENY override \(hard block\) | ASK override \(always approve\) | ALLOW override \(skip auto's question\)) Tj ET
+BT /F3 8.3 Tf 50.0 216.5 Td (--- | --- | ---) Tj ET
+BT /F3 8.3 Tf 50.0 205.2 Td (Delete production data | Install new packages | Read source files \(if auto frictions\)) Tj ET
+BT /F3 8.3 Tf 50.0 193.9 Td (Access .env secrets* | Write config files | Run test suite) Tj ET
+BT /F3 8.3 Tf 50.0 182.6 Td (Push to main directly | Execute shell commands | Format/lint code) Tj ET
+BT /F3 8.3 Tf 50.0 171.3 Td (DROP/TRUNCATE/DELETE without WHERE | Create PRs | Write to /src and /tests) Tj ET
+BT /F3 8.3 Tf 50.0 160.0 Td (Modify CI/CD pipelines | Post to Slack channels | Read Jira tickets \(MCP\)) Tj ET
+BT /F3 8.3 Tf 50.0 148.7 Td (Access PII without authorization | Run database queries | Git diff, git status) Tj ET
+BT /F1 9.8 Tf 50.0 137.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 121.6 Td (*Deny on Read\(./.env\) alone is insufficient as a hard boundary - permission rules have had) Tj ET
+BT /F1 9.8 Tf 50.0 108.8 Td (documented bypass classes \(arbitrary subprocess access, parser-cap variants in early 2026 -) Tj ET
+BT /F1 9.8 Tf 50.0 96.0 Td (some patched\). See Layer 3 for the technical boundary: OS-level sandbox denyRead.) Tj ET
+BT /F1 9.8 Tf 50.0 83.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 67.4 Td (Rule of thumb: if your ALLOW list is growing past 10 items, your CLAUDE.md probably needs to) Tj ET
+BT /F1 8 Tf 50 24 Td (ITSS_Participant_Handout.md) Tj ET
+endstream
+endobj
+13 0 obj
+<< /Length 5464 >>
+stream
+BT /F1 9.8 Tf 50.0 794.0 Td (be more explicit instead - auto will be smarter with better context.) Tj ET
+BT /F1 9.8 Tf 50.0 781.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 765.4 Td (Layer 2: Sandbox \(Oct 2025, kernel-enforced\) -- bubblewrap on Linux/WSL2, Seatbelt on macOS.) Tj ET
+BT /F1 9.8 Tf 50.0 752.6 Td (Two boundaries. Enable in managed settings:) Tj ET
+BT /F1 9.8 Tf 50.0 739.8 Td () Tj ET
+BT /F3 8.6 Tf 50.0 724.0 Td ({"sandbox":{"enabled":true,"failIfUnavailable":true,) Tj ET
+BT /F3 8.6 Tf 50.0 712.4 Td ( "filesystem":{"denyRead":["~/.aws/","~/.ssh/","./.env","./secrets/*"]},) Tj ET
+BT /F3 8.6 Tf 50.0 700.8 Td ( "network":{"allowedDomains":["github.com","*.npmjs.org","api.anthropic.com"]}}}) Tj ET
+BT /F1 9.8 Tf 50.0 689.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 673.4 Td (Start: /sandbox inside a session. Per the Anthropic Oct 2025 launch announcement, sandbox-on) Tj ET
+BT /F1 9.8 Tf 50.0 660.6 Td (yields a substantial reduction in permission prompts - figure is vendor self-report, not) Tj ET
+BT /F1 9.8 Tf 50.0 647.8 Td (independent measurement; treat the direction as the claim, not the precise percentage.) Tj ET
+BT /F1 9.8 Tf 50.0 635.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 619.2 Td (Layer 3: Secrets posture \(minimum for PSD2 / PCI-DSS\):) Tj ET
+BT /F1 9.6 Tf 62.0 606.4 Td (- Managed sandbox.filesystem.denyRead covers .env, ~/.aws/, ~/.ssh/, ./secrets/* \(OS-level,) Tj ET
+BT /F1 9.6 Tf 50.0 593.8 Td (  can't be shell-bypassed\)) Tj ET
+BT /F1 9.6 Tf 62.0 581.2 Td (- PreToolUse hook on Bash matching cat|grep|less|head|tail against credential regex) Tj ET
+BT /F1 9.6 Tf 62.0 568.6 Td (- No .env files on disk during Claude sessions - use 1Password Environments, HashiCorp Vault,) Tj ET
+BT /F1 9.6 Tf 50.0 556.0 Td (  or AWS Secrets Manager) Tj ET
+BT /F1 9.6 Tf 62.0 543.4 Td (- MCP servers never store plaintext credentials in config - use OS keychain or Vault) Tj ET
+BT /F1 9.6 Tf 62.0 530.8 Td (- ZDR \(Zero Data Retention\) addendum required - verify in contract before first production use) Tj ET
+BT /F1 9.8 Tf 50.0 518.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 502.4 Td (Layer 4: Security hooks -- security-guidance plugin \(Anthropic-verified\) catches 8) Tj ET
+BT /F1 9.8 Tf 50.0 489.6 Td (vulnerability categories before code is written, including command injection in GitHub) Tj ET
+BT /F1 9.8 Tf 50.0 476.8 Td (Actions, unsafe child_process.exec, eval/Function, XSS via innerHTML, Python pickle) Tj ET
+BT /F1 9.8 Tf 50.0 464.0 Td (deserialization, and os.system. PreToolUse gates, not post-commit scans.) Tj ET
+BT /F1 9.8 Tf 50.0 451.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 435.4 Td (Bonus tool - visualization \(understand-anything\): Open-source MIT plugin \(Lum1104/Understand-) Tj ET
+BT /F1 9.8 Tf 50.0 422.6 Td (Anything marketplace\) that builds an interactive knowledge graph for any codebase. Two views:) Tj ET
+BT /F1 9.8 Tf 50.0 409.8 Td (Structural \(file/function/class graph for developers\) and Domain \(business domains with) Tj ET
+BT /F1 9.8 Tf 50.0 397.0 Td (extracted business rules and entities - readable by managers and PMs without code\). Not a) Tj ET
+BT /F1 9.8 Tf 50.0 384.2 Td (governance layer; a comprehension layer. Demo 1 Step P2.5 showed this live on Codex. See the) Tj ET
+BT /F1 9.8 Tf 50.0 371.4 Td (Understand_Anything_Quickref cheatsheet for install + commands + troubleshooting.) Tj ET
+BT /F1 9.8 Tf 50.0 358.6 Td () Tj ET
+BT /F1 9.8 Tf 50.0 342.8 Td (Why all four: PocketOS \(Apr 2026\) had permission gates but no sandbox, secrets segregation,) Tj ET
+BT /F1 9.8 Tf 50.0 330.0 Td (or hook-level destructive-op blocks. 9 seconds, production DB + same-volume backups gone. The) Tj ET
+BT /F1 9.8 Tf 50.0 317.2 Td (system prompt said "NEVER GUESS." The agent guessed. One layer of governance is not) Tj ET
+BT /F1 9.8 Tf 50.0 304.4 Td (governance.) Tj ET
+BT /F1 9.8 Tf 50.0 291.6 Td () Tj ET
+BT /F1 9.8 Tf 50.0 275.8 Td (Governance is also positive -- build before you restrict. The four layers above are) Tj ET
+BT /F1 9.8 Tf 50.0 263.0 Td (guardrails. The other half of governance is what you BUILD inside them. Skills and plugins) Tj ET
+BT /F1 9.8 Tf 50.0 250.2 Td (authored by your team, versioned in git, distributed via a company-private plugin) Tj ET
+BT /F1 9.8 Tf 50.0 237.4 Td (marketplace, reviewed in PR like any other code. The bonus plugin earlier in this handout) Tj ET
+BT /F1 9.8 Tf 50.0 224.6 Td (\(ailabs-arch-flows\) is the AI Labs worked example: ~700 lines, MIT-licensed, fully tested,) Tj ET
+BT /F1 9.8 Tf 50.0 211.8 Td (authored end-to-end in ~2 hours using Superpowers \(brainstorm -> plan -> execute -> review ->) Tj ET
+BT /F1 9.8 Tf 50.0 199.0 Td (verify -> ship\). Use it as a template for your first internal plugin -- KYC patterns, custom) Tj ET
+BT /F1 9.8 Tf 50.0 186.2 Td (regex linters, internal architecture review skills, transfer-flow visualizers, fraud-rule) Tj ET
+BT /F1 9.8 Tf 50.0 173.4 Td (explainers. Distributed via /plugin install <name>@<your-private-marketplace>, governed by) Tj ET
+BT /F1 9.8 Tf 50.0 160.6 Td (your existing code-review process. Governance through reuse, not just through restriction.) Tj ET
+BT /F1 9.8 Tf 50.0 147.8 Td (When a developer leaves, the plugin stays. That is institutional capital.) Tj ET
+BT /F1 9.8 Tf 50.0 135.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 119.2 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 106.4 Td () Tj ET
+BT /F2 12.0 Tf 50.0 90.6 Td (BROWNFIELD DECISION FRAMEWORK) Tj ET
+BT /F1 9.8 Tf 50.0 72.6 Td () Tj ET
+BT /F1 8 Tf 50 24 Td (ITSS_Participant_Handout.md) Tj ET
+endstream
+endobj
+14 0 obj
+<< /Length 6739 >>
+stream
+BT /F1 9.8 Tf 50.0 794.0 Td (Apply this before assigning any AI-heavy task on a legacy codebase. Three steps.) Tj ET
+BT /F1 9.8 Tf 50.0 781.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 765.4 Td (Step 1 - Count Kill Signals \(when NOT to use AI\):) Tj ET
+BT /F1 9.8 Tf 50.0 752.6 Td () Tj ET
+BT /F3 8.3 Tf 50.0 736.8 Td (# | Signal | Banking Example) Tj ET
+BT /F3 8.3 Tf 50.0 725.5 Td (--- | --- | ---) Tj ET
+BT /F3 8.3 Tf 50.0 714.2 Td (1 | No tests \(<30% coverage\) | Reconciliation service has no tests. Agent output unverifiable.) Tj ET
+BT /F3 8.3 Tf 50.0 702.9 Td (2 | No documentation \(tribal knowledge\) | Commission logic is in Andrei's head. Agent "refactors" and) Tj ET
+BT /F3 8.3 Tf 50.0 691.6 Td (breaks 3 edge cases.) Tj ET
+BT /F3 8.3 Tf 50.0 680.3 Td (3 | Tight coupling \(>5 modules affected\) | Notifications -> accounts -> limits. Change one, break all.) Tj ET
+BT /F3 8.3 Tf 50.0 669.0 Td (4 | Scattered business rules | AML rules across 8 functions in 3 files. Agent doesn't know they're) Tj ET
+BT /F3 8.3 Tf 50.0 657.7 Td (linked.) Tj ET
+BT /F3 8.3 Tf 50.0 646.4 Td (5 | Regulatory constraints | Agent logs card numbers in plaintext. PCI audit fails.) Tj ET
+BT /F3 8.3 Tf 50.0 635.1 Td (6 | Team can't evaluate output | Junior gets AI-generated crypto module. Looks correct. Is it?) Tj ET
+BT /F1 9.8 Tf 50.0 623.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 608.0 Td (Recent Claude Code brownfield failure modes to watch \(May 2026\):) Tj ET
+BT /F1 9.8 Tf 50.0 595.2 Td () Tj ET
+BT /F3 8.3 Tf 50.0 579.4 Td (Failure mode | What happens | When it appears | Why it happens | How to mitigate) Tj ET
+BT /F3 8.3 Tf 50.0 568.1 Td (--- | --- | --- | --- | ---) Tj ET
+BT /F3 8.3 Tf 50.0 556.8 Td (Wrong-scope implementation | Agent edits the wrong layer, duplicates existing logic, or fixes the) Tj ET
+BT /F3 8.3 Tf 50.0 545.5 Td (visible symptom. | Vague prompt in a large repo; no subsystem map; implicit legacy convention. |) Tj ET
+BT /F3 8.3 Tf 50.0 534.2 Td (Claude can search live files, but it needs starting context to know where to look. | Use plan mode) Tj ET
+BT /F3 8.3 Tf 50.0 522.9 Td (first; point to likely files; require codebase citations; start from a failing test.) Tj ET
+BT /F3 8.3 Tf 50.0 511.6 Td (Context / compaction drift | Session forgets constraints, repeats itself, or contradicts earlier) Tj ET
+BT /F3 8.3 Tf 50.0 500.3 Td (choices. | Long debugging session; stale resume; kitchen-sink session; noisy tool output. | Context) Tj ET
+BT /F3 8.3 Tf 50.0 489.0 Td (fills quickly, compaction is lossy, and old history distracts the next task. | Use shorter sessions,) Tj ET
+BT /F3 8.3 Tf 50.0 477.7 Td (/context, focused /compact, /clear between tasks, and subagents for noisy exploration.) Tj ET
+BT /F3 8.3 Tf 50.0 466.4 Td (Verification theater | Patch looks finished but no test, screenshot, log, or deterministic check) Tj ET
+BT /F3 8.3 Tf 50.0 455.1 Td (proves it. | Weak tests, UI-only change, hidden business rule, or agent-written happy-path tests. |) Tj ET
+BT /F3 8.3 Tf 50.0 443.8 Td (The task rewards plausible completion unless a verifier is part of the prompt. | Require) Tj ET
+BT /F3 8.3 Tf 50.0 432.5 Td (unit/integration tests, Playwright evidence, build logs, or reviewer passes before merge.) Tj ET
+BT /F3 8.3 Tf 50.0 421.2 Td (Auto-mode scope gap | Risky state change happens through an indirect path, config edit, or in-scope) Tj ET
+BT /F3 8.3 Tf 50.0 409.9 Td (command. | Cleanup, config, migration, infra-state, or ambiguous environment-fix tasks. | Permission) Tj ET
+BT /F3 8.3 Tf 50.0 398.6 Td (automation reduces prompts but is not complete blast-radius control. | Use plan/default mode for risky) Tj ET
+BT /F3 8.3 Tf 50.0 387.3 Td (work; add deny rules and hooks; sandbox; keep destructive commands manual.) Tj ET
+BT /F3 8.3 Tf 50.0 376.0 Td (Production side effect | Agent reaches real cloud, database, or admin APIs and changes state. | Dev) Tj ET
+BT /F3 8.3 Tf 50.0 364.7 Td (shell contains production tokens, cloud CLIs, database URLs, or admin API credentials. | Actual) Tj ET
+BT /F3 8.3 Tf 50.0 353.4 Td (credentials and network access define damage, not the prompt text. | Use least-privilege dev tokens,) Tj ET
+BT /F3 8.3 Tf 50.0 342.1 Td (prod/dev separation, human approval for deletes/migrations, and offline backups.) Tj ET
+BT /F3 8.3 Tf 50.0 330.8 Td (Dependency hallucination / slopsquatting | Fake or untrusted npm/PyPI package enters the plan or) Tj ET
+BT /F3 8.3 Tf 50.0 319.5 Td (lockfile. | New dependency request, migration, generated skill, or autonomous npm/pip install. |) Tj ET
+BT /F3 8.3 Tf 50.0 308.2 Td (Frontier models still invent plausible package names that attackers can register. | Prefer lockfile-) Tj ET
+BT /F3 8.3 Tf 50.0 296.9 Td (only installs; verify registry, maintainer, version, provenance, and existing alternatives.) Tj ET
+BT /F3 8.3 Tf 50.0 285.6 Td (Harness / model drift | Known workflow becomes unreliable after a model, CLI, prompt, permission, or) Tj ET
+BT /F3 8.3 Tf 50.0 274.3 Td (cache change. | Demo, regulated workflow, long-lived playbook, or pinned prompt after a product) Tj ET
+BT /F3 8.3 Tf 50.0 263.0 Td (release. | Agent quality depends on the whole harness, not just the model. | Pin demo versions; set) Tj ET
+BT /F3 8.3 Tf 50.0 251.7 Td (model/effort explicitly; record fallback videos; review CLAUDE.md, hooks, plugins quarterly.) Tj ET
+BT /F1 9.8 Tf 50.0 240.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 224.6 Td (Primary sources, spot-checked May 21, 2026:) Tj ET
+BT /F1 9.8 Tf 50.0 211.8 Td (Anthropic large-codebase guidance \(https://claude.com/blog/how-claude-code-works-in-large-) Tj ET
+BT /F1 9.8 Tf 50.0 199.0 Td (codebases-best-practices-and-where-to-start\);) Tj ET
+BT /F1 9.8 Tf 50.0 186.2 Td (Claude Code session-management guidance \(https://claude.com/blog/using-claude-code-session-) Tj ET
+BT /F1 9.8 Tf 50.0 173.4 Td (management-and-1m-context\);) Tj ET
+BT /F1 9.8 Tf 50.0 160.6 Td (Claude Code best practices \(https://code.claude.com/docs/en/best-practices\), permission-mode) Tj ET
+BT /F1 9.8 Tf 50.0 147.8 Td (docs \(https://code.claude.com/docs/en/permission-modes\), and sandboxing docs) Tj ET
+BT /F1 9.8 Tf 50.0 135.0 Td (\(https://code.claude.com/docs/en/sandboxing\);) Tj ET
+BT /F1 9.8 Tf 50.0 122.2 Td (Anthropic April 23 Claude Code postmortem) Tj ET
+BT /F1 9.8 Tf 50.0 109.4 Td (\(https://www.anthropic.com/engineering/april-23-postmortem\);) Tj ET
+BT /F1 9.8 Tf 50.0 96.6 Td (AmPermBench \(https://arxiv.org/abs/2604.04978\);) Tj ET
+BT /F1 9.8 Tf 50.0 83.8 Td (package-hallucination replication \(https://arxiv.org/abs/2605.17062\);) Tj ET
+BT /F1 9.8 Tf 50.0 71.0 Td (PocketOS incident coverage \(https://www.theregister.com/software/2026/04/27/cursor-opus-) Tj ET
+BT /F1 8 Tf 50 24 Td (ITSS_Participant_Handout.md) Tj ET
+endstream
+endobj
+15 0 obj
+<< /Type /Annot /Subtype /Link /Rect [50.0 209.8 508.6 223.6] /Border [0 0 0] /A << /S /URI /URI (https://claude.com/blog/how-claude-code-works-in-large-) >> >>
+endobj
+16 0 obj
+<< /Type /Annot /Subtype /Link /Rect [50.0 184.2 513.7 198.0] /Border [0 0 0] /A << /S /URI /URI (https://claude.com/blog/using-claude-code-session-) >> >>
+endobj
+17 0 obj
+<< /Type /Annot /Subtype /Link /Rect [50.0 158.6 518.8 172.4] /Border [0 0 0] /A << /S /URI /URI (https://code.claude.com/docs/en/best-practices) >> >>
+endobj
+18 0 obj
+<< /Type /Annot /Subtype /Link /Rect [50.0 145.8 437.3 159.6] /Border [0 0 0] /A << /S /URI /URI (https://code.claude.com/docs/en/permission-modes) >> >>
+endobj
+19 0 obj
+<< /Type /Annot /Subtype /Link /Rect [50.0 133.0 279.3 146.8] /Border [0 0 0] /A << /S /URI /URI (https://code.claude.com/docs/en/sandboxing) >> >>
+endobj
+20 0 obj
+<< /Type /Annot /Subtype /Link /Rect [50.0 107.4 355.8 121.2] /Border [0 0 0] /A << /S /URI /URI (https://www.anthropic.com/engineering/april-23-postmortem) >> >>
+endobj
+21 0 obj
+<< /Type /Annot /Subtype /Link /Rect [50.0 94.6 289.5 108.4] /Border [0 0 0] /A << /S /URI /URI (https://arxiv.org/abs/2604.04978) >> >>
+endobj
+22 0 obj
+<< /Type /Annot /Subtype /Link /Rect [50.0 81.8 401.6 95.6] /Border [0 0 0] /A << /S /URI /URI (https://arxiv.org/abs/2605.17062) >> >>
+endobj
+23 0 obj
+<< /Type /Annot /Subtype /Link /Rect [50.0 69.0 498.4 82.8] /Border [0 0 0] /A << /S /URI /URI (https://www.theregister.com/software/2026/04/27/cursor-opus-) >> >>
+endobj
+24 0 obj
+<< /Length 5162 >>
+stream
+BT /F1 9.8 Tf 50.0 794.0 Td (agent-snuffs-out-startups-production-database/5224442\);) Tj ET
+BT /F1 9.8 Tf 50.0 781.2 Td (and Claude Code releases \(https://github.com/anthropics/claude-code/releases\) for live-) Tj ET
+BT /F1 9.8 Tf 50.0 768.4 Td (checking CLI, permission, plugin, and agent-session drift.) Tj ET
+BT /F1 9.8 Tf 50.0 755.6 Td (Secondary architecture background: Claude Code from Source \(https://claude-code-from-) Tj ET
+BT /F1 9.8 Tf 50.0 742.8 Td (source.com/\).) Tj ET
+BT /F1 9.8 Tf 50.0 730.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 714.2 Td (Step 2 - Classify with the Traffic Light:) Tj ET
+BT /F1 9.8 Tf 50.0 701.4 Td () Tj ET
+BT /F3 8.3 Tf 50.0 685.6 Td (Signals | Color | Action) Tj ET
+BT /F3 8.3 Tf 50.0 674.3 Td (--- | --- | ---) Tj ET
+BT /F3 8.3 Tf 50.0 663.0 Td (0-1 | GREEN | AI-led. Full agentic workflow. Champions can self-direct.) Tj ET
+BT /F3 8.3 Tf 50.0 651.7 Td (2-3 | YELLOW | AI-assisted. Human leads; agent supports. Heavy review on every PR.) Tj ET
+BT /F3 8.3 Tf 50.0 640.4 Td (4+ | RED | Fix codebase readiness BEFORE introducing AI. Tests, docs, decoupling first.) Tj ET
+BT /F1 9.8 Tf 50.0 629.1 Td () Tj ET
+BT /F1 9.8 Tf 50.0 613.3 Td (Step 3 - Match the right tool to the work:) Tj ET
+BT /F1 9.8 Tf 50.0 600.5 Td () Tj ET
+BT /F3 8.3 Tf 50.0 584.7 Td (Task Type | Best Tool | Why) Tj ET
+BT /F3 8.3 Tf 50.0 573.4 Td (--- | --- | ---) Tj ET
+BT /F3 8.3 Tf 50.0 562.1 Td (Architecture review + codebase exploration \(any language\) | Claude Code | Deep file reading + agent) Tj ET
+BT /F3 8.3 Tf 50.0 550.8 Td (loop) Tj ET
+BT /F3 8.3 Tf 50.0 539.5 Td (Spring Boot refactoring on GREEN/YELLOW projects | Claude Code + Superpowers | Methodology enforcement) Tj ET
+BT /F3 8.3 Tf 50.0 528.2 Td (\(6-phase\)) Tj ET
+BT /F3 8.3 Tf 50.0 516.9 Td (Code review at PR scale | pr-review-toolkit \(6 local agents\) | Specialized agents, parallel review) Tj ET
+BT /F3 8.3 Tf 50.0 505.6 Td (Critical-path review before merge | /ultrareview \(cloud fleet, if data policy allows\) | Independent) Tj ET
+BT /F3 8.3 Tf 50.0 494.3 Td (verification, parallel multi-agent review) Tj ET
+BT /F3 8.3 Tf 50.0 483.0 Td (Long-running migration \(multi-day\) | Claude Code Agent View \(--bg\) | Async, 2-4 parallel sessions) Tj ET
+BT /F3 8.3 Tf 50.0 471.7 Td (Quick inline autocomplete | GitHub Copilot or Cursor Tab | Lower friction for trivial edits) Tj ET
+BT /F3 8.3 Tf 50.0 460.4 Td (Pair-programming UI session | Cursor or Aider | UI-first ergonomics) Tj ET
+BT /F3 8.3 Tf 50.0 449.1 Td (Documentation analysis \(non-code\) | CoWork \(separate licensing\) | Same model family, non-dev surface) Tj ET
+BT /F1 9.8 Tf 50.0 437.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 422.0 Td (Rule of thumb: Match tool to task, not task to tool. Same project may use 3 different tools) Tj ET
+BT /F1 9.8 Tf 50.0 409.2 Td (across its lifecycle.) Tj ET
+BT /F1 9.8 Tf 50.0 396.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 380.6 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 367.8 Td () Tj ET
+BT /F2 12.0 Tf 50.0 352.0 Td (TAKE-HOME PROMPT: Map Any Repo's Architecture into an Interactive HTML) Tj ET
+BT /F1 9.8 Tf 50.0 334.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 318.2 Td (You saw this in Demo 1 - a live architecture review of two coding agents \(Codex CLI and) Tj ET
+BT /F1 9.8 Tf 50.0 305.4 Td (anomalyco/opencode\) explored side-by-side, each generating its own architecture HTML as the) Tj ET
+BT /F1 9.8 Tf 50.0 292.6 Td (byproduct. The same prompt + parallel-pane pattern is the repo-agnostic Monday recipe -) Tj ET
+BT /F1 9.8 Tf 50.0 279.8 Td (generic version in the Repo_Architecture_Mapping_Prompt cheatsheet \(separate handout\).) Tj ET
+BT /F1 9.8 Tf 50.0 267.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 251.2 Td (TL;DR - the prompt does this:) Tj ET
+BT /F1 9.6 Tf 62.0 238.4 Td (1. Reads top-level structure \(manifest files, README\) - ~2 min.) Tj ET
+BT /F1 9.6 Tf 62.0 225.8 Td (2. Decomposes the repo into 3-5 exploration scopes \(entry points / business logic / data /) Tj ET
+BT /F1 9.6 Tf 50.0 213.2 Td (  integrations / infrastructure - adapts to what's actually there\).) Tj ET
+BT /F1 9.6 Tf 62.0 200.6 Td (3. Dispatches one subagent per scope via the Task tool, in parallel. Each returns a structured) Tj ET
+BT /F1 9.6 Tf 50.0 188.0 Td (  module-by-module report with file:line citations.) Tj ET
+BT /F1 9.6 Tf 62.0 175.4 Td (4. Synthesizes all subagent outputs into a single coherent architecture model.) Tj ET
+BT /F1 9.6 Tf 62.0 162.8 Td (5. Generates ./docs/architecture-map.html - color-coded sections, clickable file:// links to) Tj ET
+BT /F1 9.6 Tf 50.0 150.2 Td (  actual source files, "what's uncharted" footer, Open Questions surfaced.) Tj ET
+BT /F1 9.6 Tf 62.0 137.6 Td (6. Validates every link before claiming done.) Tj ET
+BT /F1 9.8 Tf 50.0 125.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 109.2 Td (Pairs with /goal:) Tj ET
+BT /F3 8.6 Tf 50.0 96.4 Td (/goal Map this repo's architecture into an interactive HTML using parallel subagents, with) Tj ET
+BT /F3 8.6 Tf 50.0 84.8 Td (file:line citations for every claim and clickable links to the actual source files.) Tj ET
+BT /F1 9.8 Tf 50.0 73.2 Td (Then paste the full prompt body from the cheatsheet.) Tj ET
+BT /F1 8 Tf 50 24 Td (ITSS_Participant_Handout.md) Tj ET
+endstream
+endobj
+25 0 obj
+<< /Type /Annot /Subtype /Link /Rect [50.0 779.2 493.4 793.0] /Border [0 0 0] /A << /S /URI /URI (https://github.com/anthropics/claude-code/releases) >> >>
+endobj
+26 0 obj
+<< /Type /Annot /Subtype /Link /Rect [50.0 753.6 483.2 767.4] /Border [0 0 0] /A << /S /URI /URI (https://claude-code-from-) >> >>
+endobj
+27 0 obj
+<< /Length 4286 >>
+stream
+BT /F1 9.8 Tf 50.0 794.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 778.2 Td (When to use it:) Tj ET
+BT /F1 9.6 Tf 62.0 765.4 Td (- A legacy repo nobody on the team fully remembers) Tj ET
+BT /F1 9.6 Tf 62.0 752.8 Td (- A microservice you're about to inherit) Tj ET
+BT /F1 9.6 Tf 62.0 740.2 Td (- An open-source library you're vendor-evaluating) Tj ET
+BT /F1 9.6 Tf 62.0 727.6 Td (- A monorepo where you want a high-level map for the docs site) Tj ET
+BT /F1 9.8 Tf 50.0 715.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 699.2 Td (Wall-clock time: ~8-10 minutes for an average-sized repo. Run it overnight or during a) Tj ET
+BT /F1 9.8 Tf 50.0 686.4 Td (meeting if it's a big monorepo.) Tj ET
+BT /F1 9.8 Tf 50.0 673.6 Td () Tj ET
+BT /F1 9.8 Tf 50.0 657.8 Td (Browser: Chrome blocks file:// -> file:// navigation by default - launch Chrome with --allow-) Tj ET
+BT /F1 9.8 Tf 50.0 645.0 Td (file-access-from-files --user-data-dir=/tmp/chrome-workshop to enable clickthrough into) Tj ET
+BT /F1 9.8 Tf 50.0 632.2 Td (source files. The /tmp/ profile isolates the security-relaxed session from your normal Chrome) Tj ET
+BT /F1 9.8 Tf 50.0 619.4 Td (browsing. We use this exact wrapper on the workshop laptop \(see your starter pack\).) Tj ET
+BT /F1 9.8 Tf 50.0 606.6 Td () Tj ET
+BT /F1 9.8 Tf 50.0 590.8 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 578.0 Td () Tj ET
+BT /F2 12.0 Tf 50.0 562.2 Td (TAKE-HOME PLUGIN: Understand Anything for Interactive Dashboards) Tj ET
+BT /F1 9.8 Tf 50.0 544.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 528.4 Td (You saw this in Demo 1 Step P2.5 - the polished alternative architecture view \(Structural +) Tj ET
+BT /F1 9.8 Tf 50.0 515.6 Td (Domain\) over the same Codex codebase. The Domain view turns code into business domains) Tj ET
+BT /F1 9.8 Tf 50.0 502.8 Td (readable by managers. The plugin is open-source MIT, runs locally, no data leaves your) Tj ET
+BT /F1 9.8 Tf 50.0 490.0 Td (machine.) Tj ET
+BT /F1 9.8 Tf 50.0 477.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 461.4 Td (Install \(one-time, inside a Claude Code session\):) Tj ET
+BT /F3 8.6 Tf 50.0 448.6 Td (/plugin marketplace add Lum1104/Understand-Anything) Tj ET
+BT /F3 8.6 Tf 50.0 437.0 Td (/plugin install understand-anything) Tj ET
+BT /F1 9.8 Tf 50.0 425.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 409.6 Td (Generate dashboard for any repo \(3-5 min first time, incremental after\):) Tj ET
+BT /F3 8.6 Tf 50.0 396.8 Td (cd /path/to/your/repo) Tj ET
+BT /F3 8.6 Tf 50.0 385.2 Td (claude) Tj ET
+BT /F1 9.8 Tf 50.0 373.6 Td (Then inside the Claude Code session:) Tj ET
+BT /F3 8.6 Tf 50.0 360.8 Td (/understand) Tj ET
+BT /F3 8.6 Tf 50.0 349.2 Td (/understand-dashboard) Tj ET
+BT /F1 9.8 Tf 50.0 337.6 Td () Tj ET
+BT /F1 9.8 Tf 50.0 321.8 Td (Two views, two audiences:) Tj ET
+BT /F1 9.6 Tf 62.0 309.0 Td (- Structural view - file/function/class nodes color-coded by architectural layer, dependency) Tj ET
+BT /F1 9.6 Tf 50.0 296.4 Td (  arrows, complexity labels. For developers.) Tj ET
+BT /F1 9.6 Tf 62.0 283.8 Td (- Domain view - business domains \(e.g., "Payment Processing"\), business rules extracted from) Tj ET
+BT /F1 9.6 Tf 50.0 271.2 Td (  code, entities, cross-domain flows. For managers and PMs reviewing the work.) Tj ET
+BT /F1 9.8 Tf 50.0 258.6 Td () Tj ET
+BT /F1 9.8 Tf 50.0 242.8 Td (Click any node for a detail panel with plain-English description, tags, business rules, and) Tj ET
+BT /F1 9.8 Tf 50.0 230.0 Td (related components.) Tj ET
+BT /F1 9.8 Tf 50.0 217.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 201.4 Td (When to use it:) Tj ET
+BT /F1 9.6 Tf 62.0 188.6 Td (- Onboarding a new developer to a legacy repo \(~5 min visual map beats 3 weeks of code reading\)) Tj ET
+BT /F1 9.6 Tf 62.0 176.0 Td (- PR / impact review - /understand-diff shows which graph nodes a PR touches and what depends) Tj ET
+BT /F1 9.6 Tf 50.0 163.4 Td (  on them) Tj ET
+BT /F1 9.6 Tf 62.0 150.8 Td (- Architecture stakeholder reviews - Domain view lets non-engineering stakeholders read the) Tj ET
+BT /F1 9.6 Tf 50.0 138.2 Td (  code's structure without reading code) Tj ET
+BT /F1 9.8 Tf 50.0 125.6 Td () Tj ET
+BT /F1 9.8 Tf 50.0 109.8 Td (See the full reference in the Understand_Anything_Quickref cheatsheet.) Tj ET
+BT /F1 9.8 Tf 50.0 97.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 81.2 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 68.4 Td () Tj ET
+BT /F1 8 Tf 50 24 Td (ITSS_Participant_Handout.md) Tj ET
+endstream
+endobj
+28 0 obj
+<< /Length 4936 >>
+stream
+BT /F2 12.0 Tf 50.0 794.0 Td (AI PRODUCTIVITY -- Where It Actually Helps) Tj ET
+BT /F1 9.8 Tf 50.0 776.0 Td () Tj ET
+BT /F3 8.3 Tf 50.0 760.2 Td (Task Type | Gain | Notes) Tj ET
+BT /F3 8.3 Tf 50.0 748.9 Td (--- | --- | ---) Tj ET
+BT /F3 8.3 Tf 50.0 737.6 Td (Migrations / upgrades | Very high | Stripe: 10K lines in 4 days vs. 10 engineer-weeks) Tj ET
+BT /F3 8.3 Tf 50.0 726.3 Td (Boilerplate \(controllers, DTOs\) | Very high | Repetitive patterns = agent strength) Tj ET
+BT /F3 8.3 Tf 50.0 715.0 Td (Test writing | High | Agent generates, human validates) Tj ET
+BT /F3 8.3 Tf 50.0 703.7 Td (Codebase navigation | High | Agent reads 100K+ LOC faster than you) Tj ET
+BT /F3 8.3 Tf 50.0 692.4 Td (Refactoring | Medium-high | Needs good CLAUDE.md) Tj ET
+BT /F3 8.3 Tf 50.0 681.1 Td (Complex business logic | Medium | Agent misses domain nuances) Tj ET
+BT /F3 8.3 Tf 50.0 669.8 Td (Security-sensitive code | Low | Always human-led) Tj ET
+BT /F1 9.8 Tf 50.0 658.5 Td () Tj ET
+BT /F1 9.8 Tf 50.0 642.7 Td (Honest math: 1h of Claude work = 2-3h of human validation. 10h task becomes ~4h.) Tj ET
+BT /F1 9.8 Tf 50.0 629.9 Td () Tj ET
+BT /F1 9.8 Tf 50.0 614.1 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 601.3 Td () Tj ET
+BT /F2 12.0 Tf 50.0 585.5 Td (AI CODE REVIEW CHECKLIST -- Java / Spring / Banking) Tj ET
+BT /F1 9.8 Tf 50.0 567.5 Td () Tj ET
+BT /F1 9.8 Tf 50.0 551.7 Td (Apply before merging any AI-generated PR. Each item maps to OWASP Top 10 or banking) Tj ET
+BT /F1 9.8 Tf 50.0 538.9 Td (compliance. Items prefixed with [pr-rt] are auto-checked by pr-review-toolkit; the rest stay) Tj ET
+BT /F1 9.8 Tf 50.0 526.1 Td (human-owned.) Tj ET
+BT /F1 9.8 Tf 50.0 513.3 Td () Tj ET
+BT /F1 9.8 Tf 50.0 497.5 Td (Security \(OWASP-aligned\):) Tj ET
+BT /F1 9.6 Tf 62.0 484.7 Td (- [ ] No string concatenation in SQL/JPQL/HQL - parameterized queries only \(OWASP A03\)) Tj ET
+BT /F1 9.6 Tf 62.0 472.1 Td (- [ ] No PII in logs - mask IBAN, card numbers, account IDs \(PCI-DSS, GDPR\)) Tj ET
+BT /F1 9.6 Tf 62.0 459.5 Td (- [ ] No secrets in code - @Value from environment, never hardcoded \(OWASP A05\)) Tj ET
+BT /F1 9.6 Tf 62.0 446.9 Td (- [ ] Input validation on every controller - @Valid + custom validators \(OWASP A03\)) Tj ET
+BT /F1 9.6 Tf 62.0 434.3 Td (- [ ] Authorization on every endpoint - @PreAuthorize at method level \(OWASP A01\)) Tj ET
+BT /F1 9.6 Tf 62.0 421.7 Td (- [ ] No unsafe deserialization - no Jackson default typing without allowlist \(OWASP A08\)) Tj ET
+BT /F1 9.6 Tf 62.0 409.1 Td (- [ ] XXE prevention - DocumentBuilderFactory.setFeature\(FEATURE_SECURE_PROCESSING, true\)) Tj ET
+BT /F1 9.6 Tf 50.0 396.5 Td (  \(OWASP A05\)) Tj ET
+BT /F1 9.6 Tf 62.0 383.9 Td (- [ ] No SSRF - outbound URL validation against allowlist \(OWASP A10\)) Tj ET
+BT /F1 9.8 Tf 50.0 371.3 Td () Tj ET
+BT /F1 9.8 Tf 50.0 355.5 Td (Exception handling [pr-rt: Silent Failure Hunter]:) Tj ET
+BT /F1 9.6 Tf 62.0 342.7 Td (- [ ] No empty catch blocks - log + rethrow OR handle specifically) Tj ET
+BT /F1 9.6 Tf 62.0 330.1 Td (- [ ] No catching Exception/Throwable broadly - catch specific types) Tj ET
+BT /F1 9.6 Tf 62.0 317.5 Td (- [ ] No swallowing DataAccessException without compensating action) Tj ET
+BT /F1 9.6 Tf 62.0 304.9 Td (- [ ] @Transactional rollback rules explicit \(rollbackFor = Exception.class for runtime +) Tj ET
+BT /F1 9.6 Tf 50.0 292.3 Td (  checked\)) Tj ET
+BT /F1 9.6 Tf 62.0 279.7 Td (- [ ] No "log and continue" on critical paths \(transfers, reconciliation, audit\)) Tj ET
+BT /F1 9.8 Tf 50.0 267.1 Td () Tj ET
+BT /F1 9.8 Tf 50.0 251.3 Td (Spring-specific:) Tj ET
+BT /F1 9.6 Tf 62.0 238.5 Td (- [ ] Constructor injection only - no @Autowired on fields) Tj ET
+BT /F1 9.6 Tf 62.0 225.9 Td (- [ ] @Service for stateless logic, @Component for utility, @Repository for data) Tj ET
+BT /F1 9.6 Tf 62.0 213.3 Td (- [ ] DTOs at controller boundary - entities never exposed) Tj ET
+BT /F1 9.6 Tf 62.0 200.7 Td (- [ ] @Transactional placement: service layer only, NOT controller) Tj ET
+BT /F1 9.6 Tf 62.0 188.1 Td (- [ ] Lazy-loading hazards: no @ManyToMany in DTO mapping without @Fetch\(FetchMode.JOIN\)) Tj ET
+BT /F1 9.6 Tf 62.0 175.5 Td (- [ ] No business logic in @RestController - controllers thin, services thick) Tj ET
+BT /F1 9.8 Tf 50.0 162.9 Td () Tj ET
+BT /F1 9.8 Tf 50.0 147.1 Td (Testing [pr-rt: PR Test Analyzer]:) Tj ET
+BT /F1 9.6 Tf 62.0 134.3 Td (- [ ] Every public service method has unit test) Tj ET
+BT /F1 9.6 Tf 62.0 121.7 Td (- [ ] Repository tests use @DataJpaTest or Testcontainers \(NOT @SpringBootTest unless) Tj ET
+BT /F1 9.6 Tf 50.0 109.1 Td (  integration\)) Tj ET
+BT /F1 9.6 Tf 62.0 96.5 Td (- [ ] Mock external services - no real HTTP/DB in unit tests) Tj ET
+BT /F1 9.6 Tf 62.0 83.9 Td (- [ ] Coverage gates: new code ?80% branch coverage) Tj ET
+BT /F1 9.6 Tf 62.0 71.3 Td (- [ ] Edge cases: null inputs, empty collections, max boundary, negative amounts) Tj ET
+BT /F1 8 Tf 50 24 Td (ITSS_Participant_Handout.md) Tj ET
+endstream
+endobj
+29 0 obj
+<< /Length 4685 >>
+stream
+BT /F1 9.8 Tf 50.0 794.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 778.2 Td (Banking-specific:) Tj ET
+BT /F1 9.6 Tf 62.0 765.4 Td (- [ ] Decimal arithmetic uses BigDecimal - never float/double for money) Tj ET
+BT /F1 9.6 Tf 62.0 752.8 Td (- [ ] Currency conversion has source-of-truth - no hardcoded rates) Tj ET
+BT /F1 9.6 Tf 62.0 740.2 Td (- [ ] Audit log writes are non-cancellable - separate transaction or outbox pattern) Tj ET
+BT /F1 9.6 Tf 62.0 727.6 Td (- [ ] Idempotency keys on all state-changing endpoints \(transfers, payments\)) Tj ET
+BT /F1 9.6 Tf 62.0 715.0 Td (- [ ] Rate-limit on transaction endpoints \(Bucket4j or Spring Cloud Gateway\)) Tj ET
+BT /F1 9.6 Tf 62.0 702.4 Td (- [ ] PII access logged separately for compliance audit trail) Tj ET
+BT /F1 9.8 Tf 50.0 689.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 674.0 Td (AI-specific gate:) Tj ET
+BT /F1 9.6 Tf 62.0 661.2 Td (- [ ] PR description includes which agent generated/reviewed the code) Tj ET
+BT /F1 9.6 Tf 62.0 648.6 Td (- [ ] Human reviewer ran the test suite locally \(not just CI\)) Tj ET
+BT /F1 9.6 Tf 62.0 636.0 Td (- [ ] No commented-out code or "TODO" markers left by the agent) Tj ET
+BT /F1 9.6 Tf 62.0 623.4 Td (- [ ] Forbidden Patterns from CLAUDE.md verified absent) Tj ET
+BT /F1 9.6 Tf 62.0 610.8 Td (- [ ] If AI-generated method >50 lines: human re-derived the logic mentally before approving) Tj ET
+BT /F1 9.8 Tf 50.0 598.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 582.4 Td (Process: Run pr-review-toolkit first \(catches the [pr-rt] rows\). Human takes the rest.) Tj ET
+BT /F1 9.8 Tf 50.0 569.6 Td (/ultrareview is an optional cloud review for critical-path PRs only when your data policy) Tj ET
+BT /F1 9.8 Tf 50.0 556.8 Td (allows remote sandbox upload; it is not available with ZDR or Bedrock/Vertex/Foundry) Tj ET
+BT /F1 9.8 Tf 50.0 544.0 Td (deployments.) Tj ET
+BT /F1 9.8 Tf 50.0 531.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 515.4 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 502.6 Td () Tj ET
+BT /F2 12.0 Tf 50.0 486.8 Td (90-DAY ROLLOUT -- Adapt to Your Reality) Tj ET
+BT /F1 9.8 Tf 50.0 468.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 453.0 Td (Days 1-30 \(Foundation\):) Tj ET
+BT /F1 9.6 Tf 62.0 440.2 Td (- Week 1: 3-4 dev champions install starter pack \(5 plugins, incl. one-time /plugin marketplace) Tj ET
+BT /F1 9.6 Tf 50.0 427.6 Td (  add Lum1104/Understand-Anything for understand-anything\). One GREEN task each + run) Tj ET
+BT /F1 9.6 Tf 50.0 415.0 Td (  /understand-dashboard on that repo for visual onboarding. 1 manager runs kill signal) Tj ET
+BT /F1 9.6 Tf 50.0 402.4 Td (  assessment on a candidate project.) Tj ET
+BT /F1 9.6 Tf 62.0 389.8 Td (- Week 2: Write CLAUDE.md for one project. QA tries pr-review-toolkit on one PR.) Tj ET
+BT /F1 9.6 Tf 62.0 377.2 Td (- Week 3-4: Share results in standup. Agree on first Forbidden Patterns.) Tj ET
+BT /F1 9.8 Tf 50.0 364.6 Td () Tj ET
+BT /F1 9.8 Tf 50.0 348.8 Td (Days 31-60 \(Expansion\):) Tj ET
+BT /F1 9.6 Tf 62.0 336.0 Td (- Champions train remaining team \(pair sessions, not lectures\).) Tj ET
+BT /F1 9.6 Tf 62.0 323.4 Td (- Starter pack mandatory on all machines. Kill signal assessment on top 5 projects.) Tj ET
+BT /F1 9.6 Tf 62.0 310.8 Td (- First consolidated governance review: forbidden patterns confirmed, hook coverage assessed,) Tj ET
+BT /F1 9.6 Tf 50.0 298.2 Td (  mistake journal reviewed.) Tj ET
+BT /F1 9.8 Tf 50.0 285.6 Td () Tj ET
+BT /F1 9.8 Tf 50.0 269.8 Td (Days 61-90 \(Standardization\):) Tj ET
+BT /F1 9.6 Tf 62.0 257.0 Td (- CLAUDE.md maintenance rotation. Monthly review cycle.) Tj ET
+BT /F1 9.6 Tf 62.0 244.4 Td (- Full flow: PM structures requirements -> Dev \(Superpowers\) -> QA \(pr-review-toolkit\) -> PM) Tj ET
+BT /F1 9.6 Tf 50.0 231.8 Td (  updates stakeholders.) Tj ET
+BT /F1 9.6 Tf 62.0 219.2 Td (- Quarterly "What Changed" assessment.) Tj ET
+BT /F1 9.8 Tf 50.0 206.6 Td () Tj ET
+BT /F1 9.8 Tf 50.0 190.8 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 178.0 Td () Tj ET
+BT /F2 12.0 Tf 50.0 162.2 Td (MANAGER MONDAY CHECKLIST \(the week after the workshop\)) Tj ET
+BT /F1 9.8 Tf 50.0 144.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 128.4 Td (If you manage a team and you sat through this workshop, this is the one-page action list for) Tj ET
+BT /F1 9.8 Tf 50.0 115.6 Td (the five working days that follow. Built so a manager can defend a pilot to leadership) Tj ET
+BT /F1 9.8 Tf 50.0 102.8 Td (without re-reading the deck.) Tj ET
+BT /F1 9.8 Tf 50.0 90.0 Td () Tj ET
+BT /F1 9.6 Tf 62.0 74.2 Td (- [ ] Run kill signal assessment on your top 3 active projects. Use the Kill Signal Decision) Tj ET
+BT /F1 9.6 Tf 50.0 61.6 Td (  Card. 15 minutes per project. Output: one of GREEN / YELLOW / RED per project. This is what) Tj ET
+BT /F1 8 Tf 50 24 Td (ITSS_Participant_Handout.md) Tj ET
+endstream
+endobj
+30 0 obj
+<< /Length 5014 >>
+stream
+BT /F1 9.6 Tf 50.0 794.0 Td (  you walk into the leadership conversation with.) Tj ET
+BT /F1 9.6 Tf 62.0 781.4 Td (- [ ] Identify your 3 candidate champions and your 2 likely skeptics. Champions are self-) Tj ET
+BT /F1 9.6 Tf 50.0 768.8 Td (  selecting volunteers - not nominees. Skeptics matter because they tell you what the failure) Tj ET
+BT /F1 9.6 Tf 50.0 756.2 Td (  modes will be. Don't ignore them.) Tj ET
+BT /F1 9.6 Tf 62.0 743.6 Td (- [ ] Schedule a 1:1 procurement conversation with Diana or Mihai inside 10 working days. Costs) Tj ET
+BT /F1 9.6 Tf 50.0 731.0 Td (  and licensing were deliberately not on stage; the 1:1 is where you get numbers calibrated to) Tj ET
+BT /F1 9.6 Tf 50.0 718.4 Td (  ITSS's volume and timeline.) Tj ET
+BT /F1 9.6 Tf 62.0 705.8 Td (- [ ] Block 2 hours on calendar for the first CLAUDE.md review PR. Not for writing it - for) Tj ET
+BT /F1 9.6 Tf 50.0 693.2 Td (  reviewing what a champion drafts. That PR is your first governance artifact.) Tj ET
+BT /F1 9.6 Tf 62.0 680.6 Td (- [ ] Pick ONE GREEN project for the pilot and write down what would kill it. Three or four) Tj ET
+BT /F1 9.6 Tf 50.0 668.0 Td (  explicit kill criteria. Without kill criteria, "the pilot is ambiguous at day 90" is a) Tj ET
+BT /F1 9.6 Tf 50.0 655.4 Td (  failure mode in itself. Examples: "if no CLAUDE.md committed by day 30, kill"; "if security-) Tj ET
+BT /F1 9.6 Tf 50.0 642.8 Td (  guidance plugin not active by day 14, kill"; "if more than 2 developers express friction with) Tj ET
+BT /F1 9.6 Tf 50.0 630.2 Td (  auto mode by day 21, retune CLAUDE.md or kill.") Tj ET
+BT /F1 9.8 Tf 50.0 617.6 Td () Tj ET
+BT /F1 9.8 Tf 50.0 601.8 Td (If you do these five things in week one, you walk into the day-30 review with a defensible) Tj ET
+BT /F1 9.8 Tf 50.0 589.0 Td (position regardless of how the pilot is trending. If you skip any of them, day 30 becomes a) Tj ET
+BT /F1 9.8 Tf 50.0 576.2 Td (debate about feelings instead of evidence.) Tj ET
+BT /F1 9.8 Tf 50.0 563.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 547.6 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 534.8 Td () Tj ET
+BT /F2 12.0 Tf 50.0 519.0 Td (PROCUREMENT NOTE) Tj ET
+BT /F1 9.8 Tf 50.0 501.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 485.2 Td (Licensing, pricing, and procurement specifics are intentionally handled off-stage. Contact) Tj ET
+BT /F1 9.8 Tf 50.0 472.4 Td (Diana or Mihai directly for a 1:1 procurement conversation tailored to ITSS's volume and) Tj ET
+BT /F1 9.8 Tf 50.0 459.6 Td (timeline. Anthropic sales: https://claude.com/contact-sales. When you talk to them, ask for) Tj ET
+BT /F1 9.8 Tf 50.0 446.8 Td (SSO, audit logs, EU data residency, managed plugin marketplace, and the ZDR addendum.) Tj ET
+BT /F1 9.8 Tf 50.0 434.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 418.2 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 405.4 Td () Tj ET
+BT /F2 12.0 Tf 50.0 389.6 Td (KEY COMMANDS) Tj ET
+BT /F1 9.8 Tf 50.0 371.6 Td () Tj ET
+BT /F3 8.3 Tf 50.0 355.8 Td (Command | What It Does | Context) Tj ET
+BT /F3 8.3 Tf 50.0 344.5 Td (--- | --- | ---) Tj ET
+BT /F3 8.3 Tf 50.0 333.2 Td (claude | Launch Claude Code session | bash) Tj ET
+BT /F3 8.3 Tf 50.0 321.9 Td (claude --bg [task] | Launch background agent \(Agent View\) | bash) Tj ET
+BT /F3 8.3 Tf 50.0 310.6 Td (/plugin marketplace add [repo] | Add a custom marketplace \(the official claude-plugins-official is) Tj ET
+BT /F3 8.3 Tf 50.0 299.3 Td (already built-in\) | inside Claude Code) Tj ET
+BT /F3 8.3 Tf 50.0 288.0 Td (/plugin install [name]@[marketplace] | Install a plugin | inside Claude Code) Tj ET
+BT /F3 8.3 Tf 50.0 276.7 Td (/plugin list | List installed plugins | inside Claude Code) Tj ET
+BT /F3 8.3 Tf 50.0 265.4 Td (/superpowers | Show Superpowers skills | inside Claude Code) Tj ET
+BT /F3 8.3 Tf 50.0 254.1 Td (/hookify | Create/manage team rules | inside Claude Code) Tj ET
+BT /F3 8.3 Tf 50.0 242.8 Td (/ultrareview | Cloud-based multi-agent code review; only if policy allows remote sandbox upload |) Tj ET
+BT /F3 8.3 Tf 50.0 231.5 Td (inside Claude Code) Tj ET
+BT /F3 8.3 Tf 50.0 220.2 Td (/review | Local code review | inside Claude Code) Tj ET
+BT /F3 8.3 Tf 50.0 208.9 Td (/pr-review-toolkit:review-pr all | Run all 6 review agents at once | inside Claude Code) Tj ET
+BT /F3 8.3 Tf 50.0 197.6 Td (/dream | Manual memory consolidation | inside Claude Code) Tj ET
+BT /F1 9.8 Tf 50.0 186.3 Td () Tj ET
+BT /F1 9.8 Tf 50.0 170.5 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 157.7 Td () Tj ET
+BT /F2 12.0 Tf 50.0 141.9 Td (BANKING-SPECIFIC CHECKLIST) Tj ET
+BT /F1 9.8 Tf 50.0 123.9 Td () Tj ET
+BT /F1 9.6 Tf 62.0 108.1 Td (- [ ] Request Zero-Data-Retention addendum from Anthropic before using on client code) Tj ET
+BT /F1 9.6 Tf 62.0 95.5 Td (- [ ] Enterprise plan for audit logs, SSO, data residency) Tj ET
+BT /F1 9.6 Tf 62.0 82.9 Td (- [ ] EU AI Act readiness: as of May 21, 2026, the Commission's May 7 Digital Omnibus agreement) Tj ET
+BT /F1 9.6 Tf 50.0 70.3 Td (  sets high-risk AI rules for key standalone areas from Dec 2, 2027 and product-integrated) Tj ET
+BT /F1 8 Tf 50 24 Td (ITSS_Participant_Handout.md) Tj ET
+endstream
+endobj
+31 0 obj
+<< /Type /Annot /Subtype /Link /Rect [50.0 457.6 513.7 471.4] /Border [0 0 0] /A << /S /URI /URI (https://claude.com/contact-sales) >> >>
+endobj
+32 0 obj
+<< /Length 1561 >>
+stream
+BT /F1 9.6 Tf 50.0 794.0 Td (  systems from Aug 2, 2028. Treat exact legal scope as a counsel-check item; document AI) Tj ET
+BT /F1 9.6 Tf 50.0 781.4 Td (  governance now regardless. Source: https://digital-) Tj ET
+BT /F1 9.6 Tf 50.0 768.8 Td (  strategy.ec.europa.eu/en/policies/regulatory-framework-ai) Tj ET
+BT /F1 9.6 Tf 62.0 756.2 Td (- [ ] Multi-tier code review \(automated + human + audit log\) = evidence material for the) Tj ET
+BT /F1 9.6 Tf 50.0 743.6 Td (  compliance conversation with legal -- not compliance pre-built) Tj ET
+BT /F1 9.6 Tf 62.0 731.0 Td (- [ ] Financial-services adoption is no longer theoretical: Goldman Sachs is a founding partner) Tj ET
+BT /F1 9.6 Tf 50.0 718.4 Td (  in Anthropic's May 4, 2026 enterprise AI services firm, and Anthropic/AWS financial-services) Tj ET
+BT /F1 9.6 Tf 50.0 705.8 Td (  material cites Verisk and NBIM as real-world examples. Sources: https://www.nasdaq.com/press-) Tj ET
+BT /F1 9.6 Tf 50.0 693.2 Td (  release/anthropic-partners-blackstone-hellman-friedman-and-goldman-sachs-launch-enterprise-ai) Tj ET
+BT /F1 9.6 Tf 50.0 680.6 Td (  and https://resources.anthropic.com/ty-financial-services-ebook-anthropic-aws) Tj ET
+BT /F1 9.8 Tf 50.0 668.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 652.2 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 639.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 623.6 Td (Contact: Mihai Cvasnievschi | mihai.cvasnievschi@gmail.com) Tj ET
+BT /F1 9.8 Tf 50.0 610.8 Td (Methodology endures. Tools rotate. Frameworks of judgment are the real skill.) Tj ET
+BT /F1 8 Tf 50 24 Td (ITSS_Participant_Handout.md) Tj ET
+endstream
+endobj
+33 0 obj
+<< /Type /Annot /Subtype /Link /Rect [50.0 779.4 314.6 793.0] /Border [0 0 0] /A << /S /URI /URI (https://digital-) >> >>
+endobj
+34 0 obj
+<< /Type /Annot /Subtype /Link /Rect [50.0 703.8 524.2 717.4] /Border [0 0 0] /A << /S /URI /URI (https://www.nasdaq.com/press-) >> >>
+endobj
+35 0 obj
+<< /Type /Annot /Subtype /Link /Rect [50.0 678.6 444.4 692.2] /Border [0 0 0] /A << /S /URI /URI (https://resources.anthropic.com/ty-financial-services-ebook-anthropic-aws) >> >>
+endobj
+36 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 6 0 R /Annots [7 0 R] >>
+endobj
+37 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 8 0 R /Annots [9 0 R] >>
+endobj
+38 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 10 0 R /Annots [] >>
+endobj
+39 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 11 0 R /Annots [] >>
+endobj
+40 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 12 0 R /Annots [] >>
+endobj
+41 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 13 0 R /Annots [] >>
+endobj
+42 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 14 0 R /Annots [15 0 R 16 0 R 17 0 R 18 0 R 19 0 R 20 0 R 21 0 R 22 0 R 23 0 R] >>
+endobj
+43 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 24 0 R /Annots [25 0 R 26 0 R] >>
+endobj
+44 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 27 0 R /Annots [] >>
+endobj
+45 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 28 0 R /Annots [] >>
+endobj
+46 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 29 0 R /Annots [] >>
+endobj
+47 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 30 0 R /Annots [31 0 R] >>
+endobj
+48 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 32 0 R /Annots [33 0 R 34 0 R 35 0 R] >>
+endobj
+49 0 obj
+<< /Title (ITSS_Participant_Handout.md) /Producer (basic markdown renderer) /CreationDate (D:20260526204338Z) >>
+endobj
+xref
+0 50
+0000000000 65535 f
+0000000015 00000 n
+0000000064 00000 n
+0000000207 00000 n
+0000000304 00000 n
+0000000406 00000 n
+0000000501 00000 n
+0000005130 00000 n
+0000005305 00000 n
+0000010439 00000 n
+0000010599 00000 n
+0000015620 00000 n
+0000020614 00000 n
+0000025857 00000 n
+0000031374 00000 n
+0000038166 00000 n
+0000038343 00000 n
+0000038515 00000 n
+0000038683 00000 n
+0000038853 00000 n
+0000039017 00000 n
+0000039196 00000 n
+0000039349 00000 n
+0000039501 00000 n
+0000039681 00000 n
+0000044896 00000 n
+0000045068 00000 n
+0000045215 00000 n
+0000049554 00000 n
+0000054543 00000 n
+0000059281 00000 n
+0000064348 00000 n
+0000064502 00000 n
+0000066116 00000 n
+0000066254 00000 n
+0000066405 00000 n
+0000066600 00000 n
+0000066763 00000 n
+0000066926 00000 n
+0000067085 00000 n
+0000067244 00000 n
+0000067403 00000 n
+0000067562 00000 n
+0000067783 00000 n
+0000067955 00000 n
+0000068114 00000 n
+0000068273 00000 n
+0000068432 00000 n
+0000068597 00000 n
+0000068776 00000 n
+trailer
+<< /Size 50 /Root 1 0 R /Info 49 0 R >>
+startxref
+68905
+%%EOF

@@ -1,0 +1,83 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [7 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Length 3321 >>
+stream
+BT /F2 18.0 Tf 50.0 786.0 Td (ITSS Workshop - Agentic AI for Software) Tj ET
+BT /F2 18.0 Tf 50.0 765.0 Td (Engineering) Tj ET
+BT /F1 9.8 Tf 50.0 741.0 Td () Tj ET
+BT /F2 14.0 Tf 50.0 717.2 Td (Materials package, 28 May 2026) Tj ET
+BT /F1 9.8 Tf 50.0 697.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 681.4 Td (Welcome. Below is the complete set of materials from today's workshop. Read in order if this) Tj ET
+BT /F1 9.8 Tf 50.0 668.6 Td (is your first pass; skip to the cheatsheet you need otherwise.) Tj ET
+BT /F1 9.8 Tf 50.0 655.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 640.0 Td (00_Workshop_Handout.pdf - the master reference. Read this first.) Tj ET
+BT /F1 9.8 Tf 50.0 627.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 611.4 Td (01_CLAUDE_AGENTS_md_Cheatsheet.pdf - how to write CLAUDE.md and AGENTS.md for your team's) Tj ET
+BT /F1 9.8 Tf 50.0 598.6 Td (repos. Templates plus the sandbox JSON baseline you can paste into .claude/settings.json.) Tj ET
+BT /F1 9.8 Tf 50.0 585.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 570.0 Td (02_Kill_Signal_Decision_Card.pdf - the 6-signal brownfield diagnostic: when not to use AI on) Tj ET
+BT /F1 9.8 Tf 50.0 557.2 Td (a legacy codebase. Use before assigning any AI-heavy task on a repo you did not write.) Tj ET
+BT /F1 9.8 Tf 50.0 544.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 528.6 Td (03_MCP_Plugin_Supply_Chain_Checklist.pdf - pre-install vetting for any Claude Code plugin or) Tj ET
+BT /F1 9.8 Tf 50.0 515.8 Td (MCP server. Apply before adding anything to dev machines.) Tj ET
+BT /F1 9.8 Tf 50.0 503.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 487.2 Td (04_Repo_Architecture_Mapping_Prompt.pdf - the take-home prompt from Demo 1. Paste into Claude) Tj ET
+BT /F1 9.8 Tf 50.0 474.4 Td (Code on any repo to generate an interactive architecture HTML.) Tj ET
+BT /F1 9.8 Tf 50.0 461.6 Td () Tj ET
+BT /F1 9.8 Tf 50.0 445.8 Td (05_Documentation_Mindmap_Prompt.pdf - the take-home prompt for mapping a folder of Markdown) Tj ET
+BT /F1 9.8 Tf 50.0 433.0 Td (docs into an index, mind map, and cross-linked notes.) Tj ET
+BT /F1 9.8 Tf 50.0 420.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 404.4 Td (demo-codex-architecture.html and demo-opencode-architecture.html - the architecture maps from) Tj ET
+BT /F1 9.8 Tf 50.0 391.6 Td (Demo 1, generated on OpenAI Codex CLI and anomalyco/opencode. Links inside the HTML point to) Tj ET
+BT /F1 9.8 Tf 50.0 378.8 Td (the presenter machine and are illustrative; the same prompt produces working file:// links on) Tj ET
+BT /F1 9.8 Tf 50.0 366.0 Td (the machine where it runs.) Tj ET
+BT /F1 9.8 Tf 50.0 353.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 337.4 Td (ailabs-arch-flows.zip - optional AI Labs bonus plugin referenced in the handout. Claude Code) Tj ET
+BT /F1 9.8 Tf 50.0 324.6 Td (v2.1.128+ can load it directly with claude --plugin-dir /path/to/ailabs-arch-flows.zip;) Tj ET
+BT /F1 9.8 Tf 50.0 311.8 Td (otherwise unzip it and run claude --plugin-dir ./ailabs-arch-flows.) Tj ET
+BT /F1 9.8 Tf 50.0 299.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 283.2 Td (Questions / follow-up: mc@ai-labs.ro) Tj ET
+BT /F1 9.8 Tf 50.0 270.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 254.6 Td (Champion path: if you are considering championing your team's pilot, email Mihai by Friday 29) Tj ET
+BT /F1 9.8 Tf 50.0 241.8 Td (May with 5-6 lines: project, kill-signal verdict, and why it is a good candidate.) Tj ET
+BT /F1 8 Tf 50 24 Td (drive-share-readme.md) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 6 0 R /Annots [] >>
+endobj
+8 0 obj
+<< /Title (drive-share-readme.md) /Producer (basic markdown renderer) /CreationDate (D:20260526204550Z) >>
+endobj
+xref
+0 9
+0000000000 65535 f
+0000000015 00000 n
+0000000064 00000 n
+0000000121 00000 n
+0000000218 00000 n
+0000000320 00000 n
+0000000415 00000 n
+0000003788 00000 n
+0000003945 00000 n
+trailer
+<< /Size 9 /Root 1 0 R /Info 8 0 R >>
+startxref
+4067
+%%EOF

@@ -7,26 +7,17 @@ set -euo pipefail
 ROOT=$(cd "$(dirname "$0")/.." && pwd)
 cd "$ROOT"
 
-if [ ! -f /tmp/itss-build-vars.sh ]; then
-  echo "ERROR: /tmp/itss-build-vars.sh not found."
-  exit 1
-fi
-source /tmp/itss-build-vars.sh
+: "${IMAGE_TAG:=ghcr.io/ro-ai-labs/itss-workshop:2026.05.28}"
 
 bash scripts/prepare-build-context.sh
-# Understand-Anything graphs come from the cloned forks (committed in repo).
 
 echo ""
-echo "==> Building $IMAGE_TAG for linux/amd64"
-echo "    Expected wallclock: 15-25 min on a typical laptop."
+echo "==> Building $IMAGE_TAG for linux/amd64 (toolchain-only image)"
+echo "    Expected wallclock: 8-15 min on a typical laptop."
 echo ""
 
 docker buildx build \
   --platform linux/amd64 \
-  --build-arg CODEX_SHA="$CODEX_SHA" \
-  --build-arg OPENCODE_SHA="$OPENCODE_SHA" \
-  --build-arg TWENTY_SHA="$TWENTY_SHA" \
-  --build-arg TWENTY_BRANCH="$TWENTY_BRANCH" \
   -t "$IMAGE_TAG" \
   -t "ghcr.io/ro-ai-labs/itss-workshop:latest" \
   --push \

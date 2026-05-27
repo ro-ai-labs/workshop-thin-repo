@@ -1,9 +1,20 @@
 # ITSS Workshop 2026 — Devcontainer
 
-This devcontainer packages everything you need for the workshop demos:
-sources for Codex CLI, opencode, and Twenty CRM; all their dependencies; Claude
-Code with 8 workshop plugins pre-installed; Playwright Chromium; and the
-participant handout PDFs as offline copies.
+This devcontainer ships a toolchain image (Node 24, Bun 1.3, Rust 1.93, Claude
+Code with 8 workshop plugins pre-installed, Playwright Chromium). On first open,
+`.devcontainer/post-create.sh` clones the three demo repos (Codex, opencode,
+Twenty CRM) into `${workspaceFolder}/workshop/` on the **host filesystem** and
+runs `bun install` / `yarn install`. That way your edits + git state survive
+container rebuilds.
+
+Named volumes persist the things that don't sit on the workspace bind-mount —
+cargo cache, bun's global cache, and Docker-in-Docker's storage (so Twenty's
+Postgres data + compose state survive too). On a second `Reopen in Container`,
+post-create skips everything that's already there; setup completes in seconds
+instead of minutes.
+
+**First-time setup wallclock:** ~10–15 min (network-bound: cloning + bun + yarn).
+**Subsequent reopens:** seconds.
 
 > ## ⚠️ Host requirement: x86_64 (Intel/AMD) only
 >
@@ -70,8 +81,12 @@ code .
 When VS Code opens, it will detect `.devcontainer/devcontainer.json` and show
 "Reopen in Container" in the bottom right. Click it.
 
-First open: ~30 sec to start (image already pulled in step 4). The welcome
-banner prints in the terminal when ready.
+**First open:** post-create runs (clones + `bun install` + `yarn install` +
+Twenty compose up + DB seed), ~10–15 min wallclock end-to-end. VS Code shows
+progress. The welcome banner prints in the terminal when it's done.
+
+**Every later open:** seconds — the workspace mount + named volumes keep
+everything in place.
 
 ## Inside the container
 

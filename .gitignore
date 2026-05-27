@@ -5,9 +5,12 @@
 *.tar
 *.tar.gz
 
-# Build context (staged from deliverables at build time; not source)
+# Build context (claude plugins staged from host at build time; not source)
 /build-context/
-!/build-context/twenty.env
+
+# Demo repos — cloned into here by .devcontainer/post-create.sh at first reopen.
+# Lives on the host filesystem via the workspace bind-mount, so edits persist.
+/workshop/
 
 # Editor / OS
 .DS_Store

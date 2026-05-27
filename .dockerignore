@@ -1,8 +1,15 @@
 .git
 .github
+docs/
 docs/superpowers
+drive-share/
+workshop/
 *.tar
 *.tar.gz
 node_modules
 .idea
 .vscode/settings.json
+RUNBOOK.md
+VERSIONS.md
+README.md
+*.code-workspace

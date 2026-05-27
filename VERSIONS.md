@@ -4,7 +4,9 @@
 
 source-of-truth: docs/superpowers/specs/2026-05-27-itss-workshop-devcontainer-design.md
 
-# Demo repos (cloned from ro-ai-labs forks)
+# Demo repos (cloned at container creation by .devcontainer/post-create.sh
+# from .devcontainer/versions.env — see that file for the machine-readable form).
+# Not baked into the image; live on the workspace bind-mount for persistence.
 codex:
   repo: https://github.com/ro-ai-labs/codex.git
   sha:  5349d134ee0e4e82d580d45080bbf42cd0caeb5b

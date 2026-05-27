@@ -1,0 +1,315 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [11 0 R 12 0 R 13 0 R 14 0 R 15 0 R] /Count 5 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Length 4169 >>
+stream
+BT /F2 18.0 Tf 50.0 786.0 Td (Repo Architecture Mapping - Reusable Prompt) Tj ET
+BT /F1 9.8 Tf 50.0 762.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 746.2 Td (Purpose: Drop this into a Claude Code session pointed at any repo. It dispatches a team of) Tj ET
+BT /F1 9.8 Tf 50.0 733.4 Td (subagents to explore the codebase in parallel, then generates an interactive HTML) Tj ET
+BT /F1 9.8 Tf 50.0 720.6 Td (architecture map with clickable links to the actual source files.) Tj ET
+BT /F1 9.8 Tf 50.0 707.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 692.0 Td (Where it came from: This is the generic, repo-agnostic version of the prompt used in Demo 1) Tj ET
+BT /F1 9.8 Tf 50.0 679.2 Td (of the ITSS workshop \(where Claude Code mapped Codex CLI and anomalyco/opencode side-by-) Tj ET
+BT /F1 9.8 Tf 50.0 666.4 Td (side\). Strip the Codex/opencode specifics, keep the structure that worked, and you get a tool) Tj ET
+BT /F1 9.8 Tf 50.0 653.6 Td (that lands on any codebase your team owns.) Tj ET
+BT /F1 9.8 Tf 50.0 640.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 625.0 Td (Why parallel subagents: Single-agent exploration takes 5-10 minutes on a substantial repo and) Tj ET
+BT /F1 9.8 Tf 50.0 612.2 Td (produces a flat narrative. Parallel subagents each get a focused scope \(entry points,) Tj ET
+BT /F1 9.8 Tf 50.0 599.4 Td (business logic, data layer, integrations, infrastructure\) and return concentrated reports.) Tj ET
+BT /F1 9.8 Tf 50.0 586.6 Td (The orchestrator synthesizes them into a layered map. Better artifacts, similar wall-clock) Tj ET
+BT /F1 9.8 Tf 50.0 573.8 Td (time.) Tj ET
+BT /F1 9.8 Tf 50.0 561.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 545.2 Td (Works with /goal: the prompt is structured around a single goal statement; set it as the) Tj ET
+BT /F1 9.8 Tf 50.0 532.4 Td (session goal, then paste the body, and Claude Code's goal-tracking will follow progress as) Tj ET
+BT /F1 9.8 Tf 50.0 519.6 Td (the orchestrator dispatches and the subagents return.) Tj ET
+BT /F1 9.8 Tf 50.0 506.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 491.0 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 478.2 Td () Tj ET
+BT /F2 14.0 Tf 50.0 454.4 Td (How to use) Tj ET
+BT /F1 9.8 Tf 50.0 434.4 Td () Tj ET
+BT /F2 12.0 Tf 50.0 418.6 Td (Step 1 - Set the goal \(optional but recommended\)) Tj ET
+BT /F1 9.8 Tf 50.0 400.6 Td () Tj ET
+BT /F1 9.8 Tf 50.0 384.8 Td (Inside a Claude Code session in the target repo:) Tj ET
+BT /F1 9.8 Tf 50.0 372.0 Td () Tj ET
+BT /F3 8.6 Tf 50.0 356.2 Td (/goal Map this repo's architecture into an interactive HTML using parallel subagents, with) Tj ET
+BT /F3 8.6 Tf 50.0 344.6 Td (file:line citations for every claim and clickable links to the actual source files.) Tj ET
+BT /F1 9.8 Tf 50.0 333.0 Td () Tj ET
+BT /F2 12.0 Tf 50.0 317.2 Td (Step 2 - Paste the prompt) Tj ET
+BT /F1 9.8 Tf 50.0 299.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 283.4 Td (Copy the entire block below into the Claude Code session. The agent will read GOAL + APPROACH) Tj ET
+BT /F1 9.8 Tf 50.0 270.6 Td (and start dispatching.) Tj ET
+BT /F1 9.8 Tf 50.0 257.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 242.0 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 229.2 Td () Tj ET
+BT /F2 14.0 Tf 50.0 205.4 Td (The prompt) Tj ET
+BT /F1 9.8 Tf 50.0 185.4 Td () Tj ET
+BT /F3 8.6 Tf 50.0 169.6 Td (Produce an interactive HTML architecture map of this repository.) Tj ET
+BT /F3 8.6 Tf 50.0 158.0 Td (Parallel subagent exploration, clickable file:// links to every cited source location, and a) Tj ET
+BT /F3 8.6 Tf 50.0 146.4 Td (validation pass at the end.) Tj ET
+BT /F3 8.6 Tf 50.0 134.8 Td (APPROACH \(orchestrator -> subagents -> orchestrator\):) Tj ET
+BT /F3 8.6 Tf 50.0 123.2 Td (1. ORCHESTRATOR FIRST PASS.) Tj ET
+BT /F3 8.6 Tf 50.0 111.6 Td (   Read the top-level directory listing, the README, and the primary) Tj ET
+BT /F3 8.6 Tf 50.0 100.0 Td (   package manifest you find \(package.json, Cargo.toml, pyproject.toml,) Tj ET
+BT /F3 8.6 Tf 50.0 88.4 Td (   go.mod, pom.xml, build.gradle, etc.\). Identify primary language\(s\),) Tj ET
+BT /F3 8.6 Tf 50.0 76.8 Td (   framework\(s\), license, and the high-level shape of the codebase.) Tj ET
+BT /F3 8.6 Tf 50.0 65.2 Td (2. DECOMPOSE INTO 3-5 EXPLORATION SCOPES.) Tj ET
+BT /F1 8 Tf 50 24 Td (Repo_Architecture_Mapping_Prompt.md) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Length 5603 >>
+stream
+BT /F3 8.6 Tf 50.0 794.0 Td (   Pick what fits THIS repo. Default scopes \(adjust based on what you) Tj ET
+BT /F3 8.6 Tf 50.0 782.4 Td (   actually see\):) Tj ET
+BT /F3 8.6 Tf 50.0 770.8 Td (     - Entry points + bootstrap \(CLI mains, server starts, top-level scripts\)) Tj ET
+BT /F3 8.6 Tf 50.0 759.2 Td (     - Core business logic / domain modules) Tj ET
+BT /F3 8.6 Tf 50.0 747.6 Td (     - Data layer / persistence / state management) Tj ET
+BT /F3 8.6 Tf 50.0 736.0 Td (     - Integration surfaces \(API clients, external services, MCP / tool) Tj ET
+BT /F3 8.6 Tf 50.0 724.4 Td (       integrations, message queues\)) Tj ET
+BT /F3 8.6 Tf 50.0 712.8 Td (     - Infrastructure \(build, test, deployment, CI, IaC\)) Tj ET
+BT /F3 8.6 Tf 50.0 701.2 Td (   If the repo is small \(<5k LOC\) or single-purpose \(a CLI tool, a) Tj ET
+BT /F3 8.6 Tf 50.0 689.6 Td (   library\), use 2-3 scopes instead of 5. If it's a monorepo, use one) Tj ET
+BT /F3 8.6 Tf 50.0 678.0 Td (   scope per package or one per service.) Tj ET
+BT /F3 8.6 Tf 50.0 666.4 Td (3. DISPATCH ONE SUBAGENT PER SCOPE via the Task tool.) Tj ET
+BT /F3 8.6 Tf 50.0 654.8 Td (   Each subagent gets:) Tj ET
+BT /F3 8.6 Tf 50.0 643.2 Td (     - Scope name + one-sentence purpose) Tj ET
+BT /F3 8.6 Tf 50.0 631.6 Td (     - 1-3 starting directories or files) Tj ET
+BT /F3 8.6 Tf 50.0 620.0 Td (     - Output contract: structured markdown with a table per module -) Tj ET
+BT /F3 8.6 Tf 50.0 608.4 Td (       "Module | Purpose \(one sentence\) | Key files \(file:line\) |) Tj ET
+BT /F3 8.6 Tf 50.0 596.8 Td (       Notable patterns | Open questions") Tj ET
+BT /F3 8.6 Tf 50.0 585.2 Td (     - Quality bar: every claim has a file:line citation. No claims) Tj ET
+BT /F3 8.6 Tf 50.0 573.6 Td (       without citations. Don't invent paths. If something is unclear,) Tj ET
+BT /F3 8.6 Tf 50.0 562.0 Td (       flag it as an Open Question rather than guessing.) Tj ET
+BT /F3 8.6 Tf 50.0 550.4 Td (4. SYNTHESIZE WHEN ALL RETURN.) Tj ET
+BT /F3 8.6 Tf 50.0 538.8 Td (   - Resolve overlaps: if two subagents touched the same file, prefer) Tj ET
+BT /F3 8.6 Tf 50.0 527.2 Td (     the more specific one.) Tj ET
+BT /F3 8.6 Tf 50.0 515.6 Td (   - Note any disagreements as Open Questions.) Tj ET
+BT /F3 8.6 Tf 50.0 504.0 Td (   - Build a single coherent architecture model.) Tj ET
+BT /F3 8.6 Tf 50.0 492.4 Td (5. GENERATE INTERACTIVE HTML AT ./docs/architecture-map.html.) Tj ET
+BT /F3 8.6 Tf 50.0 480.8 Td (   Required structure:) Tj ET
+BT /F3 8.6 Tf 50.0 469.2 Td (   - Header block: repo name \(from git remote or README\), primary) Tj ET
+BT /F3 8.6 Tf 50.0 457.6 Td (     language\(s\), license \(read from LICENSE if present\), generation) Tj ET
+BT /F3 8.6 Tf 50.0 446.0 Td (     timestamp.) Tj ET
+BT /F3 8.6 Tf 50.0 434.4 Td (   - One section per scope, color-coded with distinct backgrounds.) Tj ET
+BT /F3 8.6 Tf 50.0 422.8 Td (   - Per module: name, one-line purpose, key files as clickable) Tj ET
+BT /F3 8.6 Tf 50.0 411.2 Td (     file:// links using ABSOLUTE paths to this repo \(use the) Tj ET
+BT /F3 8.6 Tf 50.0 399.6 Td (     current working directory's absolute path as the prefix\).) Tj ET
+BT /F3 8.6 Tf 50.0 388.0 Td (   - Cross-cutting patterns section \(if multiple subagents observed) Tj ET
+BT /F3 8.6 Tf 50.0 376.4 Td (     the same pattern across scopes - e.g., dependency injection style,) Tj ET
+BT /F3 8.6 Tf 50.0 364.8 Td (     async pattern, error-handling convention\).) Tj ET
+BT /F3 8.6 Tf 50.0 353.2 Td (   - Footer: list of top-level directories/files NOT covered \(so the) Tj ET
+BT /F3 8.6 Tf 50.0 341.6 Td (     reader knows what's uncharted\), plus all Open Questions surfaced) Tj ET
+BT /F3 8.6 Tf 50.0 330.0 Td (     by subagents.) Tj ET
+BT /F3 8.6 Tf 50.0 318.4 Td (   - Simple HTML + CSS, no external dependencies, no JS frameworks.) Tj ET
+BT /F3 8.6 Tf 50.0 306.8 Td (     Must open standalone in a browser.) Tj ET
+BT /F3 8.6 Tf 50.0 295.2 Td (6. VALIDATE EVERY file:// LINK.) Tj ET
+BT /F3 8.6 Tf 50.0 283.6 Td (   Walk the generated HTML, extract every href="file:///...",) Tj ET
+BT /F3 8.6 Tf 50.0 272.0 Td (   confirm the target exists on disk. Fix or remove any broken link.) Tj ET
+BT /F3 8.6 Tf 50.0 260.4 Td (   Report the total link count and resolve rate \(e.g., "73/73 links) Tj ET
+BT /F3 8.6 Tf 50.0 248.8 Td (   resolve, 100%"\).) Tj ET
+BT /F3 8.6 Tf 50.0 237.2 Td (CONSTRAINTS:) Tj ET
+BT /F3 8.6 Tf 50.0 225.6 Td (- Read-only on the repo. Don't modify any source files.) Tj ET
+BT /F3 8.6 Tf 50.0 214.0 Td (- If the repo is >100k LOC, scope each subagent to a specific) Tj ET
+BT /F3 8.6 Tf 50.0 202.4 Td (  subdirectory rather than a whole concern. Otherwise the subagents) Tj ET
+BT /F3 8.6 Tf 50.0 190.8 Td (  return too much.) Tj ET
+BT /F3 8.6 Tf 50.0 179.2 Td (- If the repo has no recognizable structure \(e.g., research code,) Tj ET
+BT /F3 8.6 Tf 50.0 167.6 Td (  abandoned experiments\), say so and stop. Don't invent architecture.) Tj ET
+BT /F3 8.6 Tf 50.0 156.0 Td (- Use standard file:// links: absolute paths, no trailing) Tj ET
+BT /F3 8.6 Tf 50.0 144.4 Td (  punctuation, no spaces \(URL-encode if needed\). Note in the) Tj ET
+BT /F3 8.6 Tf 50.0 132.8 Td (  generated HTML footer that Chrome \(and Edge\) block file:// -> file://) Tj ET
+BT /F3 8.6 Tf 50.0 121.2 Td (  nav by default; launch with --allow-file-access-from-files and an) Tj ET
+BT /F3 8.6 Tf 50.0 109.6 Td (  isolated --user-data-dir profile to enable clickthrough.) Tj ET
+BT /F1 9.8 Tf 50.0 98.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 82.2 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 69.4 Td () Tj ET
+BT /F1 8 Tf 50 24 Td (Repo_Architecture_Mapping_Prompt.md) Tj ET
+endstream
+endobj
+8 0 obj
+<< /Length 4699 >>
+stream
+BT /F2 14.0 Tf 50.0 794.0 Td (What you get back) Tj ET
+BT /F1 9.8 Tf 50.0 774.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 758.2 Td (A single HTML file you can open in a browser. Chrome \(and Edge\) block file:// -> file://) Tj ET
+BT /F1 9.8 Tf 50.0 745.4 Td (navigation by default - launch with --allow-file-access-from-files --user-data-) Tj ET
+BT /F1 9.8 Tf 50.0 732.6 Td (dir=/tmp/chrome-arch to enable clickthrough into source files \(the /tmp/ profile isolates the) Tj ET
+BT /F1 9.8 Tf 50.0 719.8 Td (security-relaxed session from your normal browsing\). Sections per scope, modules with one-) Tj ET
+BT /F1 9.8 Tf 50.0 707.0 Td (line purposes, clickable links to actual source files, and an honest "what's uncharted") Tj ET
+BT /F1 9.8 Tf 50.0 694.2 Td (footer.) Tj ET
+BT /F1 9.8 Tf 50.0 681.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 665.6 Td (Typical numbers \(from our workshop simulation on real repos\):) Tj ET
+BT /F1 9.8 Tf 50.0 652.8 Td () Tj ET
+BT /F1 9.6 Tf 62.0 637.0 Td (- Codex CLI \(mostly Rust, dozens of crates\): 554-line HTML, 73 file:// links, 100% resolve rate) Tj ET
+BT /F1 9.6 Tf 62.0 624.4 Td (- anomalyco/opencode \(mostly TypeScript monorepo\): 775-line HTML, 100 file:// links, 99%) Tj ET
+BT /F1 9.6 Tf 50.0 611.8 Td (  resolve rate \(one path hallucinated\)) Tj ET
+BT /F1 9.8 Tf 50.0 599.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 583.4 Td (The bottleneck is wall-clock time: ~8-10 minutes for an average-sized repo, more for) Tj ET
+BT /F1 9.8 Tf 50.0 570.6 Td (monorepos.) Tj ET
+BT /F1 9.8 Tf 50.0 557.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 542.0 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 529.2 Td () Tj ET
+BT /F2 14.0 Tf 50.0 505.4 Td (How to customize) Tj ET
+BT /F1 9.8 Tf 50.0 485.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 469.6 Td (The prompt has a few knobs worth tuning per use case. Search/replace these:) Tj ET
+BT /F1 9.8 Tf 50.0 456.8 Td () Tj ET
+BT /F3 8.3 Tf 50.0 441.0 Td (Knob | Default | When to change) Tj ET
+BT /F3 8.3 Tf 50.0 429.7 Td (--- | --- | ---) Tj ET
+BT /F3 8.3 Tf 50.0 418.4 Td (Output filename | ./docs/architecture-map.html | If you want multiple maps in the same repo \(per-) Tj ET
+BT /F3 8.3 Tf 50.0 407.1 Td (module, per-team\) - change to ./docs/architecture-<scope>.html, or drop into the repo root if the team) Tj ET
+BT /F3 8.3 Tf 50.0 395.8 Td (doesn't keep a /docs directory) Tj ET
+BT /F3 8.3 Tf 50.0 384.5 Td (Scope count | 3-5 subagents | Small CLI / library: 2-3. Big monorepo: one per package.) Tj ET
+BT /F3 8.3 Tf 50.0 373.2 Td (Default scopes | Entry / business logic / data / integrations / infrastructure | Replace with domain-) Tj ET
+BT /F3 8.3 Tf 50.0 361.9 Td (specific scopes if you're in a specific stack \(e.g., frontend / backend / shared types / build for a) Tj ET
+BT /F3 8.3 Tf 50.0 350.6 Td (typical SPA repo\)) Tj ET
+BT /F3 8.3 Tf 50.0 339.3 Td (LOC threshold for sub-directory mode | 100k | Lower if your runtime is constrained. Raise if you're) Tj ET
+BT /F3 8.3 Tf 50.0 328.0 Td (running on a beefy machine and want bigger scope per subagent.) Tj ET
+BT /F3 8.3 Tf 50.0 316.7 Td (Browser launch wrapper | google-chrome --allow-file-access-from-files --user-data-dir=/tmp/chrome-) Tj ET
+BT /F3 8.3 Tf 50.0 305.4 Td (workshop | Put a chrome-workshop launcher on PATH \(see "WSL2 / Linux setup" section below\) so your) Tj ET
+BT /F3 8.3 Tf 50.0 294.1 Td (team launches the map with one word. The isolated /tmp/chrome-workshop profile keeps the security-) Tj ET
+BT /F3 8.3 Tf 50.0 282.8 Td (relaxed Chrome separate from normal browsing.) Tj ET
+BT /F1 9.8 Tf 50.0 271.5 Td () Tj ET
+BT /F1 9.8 Tf 50.0 255.7 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 242.9 Td () Tj ET
+BT /F2 14.0 Tf 50.0 219.1 Td (WSL2 / Linux setup -- the chrome-workshop wrapper) Tj ET
+BT /F1 9.8 Tf 50.0 199.1 Td () Tj ET
+BT /F1 9.8 Tf 50.0 183.3 Td (Chrome and Edge block file:// -> file:// navigation by default, which means the architecture) Tj ET
+BT /F1 9.8 Tf 50.0 170.5 Td (map's clickable links won't work without launch flags. The workshop pattern is to wrap the) Tj ET
+BT /F1 9.8 Tf 50.0 157.7 Td (launch in a one-word command. Create ~/.local/bin/chrome-workshop once and make it) Tj ET
+BT /F1 9.8 Tf 50.0 144.9 Td (executable:) Tj ET
+BT /F1 9.8 Tf 50.0 132.1 Td () Tj ET
+BT /F3 8.6 Tf 50.0 116.3 Td (#!/usr/bin/env bash) Tj ET
+BT /F3 8.6 Tf 50.0 104.7 Td (exec google-chrome --allow-file-access-from-files --user-data-dir=/tmp/chrome-workshop "$@") Tj ET
+BT /F1 9.8 Tf 50.0 93.1 Td () Tj ET
+BT /F1 9.8 Tf 50.0 77.3 Td (After that, chrome-workshop ./docs/architecture-map.html opens the map with file://) Tj ET
+BT /F1 9.8 Tf 50.0 64.5 Td (clickthrough working. The /tmp/chrome-workshop profile dir isolates this security-relaxed) Tj ET
+BT /F1 8 Tf 50 24 Td (Repo_Architecture_Mapping_Prompt.md) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Length 5044 >>
+stream
+BT /F1 9.8 Tf 50.0 794.0 Td (Chrome from your normal browsing -- nothing leaks into your normal profile and the isolated) Tj ET
+BT /F1 9.8 Tf 50.0 781.2 Td (profile can be deleted any time with rm -rf /tmp/chrome-workshop.) Tj ET
+BT /F1 9.8 Tf 50.0 768.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 752.6 Td (Why a launcher and not an alias: a shell script on PATH works in both interactive and) Tj ET
+BT /F1 9.8 Tf 50.0 739.8 Td (noninteractive checks, passes arguments cleanly \(chrome-workshop file1.html file2.html opens) Tj ET
+BT /F1 9.8 Tf 50.0 727.0 Td (two\), and can be extended later \(e.g., add --incognito for one-shot opens\).) Tj ET
+BT /F1 9.8 Tf 50.0 714.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 698.4 Td (On macOS: swap google-chrome for open -a "Google Chrome" --args or use Chromium directly. On) Tj ET
+BT /F1 9.8 Tf 50.0 685.6 Td (Windows-native \(no WSL2\): use PowerShell Start-Process chrome -ArgumentList ... -- but most) Tj ET
+BT /F1 9.8 Tf 50.0 672.8 Td (of you are on WSL2, so the PATH launcher is the canonical recipe.) Tj ET
+BT /F1 9.8 Tf 50.0 660.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 644.2 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 631.4 Td () Tj ET
+BT /F2 14.0 Tf 50.0 607.6 Td (Failure modes + recovery) Tj ET
+BT /F1 9.8 Tf 50.0 587.6 Td () Tj ET
+BT /F3 8.3 Tf 50.0 571.8 Td (Failure | Symptom | Recovery) Tj ET
+BT /F3 8.3 Tf 50.0 560.5 Td (--- | --- | ---) Tj ET
+BT /F3 8.3 Tf 50.0 549.2 Td (Live generation too slow | Past 15 min, still no HTML | Cancel \(Ctrl-C\). Re-run with smaller scope) Tj ET
+BT /F3 8.3 Tf 50.0 537.9 Td (count \(2 subagents instead of 5\). Or split the repo and run twice.) Tj ET
+BT /F3 8.3 Tf 50.0 526.6 Td (Hallucinated file paths | Validation step reports broken links | The prompt's validation step catches) Tj ET
+BT /F3 8.3 Tf 50.0 515.3 Td (most of these. If many slip through, open the HTML and delete the offending entries by hand - usually) Tj ET
+BT /F3 8.3 Tf 50.0 504.0 Td (a small fraction.) Tj ET
+BT /F3 8.3 Tf 50.0 492.7 Td (Repo too large for one pass | Subagent context windows fill up, return incomplete | Use the) Tj ET
+BT /F3 8.3 Tf 50.0 481.4 Td ("subdirectory mode": each subagent gets a specific subtree instead of a cross-cutting concern.) Tj ET
+BT /F3 8.3 Tf 50.0 470.1 Td (Repo too small or unstructured | Prompt returns "no recognizable structure" | That's correct behavior.) Tj ET
+BT /F3 8.3 Tf 50.0 458.8 Td (The prompt is honest when there's nothing to map.) Tj ET
+BT /F3 8.3 Tf 50.0 447.5 Td (file:// links don't navigate in browser | Chrome/Edge blocks file:// -> file:// by default | Launch) Tj ET
+BT /F3 8.3 Tf 50.0 436.2 Td (Chrome with --allow-file-access-from-files --user-data-dir=/tmp/chrome-arch \(the isolated profile) Tj ET
+BT /F3 8.3 Tf 50.0 424.9 Td (keeps the security-relaxation contained\).) Tj ET
+BT /F1 9.8 Tf 50.0 413.6 Td () Tj ET
+BT /F1 9.8 Tf 50.0 397.8 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 385.0 Td () Tj ET
+BT /F2 14.0 Tf 50.0 361.2 Td (How this maps to the workshop) Tj ET
+BT /F1 9.8 Tf 50.0 341.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 325.4 Td (This prompt is the take-home version of what you saw in Demo 1, with one important) Tj ET
+BT /F1 9.8 Tf 50.0 312.6 Td (orchestration difference. In the workshop, Mihai ran two parallel Claude Code instances -- a) Tj ET
+BT /F1 9.8 Tf 50.0 299.8 Td (Codex-specific variant in Pane A and an opencode-specific variant in Pane B -- side-by-side,) Tj ET
+BT /F1 9.8 Tf 50.0 287.0 Td (two isolated CLI sessions on different repos. This take-home prompt uses parallel subagents) Tj ET
+BT /F1 9.8 Tf 50.0 274.2 Td (inside a single Claude Code instance \(dispatched via the Task tool, step 3 of the prompt\) on) Tj ET
+BT /F1 9.8 Tf 50.0 261.4 Td (one repo. Both are valid parallel-exploration patterns. The two-instance pattern from the) Tj ET
+BT /F1 9.8 Tf 50.0 248.6 Td (demo lets you compare two codebases head-to-head; this take-home subagent pattern lets you) Tj ET
+BT /F1 9.8 Tf 50.0 235.8 Td (decompose one codebase across 3-5 exploration scopes concurrently. Pick the pattern that fits) Tj ET
+BT /F1 9.8 Tf 50.0 223.0 Td (your task: cross-repo comparison -> two instances; single-repo decomposition -> subagents.) Tj ET
+BT /F1 9.8 Tf 50.0 210.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 194.4 Td (Apply it on Monday to:) Tj ET
+BT /F1 9.8 Tf 50.0 181.6 Td () Tj ET
+BT /F1 9.6 Tf 62.0 165.8 Td (- A legacy repo nobody on the team fully remembers) Tj ET
+BT /F1 9.6 Tf 62.0 153.2 Td (- A microservice you're about to inherit) Tj ET
+BT /F1 9.6 Tf 62.0 140.6 Td (- An open-source library you're vendor-evaluating) Tj ET
+BT /F1 9.6 Tf 62.0 128.0 Td (- A monorepo where you want a high-level map for the docs site) Tj ET
+BT /F1 9.8 Tf 50.0 115.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 99.6 Td (The output HTML is the artifact your team takes back. The methodology - parallel subagents,) Tj ET
+BT /F1 9.8 Tf 50.0 86.8 Td (file:line discipline, validation pass - is the lesson that transfers across any future) Tj ET
+BT /F1 9.8 Tf 50.0 74.0 Td (tooling.) Tj ET
+BT /F1 9.8 Tf 50.0 61.2 Td () Tj ET
+BT /F1 8 Tf 50 24 Td (Repo_Architecture_Mapping_Prompt.md) Tj ET
+endstream
+endobj
+10 0 obj
+<< /Length 271 >>
+stream
+BT /F1 9.8 Tf 50.0 794.0 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 781.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 765.4 Td (ITSS Workshop - 28 May 2026. Take-home prompt. Free to copy, modify, redistribute internally.) Tj ET
+BT /F1 8 Tf 50 24 Td (Repo_Architecture_Mapping_Prompt.md) Tj ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 6 0 R /Annots [] >>
+endobj
+12 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 7 0 R /Annots [] >>
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 8 0 R /Annots [] >>
+endobj
+14 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 9 0 R /Annots [] >>
+endobj
+15 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 10 0 R /Annots [] >>
+endobj
+16 0 obj
+<< /Title (Repo_Architecture_Mapping_Prompt.md) /Producer (basic markdown renderer) /CreationDate (D:20260526204550Z) >>
+endobj
+xref
+0 17
+0000000000 65535 f
+0000000015 00000 n
+0000000064 00000 n
+0000000150 00000 n
+0000000247 00000 n
+0000000349 00000 n
+0000000444 00000 n
+0000004665 00000 n
+0000010320 00000 n
+0000015071 00000 n
+0000020167 00000 n
+0000020490 00000 n
+0000020648 00000 n
+0000020806 00000 n
+0000020964 00000 n
+0000021122 00000 n
+0000021281 00000 n
+trailer
+<< /Size 17 /Root 1 0 R /Info 16 0 R >>
+startxref
+21418
+%%EOF

@@ -126,71 +126,24 @@ USER vscode
 RUN npx --yes playwright@latest install chromium \
  && ls $HOME/.cache/ms-playwright/chromium-*/chrome-linux*/chrome
 
-# ---- Layer 8: Drive-share content (participant handout PDFs + Demo 1 HTML fallbacks) ----
-USER root
-RUN mkdir -p /home/vscode/workshop \
- && chown -R vscode:vscode /home/vscode/workshop
-COPY --chown=vscode:vscode build-context/deliverables-content/drive-share /home/vscode/workshop/drive-share
-USER vscode
-
-# (Demo 3 / spring-boot generation layer dropped along with Demo 3, 2026-05-27.)
-
-# ---- Layer 9: Demo 1a — codex (Rust, read-only architecture exploration) ----
-# CARGO_HOME=/usr/local/cargo was created root-owned by Layer 4's rustup install.
-# Cargo writes to {git,registry}/ under CARGO_HOME, so vscode needs write access.
+# ---- Layer 8: Make CARGO_HOME writable by vscode ----
+# rustup installed as root in Layer 4; vscode needs write access so post-create's
+# `cargo fetch` (inside the cloned codex repo on the workspace mount) can populate
+# /usr/local/cargo/{registry,git}/ caches.
 USER root
 RUN chown -R vscode:vscode /usr/local/cargo
 USER vscode
 
-ARG CODEX_SHA
-ARG CODEX_REPO=https://github.com/ro-ai-labs/codex.git
-RUN test -n "${CODEX_SHA}" || (echo "ERROR: --build-arg CODEX_SHA=<sha> required"; exit 1) \
- && git clone --filter=blob:none ${CODEX_REPO} /home/vscode/workshop/codex \
- && cd /home/vscode/workshop/codex \
- && git checkout ${CODEX_SHA}
+# Note: demo repos (codex, opencode, twenty) are NOT baked into this image.
+# They are cloned into ${workspaceFolder}/workshop/ at container creation by
+# .devcontainer/post-create.sh, so participant edits + git state persist on the
+# host filesystem across container rebuilds.
 
-# cargo fetch from codex-rs/ — populates /usr/local/cargo/{registry,git}/ caches.
-# We do NOT run `cargo build` (Demo 1 is read-only).
-RUN cd /home/vscode/workshop/codex/codex-rs && cargo fetch
-
-# ---- Layer 10: Demo 1b — opencode (TypeScript via Bun) ----
-ARG OPENCODE_SHA
-ARG OPENCODE_REPO=https://github.com/ro-ai-labs/opencode.git
-RUN test -n "${OPENCODE_SHA}" || (echo "ERROR: --build-arg OPENCODE_SHA=<sha> required"; exit 1) \
- && git clone --filter=blob:none ${OPENCODE_REPO} /home/vscode/workshop/opencode \
- && cd /home/vscode/workshop/opencode \
- && git checkout ${OPENCODE_SHA}
-
-RUN cd /home/vscode/workshop/opencode \
- && bun install --frozen-lockfile
-
-# ---- Layer 11: Demo 2 — twenty (full Yarn 4 Berry monorepo install) ----
-ARG TWENTY_SHA
-ARG TWENTY_REPO=https://github.com/ro-ai-labs/twenty.git
-ARG TWENTY_BRANCH=demo
-
-RUN test -n "${TWENTY_SHA}" || (echo "ERROR: --build-arg TWENTY_SHA=<sha> required"; exit 1) \
- && git clone --filter=blob:none ${TWENTY_REPO} /home/vscode/workshop/twenty \
- && cd /home/vscode/workshop/twenty \
- && git fetch origin ${TWENTY_BRANCH}:${TWENTY_BRANCH} 2>/dev/null || true \
- && git checkout ${TWENTY_SHA}
-
-# Pre-baked .env pointing at compose service hostnames (db, redis)
-COPY --chown=vscode:vscode build-context/twenty.env /home/vscode/workshop/twenty/.env
-
-# Yarn 4 Berry install — populates .yarn/cache (in-tree) + node_modules
-RUN cd /home/vscode/workshop/twenty \
- && yarn install --immutable
-
-# Note: .understand-anything/ knowledge-graph dirs are committed to the
-# upstream forks (ro-ai-labs/{opencode,twenty}) and arrive via `git clone`.
-
-# ---- Layer 12: Finalize ----
+# ---- Layer 9: Finalize ----
 USER root
-RUN chown -R vscode:vscode /home/vscode \
- && rm -rf /tmp/* /var/tmp/* /var/lib/apt/lists/*
+RUN rm -rf /tmp/* /var/tmp/* /var/lib/apt/lists/*
 USER vscode
 
-WORKDIR /home/vscode/workshop
+WORKDIR /home/vscode
 
 CMD ["bash"]

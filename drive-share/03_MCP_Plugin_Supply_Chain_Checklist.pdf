@@ -1,0 +1,231 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [11 0 R 12 0 R 13 0 R] /Count 3 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Length 4329 >>
+stream
+BT /F2 18.0 Tf 50.0 786.0 Td (MCP & Plugin Supply Chain Review Checklist) Tj ET
+BT /F1 9.8 Tf 50.0 762.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 746.2 Td (MCP = Model Context Protocol - vendor-neutral integration layer that lets AI coding agents) Tj ET
+BT /F1 9.8 Tf 50.0 733.4 Td (\(Claude Code, Codex, opencode, etc.\) connect to external systems: Jira, Confluence, GitHub,) Tj ET
+BT /F1 9.8 Tf 50.0 720.6 Td (databases, internal APIs. Think of MCP servers as the JDBC drivers of AI agents - without) Tj ET
+BT /F1 9.8 Tf 50.0 707.8 Td (one, the agent is isolated from your stack.) Tj ET
+BT /F1 9.8 Tf 50.0 695.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 679.2 Td (One page. Apply before every new plugin or MCP server install - especially in regulated) Tj ET
+BT /F1 9.8 Tf 50.0 666.4 Td (environments.) Tj ET
+BT /F1 9.8 Tf 50.0 653.6 Td () Tj ET
+BT /F1 9.8 Tf 50.0 637.8 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 625.0 Td () Tj ET
+BT /F2 14.0 Tf 50.0 601.2 Td (Why this matters \(30-second framing\)) Tj ET
+BT /F1 9.8 Tf 50.0 581.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 565.4 Td (A Claude Code plugin or MCP server is executable code that runs with your developer's) Tj ET
+BT /F1 9.8 Tf 50.0 552.6 Td (permissions. It can read your repo, write files, call your APIs, post to Slack, query your) Tj ET
+BT /F1 9.8 Tf 50.0 539.8 Td (databases. Treating it like any other third-party dependency is the only safe default.) Tj ET
+BT /F1 9.8 Tf 50.0 527.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 511.2 Td (Banking-specific: the EU AI Act regulatory clock is in motion. As of May 21, 2026, the) Tj ET
+BT /F1 9.8 Tf 50.0 498.4 Td (Commission's May 7 Digital Omnibus agreement sets rules for certain high-risk standalone) Tj ET
+BT /F1 9.8 Tf 50.0 485.6 Td (areas from 2 December 2027 and product-integrated AI systems from 2 August 2028, while) Tj ET
+BT /F1 9.8 Tf 50.0 472.8 Td (transparency and other obligations still phase in earlier. Treat exact scope as a legal-check) Tj ET
+BT /F1 9.8 Tf 50.0 460.0 Td (item, not legal advice from this workshop - but governance readiness is needed regardless of) Tj ET
+BT /F1 9.8 Tf 50.0 447.2 Td (the precise enforcement calendar. Source: https://digital-) Tj ET
+BT /F1 9.8 Tf 50.0 434.4 Td (strategy.ec.europa.eu/en/policies/regulatory-framework-ai) Tj ET
+BT /F1 9.8 Tf 50.0 421.6 Td () Tj ET
+BT /F1 9.8 Tf 50.0 405.8 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 393.0 Td () Tj ET
+BT /F2 14.0 Tf 50.0 369.2 Td (Pre-install vetting - 5 questions) Tj ET
+BT /F1 9.8 Tf 50.0 349.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 333.4 Td (Before installing ANY plugin or MCP server, answer these in writing \(paste into the PR) Tj ET
+BT /F1 9.8 Tf 50.0 320.6 Td (description that adopts it\):) Tj ET
+BT /F1 9.8 Tf 50.0 307.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 292.0 Td (1. Source provenance) Tj ET
+BT /F1 9.6 Tf 62.0 279.2 Td (- Repo URL: ________) Tj ET
+BT /F1 9.6 Tf 62.0 266.6 Td (- First-party Anthropic? Or community? Maintainer name + GitHub history checked?) Tj ET
+BT /F1 9.6 Tf 62.0 254.0 Td (- Latest commit date \(sanity: not abandoned, not suspiciously hyperactive\)) Tj ET
+BT /F1 9.6 Tf 62.0 241.4 Td (- Star count + fork count \(cross-reference against creation date for plausibility\)) Tj ET
+BT /F1 9.6 Tf 62.0 228.8 Td (- Any security advisories or CVEs?) Tj ET
+BT /F1 9.8 Tf 50.0 216.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 200.4 Td (2. Permissions scope) Tj ET
+BT /F1 9.6 Tf 62.0 187.6 Td (- What tools does it request? \(Read, Write, Bash, Network, MCP-specific\)) Tj ET
+BT /F1 9.6 Tf 62.0 175.0 Td (- Does it ask for Bash or Network access? If yes, what for, specifically?) Tj ET
+BT /F1 9.6 Tf 62.0 162.4 Td (- Does it bundle any subagents? With what tool permissions?) Tj ET
+BT /F1 9.6 Tf 62.0 149.8 Td (- Does it install hooks? PreToolUse hooks can intercept ALL agent actions - high-risk surface.) Tj ET
+BT /F1 9.6 Tf 62.0 137.2 Td (- Does the MCP server need credentials? If yes - how are they stored? Env var -> can be) Tj ET
+BT /F1 9.6 Tf 50.0 124.6 Td (  exfiltrated. OS keychain or Vault -> acceptable. Plaintext in config file -> automatic) Tj ET
+BT /F1 9.6 Tf 50.0 112.0 Td (  reject.) Tj ET
+BT /F1 9.8 Tf 50.0 99.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 83.6 Td (3. Code review) Tj ET
+BT /F1 9.6 Tf 62.0 70.8 Td (- Skim the entry points \(commands/, agents/, hooks/\) - anything unusual?) Tj ET
+BT /F1 8 Tf 50 24 Td (MCP_Plugin_Supply_Chain_Checklist.md) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Type /Annot /Subtype /Link /Rect [50.0 445.2 345.6 459.0] /Border [0 0 0] /A << /S /URI /URI (https://digital-) >> >>
+endobj
+8 0 obj
+<< /Length 3996 >>
+stream
+BT /F1 9.6 Tf 62.0 794.0 Td (- Any dynamic code execution \(eval-style calls, subprocess invocation, shell escapes\)?) Tj ET
+BT /F1 9.6 Tf 62.0 781.4 Td (- Any network calls to non-obvious domains \(telemetry, "analytics", custom servers\)?) Tj ET
+BT /F1 9.6 Tf 62.0 768.8 Td (- Any data exfiltration risk \(reads secrets, sends prompts elsewhere\)?) Tj ET
+BT /F1 9.8 Tf 50.0 756.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 740.4 Td (4. Maintenance and update cadence) Tj ET
+BT /F1 9.6 Tf 62.0 727.6 Td (- Release cadence - too slow \(abandoned\)? Too fast \(unstable\)?) Tj ET
+BT /F1 9.6 Tf 62.0 715.0 Td (- Open issue count and response times) Tj ET
+BT /F1 9.6 Tf 62.0 702.4 Td (- Versioning discipline \(semver, changelog present?\)) Tj ET
+BT /F1 9.6 Tf 62.0 689.8 Td (- Compatibility matrix with current Claude Code version) Tj ET
+BT /F1 9.8 Tf 50.0 677.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 661.4 Td (5. Banking-specific governance) Tj ET
+BT /F1 9.6 Tf 62.0 648.6 Td (- ZDR-addendum-compatible \(no plugin telemetry back to Anthropic without ZDR\)?) Tj ET
+BT /F1 9.6 Tf 62.0 636.0 Td (- Auditable: does plugin output land in audit log if needed?) Tj ET
+BT /F1 9.6 Tf 62.0 623.4 Td (- RBAC-enforceable through managed marketplace?) Tj ET
+BT /F1 9.6 Tf 62.0 610.8 Td (- Can be allow-listed centrally \(Enterprise plan + managed plugin marketplace\)?) Tj ET
+BT /F1 9.8 Tf 50.0 598.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 582.4 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 569.6 Td () Tj ET
+BT /F2 14.0 Tf 50.0 545.8 Td (Permissions audit - what to look for in plugin.json) Tj ET
+BT /F1 9.8 Tf 50.0 525.8 Td () Tj ET
+BT /F3 8.6 Tf 50.0 510.0 Td ({) Tj ET
+BT /F3 8.6 Tf 50.0 498.4 Td (  "permissions": {) Tj ET
+BT /F3 8.6 Tf 50.0 486.8 Td (    "tools": ["Read", "Write", "Bash", "Edit", ...],) Tj ET
+BT /F3 8.6 Tf 50.0 475.2 Td (    "mcp_servers": [...],) Tj ET
+BT /F3 8.6 Tf 50.0 463.6 Td (    "hooks": ["PreToolUse", "PostToolUse", ...]) Tj ET
+BT /F3 8.6 Tf 50.0 452.0 Td (  }) Tj ET
+BT /F3 8.6 Tf 50.0 440.4 Td (}) Tj ET
+BT /F1 9.8 Tf 50.0 428.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 413.0 Td (Red flags:) Tj ET
+BT /F1 9.6 Tf 62.0 400.2 Td (- Bash permission without a clear scoped need) Tj ET
+BT /F1 9.6 Tf 62.0 387.6 Td (- Network / WebFetch without explicit purpose) Tj ET
+BT /F1 9.6 Tf 62.0 375.0 Td (- PreToolUse hook on broad event match \(* instead of specific tool name\)) Tj ET
+BT /F1 9.6 Tf 62.0 362.4 Td (- MCP server registration with no public schema) Tj ET
+BT /F1 9.6 Tf 62.0 349.8 Td (- Unsigned or no checksum on releases) Tj ET
+BT /F1 9.8 Tf 50.0 337.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 321.4 Td (Yellow flags:) Tj ET
+BT /F1 9.6 Tf 62.0 308.6 Td (- Requests Write on the whole repo \(should usually be path-scoped via CLAUDE.md\)) Tj ET
+BT /F1 9.6 Tf 62.0 296.0 Td (- Subagents with the same permissions as the lead \(no privilege separation\)) Tj ET
+BT /F1 9.8 Tf 50.0 283.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 267.6 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 254.8 Td () Tj ET
+BT /F2 14.0 Tf 50.0 231.0 Td (Update cadence policy) Tj ET
+BT /F1 9.8 Tf 50.0 211.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 195.2 Td (Once installed, who tracks when to update?) Tj ET
+BT /F1 9.8 Tf 50.0 182.4 Td () Tj ET
+BT /F3 8.3 Tf 50.0 166.6 Td (Plugin tier | Update review | Owner) Tj ET
+BT /F3 8.3 Tf 50.0 155.3 Td (--- | --- | ---) Tj ET
+BT /F3 8.3 Tf 50.0 144.0 Td (Anthropic first-party \(hookify, security-guidance, pr-review-toolkit, superpowers\) | Monthly; major) Tj ET
+BT /F3 8.3 Tf 50.0 132.7 Td (release notes review | Tech lead per team) Tj ET
+BT /F3 8.3 Tf 50.0 121.4 Td (Community / third-party | Quarterly; full re-vet on major version bump | Architect + tech lead) Tj ET
+BT /F3 8.3 Tf 50.0 110.1 Td (Internal plugins | Per change; treated as code | PR review) Tj ET
+BT /F1 9.8 Tf 50.0 98.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 83.0 Td (Pin versions in production environments. Don't auto-update on workstations either -) Tj ET
+BT /F1 9.8 Tf 50.0 70.2 Td (coordinate quarterly.) Tj ET
+BT /F1 8 Tf 50 24 Td (MCP_Plugin_Supply_Chain_Checklist.md) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Length 4280 >>
+stream
+BT /F1 9.8 Tf 50.0 794.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 778.2 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 765.4 Td () Tj ET
+BT /F2 14.0 Tf 50.0 741.6 Td (MCP server specifics) Tj ET
+BT /F1 9.8 Tf 50.0 721.6 Td () Tj ET
+BT /F1 9.8 Tf 50.0 705.8 Td (MCP servers are remote - they receive your prompts and context. Additional checks:) Tj ET
+BT /F1 9.8 Tf 50.0 693.0 Td () Tj ET
+BT /F1 9.6 Tf 62.0 677.2 Td (- Endpoint TLS: HTTPS-only; certificate pinning where supported) Tj ET
+BT /F1 9.6 Tf 62.0 664.6 Td (- Auth model: OAuth \(preferred\), API key \(acceptable with rotation\), or anonymous \(NEVER for) Tj ET
+BT /F1 9.6 Tf 50.0 652.0 Td (  client work\)) Tj ET
+BT /F1 9.6 Tf 62.0 639.4 Td (- Data residency: For EU clients, EU-hosted MCP servers only - or explicit ZDR + data residency) Tj ET
+BT /F1 9.6 Tf 50.0 626.8 Td (  clause) Tj ET
+BT /F1 9.6 Tf 62.0 614.2 Td (- Logging: What does the MCP server log? For how long? GDPR data subject request flow?) Tj ET
+BT /F1 9.6 Tf 62.0 601.6 Td (- SLA: What's the uptime target? What's the failover plan?) Tj ET
+BT /F1 9.8 Tf 50.0 589.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 573.2 Td (Common safer MCPs for ITSS: Atlassian Rovo MCP Server \(GA Feb 2026; covers Jira + Confluence) Tj ET
+BT /F1 9.8 Tf 50.0 560.4 Td (+ JSM in one\), GitHub MCP, and a maintained Postgres MCP - vetted internally.) Tj ET
+BT /F1 9.8 Tf 50.0 547.6 Td () Tj ET
+BT /F1 9.8 Tf 50.0 531.8 Td (Postgres MCP - important caveat: the original Anthropic reference Postgres MCP server has) Tj ET
+BT /F1 9.8 Tf 50.0 519.0 Td (been deprecated/archived. A SQL injection vulnerability was found in it by Datadog Security) Tj ET
+BT /F1 9.8 Tf 50.0 506.2 Td (Labs \(see https://securitylabs.datadoghq.com/articles/mcp-vulnerability-case-study-SQL-) Tj ET
+BT /F1 9.8 Tf 50.0 493.4 Td (injection-in-the-postgresql-mcp-server/\). Use a maintained community alternative, vet it) Tj ET
+BT /F1 9.8 Tf 50.0 480.6 Td (through this checklist, and lock down credentials: read-only role for all dev sessions,) Tj ET
+BT /F1 9.8 Tf 50.0 467.8 Td (scoped to specific schemas, rotated quarterly, fully audited. Production DB credentials) Tj ET
+BT /F1 9.8 Tf 50.0 455.0 Td (should be categorically denied at the sandbox network.allowedDomains level - the agent's MCP) Tj ET
+BT /F1 9.8 Tf 50.0 442.2 Td (should never touch prod from a dev laptop.) Tj ET
+BT /F1 9.8 Tf 50.0 429.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 413.6 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 400.8 Td () Tj ET
+BT /F2 14.0 Tf 50.0 377.0 Td (Incident playbook \(when a plugin behaves badly\)) Tj ET
+BT /F1 9.8 Tf 50.0 357.0 Td () Tj ET
+BT /F1 9.6 Tf 62.0 341.2 Td (1. Immediately: /plugin uninstall <name> on all affected machines \(push policy through managed) Tj ET
+BT /F1 9.6 Tf 50.0 328.6 Td (  marketplace if Enterprise\)) Tj ET
+BT /F1 9.6 Tf 62.0 316.0 Td (2. Within 1h: identify scope - which repos, which sessions, what was leaked/modified?) Tj ET
+BT /F1 9.6 Tf 62.0 303.4 Td (3. Within 24h: audit log review; check git history for unexpected commits) Tj ET
+BT /F1 9.6 Tf 62.0 290.8 Td (4. Within 1 week: publish internal post-mortem; update this checklist with the new red flag) Tj ET
+BT /F1 9.6 Tf 62.0 278.2 Td (5. Within 30 days: external disclosure if customer data was affected \(GDPR Art. 33\)) Tj ET
+BT /F1 9.8 Tf 50.0 265.6 Td () Tj ET
+BT /F1 9.8 Tf 50.0 249.8 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 237.0 Td () Tj ET
+BT /F2 14.0 Tf 50.0 213.2 Td (Anti-patterns) Tj ET
+BT /F1 9.8 Tf 50.0 193.2 Td () Tj ET
+BT /F1 9.6 Tf 62.0 177.4 Td (- ? Installing a plugin because it's popular \(popularity ? safety\)) Tj ET
+BT /F1 9.6 Tf 62.0 164.8 Td (- ? "We'll review the permissions later" - review BEFORE install) Tj ET
+BT /F1 9.6 Tf 62.0 152.2 Td (- ? Single-person decision to add to the team-wide marketplace) Tj ET
+BT /F1 9.6 Tf 62.0 139.6 Td (- ? No expiry on community plugins \(re-vet quarterly, not "once and forget"\)) Tj ET
+BT /F1 9.6 Tf 62.0 127.0 Td (- ? Treating MCP servers as equivalent to local libraries - they're remote services) Tj ET
+BT /F1 9.8 Tf 50.0 114.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 98.6 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 85.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 70.0 Td (ITSS Workshop - 28 May 2026. Run this checklist quarterly + on every new install.) Tj ET
+BT /F1 8 Tf 50 24 Td (MCP_Plugin_Supply_Chain_Checklist.md) Tj ET
+endstream
+endobj
+10 0 obj
+<< /Type /Annot /Subtype /Link /Rect [50.0 504.2 493.4 518.0] /Border [0 0 0] /A << /S /URI /URI (https://securitylabs.datadoghq.com/articles/mcp-vulnerability-case-study-SQL-) >> >>
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 6 0 R /Annots [7 0 R] >>
+endobj
+12 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 8 0 R /Annots [] >>
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 9 0 R /Annots [10 0 R] >>
+endobj
+14 0 obj
+<< /Title (MCP_Plugin_Supply_Chain_Checklist.md) /Producer (basic markdown renderer) /CreationDate (D:20260526204550Z) >>
+endobj
+xref
+0 15
+0000000000 65535 f
+0000000015 00000 n
+0000000064 00000 n
+0000000136 00000 n
+0000000233 00000 n
+0000000335 00000 n
+0000000430 00000 n
+0000004811 00000 n
+0000004948 00000 n
+0000008996 00000 n
+0000013328 00000 n
+0000013527 00000 n
+0000013690 00000 n
+0000013848 00000 n
+0000014012 00000 n
+trailer
+<< /Size 15 /Root 1 0 R /Info 14 0 R >>
+startxref
+14150
+%%EOF

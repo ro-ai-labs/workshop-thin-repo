@@ -19,12 +19,24 @@
   "updateRemoteUserUID": true,
 
   "mounts": [
+    // Claude auth carries over from host (narrow mount — see docs/troubleshooting.md).
     "source=${localEnv:HOME}/.claude.json,target=/home/vscode/.claude.json,type=bind,consistency=cached",
-    "source=${localEnv:HOME}/.claude/.credentials.json,target=/home/vscode/.claude/.credentials.json,type=bind,consistency=cached"
+    "source=${localEnv:HOME}/.claude/.credentials.json,target=/home/vscode/.claude/.credentials.json,type=bind,consistency=cached",
+
+    // Named volumes — persist post-create's heavy work across container rebuilds.
+    // The workspace bind-mount already preserves $WORKSHOP_HOME/{codex,opencode,twenty}
+    // (incl. node_modules + .yarn/cache on the host filesystem). The named volumes
+    // below cover what lives OUTSIDE the workspace bind:
+    //   • cargo registry + git caches (codex's `cargo fetch` results)
+    //   • bun's global install cache (opencode's package downloads)
+    //   • Docker-in-Docker's storage (Twenty's Postgres data + compose state)
+    "source=itss-workshop-cargo,target=/usr/local/cargo,type=volume",
+    "source=itss-workshop-bun,target=/home/vscode/.bun,type=volume",
+    "source=itss-workshop-dind,target=/var/lib/docker,type=volume"
   ],
 
   "containerEnv": {
-    "WORKSHOP_HOME": "/home/vscode/workshop",
+    "WORKSHOP_HOME": "${containerWorkspaceFolder}/workshop",
     "EDITOR": "code --wait",
     "TZ": "Europe/Bucharest"
   },
@@ -59,7 +71,7 @@
         "GitHub.vscode-pull-request-github"
       ],
       "settings": {
-        "livePreview.serverRoot": "/home/vscode/workshop",
+        "livePreview.serverRoot": "${containerWorkspaceFolder}/workshop",
         "livePreview.portNumber": 3002,
         "terminal.integrated.defaultProfile.linux": "bash"
       }

@@ -1,0 +1,373 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [11 0 R 12 0 R 13 0 R 14 0 R 15 0 R] /Count 5 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Length 4208 >>
+stream
+BT /F2 18.0 Tf 50.0 786.0 Td (Documentation Mind-Map - Reusable Prompt) Tj ET
+BT /F1 9.8 Tf 50.0 762.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 746.2 Td (Purpose: Drop this into a Claude Code session pointed at any documentation corpus \(a /docs) Tj ET
+BT /F1 9.8 Tf 50.0 733.4 Td (folder, an exported Confluence space, an ADR archive, an onboarding wiki, a regulatory) Tj ET
+BT /F1 9.8 Tf 50.0 720.6 Td (document set\). It dispatches a team of subagents to read everything in parallel, then) Tj ET
+BT /F1 9.8 Tf 50.0 707.8 Td (produces a navigable knowledge base - an interactive HTML mind-map AND a markdown index -) Tj ET
+BT /F1 9.8 Tf 50.0 695.0 Td (with every concept mapped back to the source document it came from.) Tj ET
+BT /F1 9.8 Tf 50.0 682.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 666.4 Td (Where it came from: Companion to the Repo Architecture Mapping Prompt cheatsheet \(which) Tj ET
+BT /F1 9.8 Tf 50.0 653.6 Td (targets source code\). Same parallel-subagent pattern, but tuned for prose: the unit of) Tj ET
+BT /F1 9.8 Tf 50.0 640.8 Td (exploration is a document or topic, not a module or file.) Tj ET
+BT /F1 9.8 Tf 50.0 628.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 612.2 Td (Why parallel subagents: Reading a 200-page documentation set sequentially exhausts context) Tj ET
+BT /F1 9.8 Tf 50.0 599.4 Td (and produces a flat narrative. Parallel subagents each get a focused topic partition) Tj ET
+BT /F1 9.8 Tf 50.0 586.6 Td (\(architecture, operations, security, onboarding, etc.\) and return concentrated structured) Tj ET
+BT /F1 9.8 Tf 50.0 573.8 Td (findings. The orchestrator merges them into a single mind-map with cross-references. Better) Tj ET
+BT /F1 9.8 Tf 50.0 561.0 Td (artifacts, much faster wall-clock.) Tj ET
+BT /F1 9.8 Tf 50.0 548.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 532.4 Td (Why TWO outputs: The HTML mind-map is for navigation - a manager scanning the corpus, an) Tj ET
+BT /F1 9.8 Tf 50.0 519.6 Td (engineer onboarding to a new system. The markdown INDEX + per-topic notes are for diff, code) Tj ET
+BT /F1 9.8 Tf 50.0 506.8 Td (review, and grep - git-friendly artifacts a team can maintain alongside the docs themselves.) Tj ET
+BT /F1 9.8 Tf 50.0 494.0 Td (The HTML is the "read it once" artifact; the markdown is the "live with it" artifact.) Tj ET
+BT /F1 9.8 Tf 50.0 481.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 465.4 Td (Works with /goal: the prompt is structured around a single goal statement; set it as the) Tj ET
+BT /F1 9.8 Tf 50.0 452.6 Td (session goal, paste the body, and Claude Code's goal-tracking will follow progress as the) Tj ET
+BT /F1 9.8 Tf 50.0 439.8 Td (orchestrator dispatches and the subagents return.) Tj ET
+BT /F1 9.8 Tf 50.0 427.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 411.2 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 398.4 Td () Tj ET
+BT /F2 14.0 Tf 50.0 374.6 Td (How to use) Tj ET
+BT /F1 9.8 Tf 50.0 354.6 Td () Tj ET
+BT /F2 12.0 Tf 50.0 338.8 Td (Step 1 - Set the goal \(optional but recommended\)) Tj ET
+BT /F1 9.8 Tf 50.0 320.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 305.0 Td (Inside a Claude Code session at the root of the documentation tree:) Tj ET
+BT /F1 9.8 Tf 50.0 292.2 Td () Tj ET
+BT /F3 8.6 Tf 50.0 276.4 Td (/goal Build a knowledge base of this documentation corpus using parallel subagents. Produce an) Tj ET
+BT /F3 8.6 Tf 50.0 264.8 Td (interactive HTML mind-map and a markdown INDEX + per-topic notes. Every claim cites a source) Tj ET
+BT /F3 8.6 Tf 50.0 253.2 Td (document with file:line.) Tj ET
+BT /F1 9.8 Tf 50.0 241.6 Td () Tj ET
+BT /F2 12.0 Tf 50.0 225.8 Td (Step 2 - Paste the prompt) Tj ET
+BT /F1 9.8 Tf 50.0 207.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 192.0 Td (Copy the entire block below into the Claude Code session. The agent will read GOAL + APPROACH) Tj ET
+BT /F1 9.8 Tf 50.0 179.2 Td (and start dispatching.) Tj ET
+BT /F1 9.8 Tf 50.0 166.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 150.6 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 137.8 Td () Tj ET
+BT /F2 14.0 Tf 50.0 114.0 Td (The prompt) Tj ET
+BT /F1 9.8 Tf 50.0 94.0 Td () Tj ET
+BT /F3 8.6 Tf 50.0 78.2 Td (GOAL: Build a navigable knowledge base from this documentation corpus.) Tj ET
+BT /F3 8.6 Tf 50.0 66.6 Td (Parallel subagent exploration. Dual output: interactive HTML mind-map) Tj ET
+BT /F1 8 Tf 50 24 Td (Documentation_Mindmap_Prompt.md) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Length 5445 >>
+stream
+BT /F3 8.6 Tf 50.0 794.0 Td (+ markdown INDEX with per-topic notes. Every claim cites a source) Tj ET
+BT /F3 8.6 Tf 50.0 782.4 Td (document and line range. Validation pass at the end.) Tj ET
+BT /F3 8.6 Tf 50.0 770.8 Td () Tj ET
+BT /F3 8.6 Tf 50.0 756.2 Td (APPROACH \(orchestrator -> subagents -> orchestrator\):) Tj ET
+BT /F3 8.6 Tf 50.0 744.6 Td () Tj ET
+BT /F3 8.6 Tf 50.0 730.0 Td (1. ORCHESTRATOR FIRST PASS \(~2 min max\).) Tj ET
+BT /F3 8.6 Tf 50.0 718.4 Td (   Walk the top-level directory listing. Read any README.md, INDEX.md,) Tj ET
+BT /F3 8.6 Tf 50.0 706.8 Td (   TOC.md, or top-level overview. Identify document types \(markdown,) Tj ET
+BT /F3 8.6 Tf 50.0 695.2 Td (   pdf, docx, html, txt\), rough document count, and the corpus's) Tj ET
+BT /F3 8.6 Tf 50.0 683.6 Td (   apparent organizing principle \(by-topic, by-team, by-system, by-) Tj ET
+BT /F3 8.6 Tf 50.0 672.0 Td (   timeline, by-audience\). Note the size: count files, count total) Tj ET
+BT /F3 8.6 Tf 50.0 660.4 Td (   pages or line-count if available.) Tj ET
+BT /F3 8.6 Tf 50.0 648.8 Td () Tj ET
+BT /F3 8.6 Tf 50.0 634.2 Td (2. DECOMPOSE INTO 4-7 TOPIC PARTITIONS.) Tj ET
+BT /F3 8.6 Tf 50.0 622.6 Td (   Pick what fits THIS corpus. Default partitions \(adjust based on) Tj ET
+BT /F3 8.6 Tf 50.0 611.0 Td (   what you actually see\):) Tj ET
+BT /F3 8.6 Tf 50.0 599.4 Td (     - Architecture & design \(system overviews, diagrams, ADRs,) Tj ET
+BT /F3 8.6 Tf 50.0 587.8 Td (       decision records\)) Tj ET
+BT /F3 8.6 Tf 50.0 576.2 Td (     - Operations \(runbooks, on-call, incident response, deployment\)) Tj ET
+BT /F3 8.6 Tf 50.0 564.6 Td (     - Security & compliance \(threat models, policies, audit notes,) Tj ET
+BT /F3 8.6 Tf 50.0 553.0 Td (       regulatory mappings\)) Tj ET
+BT /F3 8.6 Tf 50.0 541.4 Td (     - Onboarding & how-to \(getting-started guides, tutorials, dev) Tj ET
+BT /F3 8.6 Tf 50.0 529.8 Td (       setup, FAQs\)) Tj ET
+BT /F3 8.6 Tf 50.0 518.2 Td (     - APIs & contracts \(API references, OpenAPI specs, integration) Tj ET
+BT /F3 8.6 Tf 50.0 506.6 Td (       guides, SLAs\)) Tj ET
+BT /F3 8.6 Tf 50.0 495.0 Td (     - Domain knowledge \(business glossaries, domain models, product) Tj ET
+BT /F3 8.6 Tf 50.0 483.4 Td (       requirements, user research\)) Tj ET
+BT /F3 8.6 Tf 50.0 471.8 Td (     - Process & governance \(engineering standards, code review) Tj ET
+BT /F3 8.6 Tf 50.0 460.2 Td (       protocols, release process\)) Tj ET
+BT /F3 8.6 Tf 50.0 448.6 Td () Tj ET
+BT /F3 8.6 Tf 50.0 434.0 Td (   If the corpus is small \(<20 documents\) or single-domain \(a tutorial) Tj ET
+BT /F3 8.6 Tf 50.0 422.4 Td (   set, a single product's API ref\), use 2-3 partitions. If the corpus) Tj ET
+BT /F3 8.6 Tf 50.0 410.8 Td (   is huge \(>500 documents\) or multi-system, partition by sub-system) Tj ET
+BT /F3 8.6 Tf 50.0 399.2 Td (   first, then by topic within each sub-system.) Tj ET
+BT /F3 8.6 Tf 50.0 387.6 Td () Tj ET
+BT /F3 8.6 Tf 50.0 373.0 Td (3. DISPATCH ONE SUBAGENT PER PARTITION via the Task tool.) Tj ET
+BT /F3 8.6 Tf 50.0 361.4 Td (   Each subagent gets:) Tj ET
+BT /F3 8.6 Tf 50.0 349.8 Td (     - Partition name + one-sentence purpose) Tj ET
+BT /F3 8.6 Tf 50.0 338.2 Td (     - 1-3 starting directories or document patterns \(globs\)) Tj ET
+BT /F3 8.6 Tf 50.0 326.6 Td (     - Output contract: structured markdown with three sections -) Tj ET
+BT /F3 8.6 Tf 50.0 315.0 Td (         \(a\) Topics covered: a table with "Topic | One-sentence summary) Tj ET
+BT /F3 8.6 Tf 50.0 303.4 Td (             | Source doc \(path:line range\) | Confidence \(high/med/low\)") Tj ET
+BT /F3 8.6 Tf 50.0 291.8 Td (         \(b\) Cross-references: topics that touch other partitions) Tj ET
+BT /F3 8.6 Tf 50.0 280.2 Td (             \(e.g., "security policy X is enforced via runbook Y"\)) Tj ET
+BT /F3 8.6 Tf 50.0 268.6 Td (         \(c\) Gaps & open questions: missing docs, contradictions) Tj ET
+BT /F3 8.6 Tf 50.0 257.0 Td (             between docs, stale dates, unresolved TODOs) Tj ET
+BT /F3 8.6 Tf 50.0 245.4 Td (     - Quality bar: every topic has a source citation. No claims) Tj ET
+BT /F3 8.6 Tf 50.0 233.8 Td (       without citations. Don't invent topics that aren't in the docs.) Tj ET
+BT /F3 8.6 Tf 50.0 222.2 Td (       If a topic is implied but not documented, flag it as a Gap.) Tj ET
+BT /F3 8.6 Tf 50.0 210.6 Td (       For PDFs and other binary formats, cite page numbers.) Tj ET
+BT /F3 8.6 Tf 50.0 199.0 Td () Tj ET
+BT /F3 8.6 Tf 50.0 184.4 Td (4. SYNTHESIZE WHEN ALL RETURN.) Tj ET
+BT /F3 8.6 Tf 50.0 172.8 Td (   - Build a consolidated topic graph: nodes are topics, edges are) Tj ET
+BT /F3 8.6 Tf 50.0 161.2 Td (     cross-references between partitions.) Tj ET
+BT /F3 8.6 Tf 50.0 149.6 Td (   - Deduplicate: if two subagents covered the same topic, merge into) Tj ET
+BT /F3 8.6 Tf 50.0 138.0 Td (     one node and keep both citations.) Tj ET
+BT /F3 8.6 Tf 50.0 126.4 Td (   - Resolve contradictions: when two subagents report different) Tj ET
+BT /F3 8.6 Tf 50.0 114.8 Td (     things about the same topic, surface as an Open Question in the) Tj ET
+BT /F3 8.6 Tf 50.0 103.2 Td (     final output rather than picking a winner.) Tj ET
+BT /F3 8.6 Tf 50.0 91.6 Td (   - Identify the 5-10 highest-traffic topics \(the ones with the most) Tj ET
+BT /F3 8.6 Tf 50.0 80.0 Td (     cross-references\) - these are the corpus's "anchor concepts.") Tj ET
+BT /F3 8.6 Tf 50.0 68.4 Td () Tj ET
+BT /F1 8 Tf 50 24 Td (Documentation_Mindmap_Prompt.md) Tj ET
+endstream
+endobj
+8 0 obj
+<< /Length 5346 >>
+stream
+BT /F3 8.6 Tf 50.0 794.0 Td (5. GENERATE BOTH ARTIFACTS.) Tj ET
+BT /F3 8.6 Tf 50.0 782.4 Td () Tj ET
+BT /F3 8.6 Tf 50.0 767.8 Td (   \(a\) Interactive HTML at ./knowledge-base/mindmap.html) Tj ET
+BT /F3 8.6 Tf 50.0 756.2 Td () Tj ET
+BT /F3 8.6 Tf 50.0 741.6 Td (       Required structure:) Tj ET
+BT /F3 8.6 Tf 50.0 730.0 Td (       - Header: corpus name \(from git remote, top-level README, or) Tj ET
+BT /F3 8.6 Tf 50.0 718.4 Td (         the directory name\), document count, generation timestamp.) Tj ET
+BT /F3 8.6 Tf 50.0 706.8 Td (       - Anchor concepts section at the top: the 5-10 highest-traffic) Tj ET
+BT /F3 8.6 Tf 50.0 695.2 Td (         topics, each a clickable card linking to its full notes file.) Tj ET
+BT /F3 8.6 Tf 50.0 683.6 Td (       - Mind-map tree: one branch per partition, color-coded; each) Tj ET
+BT /F3 8.6 Tf 50.0 672.0 Td (         topic is a leaf with a one-line summary and clickable links) Tj ET
+BT /F3 8.6 Tf 50.0 660.4 Td (         to the source doc\(s\) AND to the per-topic markdown note.) Tj ET
+BT /F3 8.6 Tf 50.0 648.8 Td (       - Cross-reference graph at the bottom: a flat list of) Tj ET
+BT /F3 8.6 Tf 50.0 637.2 Td (         partition-spanning links \("topic X in [partition A] relates) Tj ET
+BT /F3 8.6 Tf 50.0 625.6 Td (         to topic Y in [partition B] via [source citation]"\). Use a) Tj ET
+BT /F3 8.6 Tf 50.0 614.0 Td (         simple table - no graph library required.) Tj ET
+BT /F3 8.6 Tf 50.0 602.4 Td (       - Footer: list of documents NOT covered \(deliberately or) Tj ET
+BT /F3 8.6 Tf 50.0 590.8 Td (         missed\), Open Questions, generation metadata \(subagent count,) Tj ET
+BT /F3 8.6 Tf 50.0 579.2 Td (         total docs surveyed, link resolve rate\).) Tj ET
+BT /F3 8.6 Tf 50.0 567.6 Td (       - Simple HTML + CSS, no external dependencies, no JS frameworks.) Tj ET
+BT /F3 8.6 Tf 50.0 556.0 Td (         Plain expandable <details> tags for tree nodes are fine.) Tj ET
+BT /F3 8.6 Tf 50.0 544.4 Td (         Must open standalone in a browser.) Tj ET
+BT /F3 8.6 Tf 50.0 532.8 Td () Tj ET
+BT /F3 8.6 Tf 50.0 518.2 Td (   \(b\) Markdown INDEX at ./knowledge-base/INDEX.md) Tj ET
+BT /F3 8.6 Tf 50.0 506.6 Td (       + per-topic notes at ./knowledge-base/notes/<topic-slug>.md) Tj ET
+BT /F3 8.6 Tf 50.0 495.0 Td () Tj ET
+BT /F3 8.6 Tf 50.0 480.4 Td (       INDEX.md structure:) Tj ET
+BT /F3 8.6 Tf 50.0 468.8 Td (       - One section per partition with a table:) Tj ET
+BT /F3 8.6 Tf 50.0 457.2 Td (         "Topic | One-line summary | Notes file | Sources") Tj ET
+BT /F3 8.6 Tf 50.0 445.6 Td (       - Anchor concepts list at the top with links to the notes files.) Tj ET
+BT /F3 8.6 Tf 50.0 434.0 Td (       - Cross-reference list at the bottom.) Tj ET
+BT /F3 8.6 Tf 50.0 422.4 Td (       - Open Questions section.) Tj ET
+BT /F3 8.6 Tf 50.0 410.8 Td () Tj ET
+BT /F3 8.6 Tf 50.0 396.2 Td (       Per-topic note file structure \(one file per topic\):) Tj ET
+BT /F3 8.6 Tf 50.0 384.6 Td (       - Frontmatter: topic name, partition, confidence, last-updated) Tj ET
+BT /F3 8.6 Tf 50.0 373.0 Td (         date \(today's date\), source list with paths and line/page) Tj ET
+BT /F3 8.6 Tf 50.0 361.4 Td (         ranges.) Tj ET
+BT /F3 8.6 Tf 50.0 349.8 Td (       - Body: 100-300 words capturing what the docs say. Direct) Tj ET
+BT /F3 8.6 Tf 50.0 338.2 Td (         quotes for definitions and policies. Paraphrase for narrative.) Tj ET
+BT /F3 8.6 Tf 50.0 326.6 Td (       - "See also" section linking to related topic notes via) Tj ET
+BT /F3 8.6 Tf 50.0 315.0 Td (         relative paths.) Tj ET
+BT /F3 8.6 Tf 50.0 303.4 Td (       - "Open questions" section if any from the subagent report.) Tj ET
+BT /F3 8.6 Tf 50.0 291.8 Td () Tj ET
+BT /F3 8.6 Tf 50.0 277.2 Td (6. VALIDATE ALL LINKS AND CITATIONS.) Tj ET
+BT /F3 8.6 Tf 50.0 265.6 Td (   Walk the generated HTML and INDEX.md, extract every link and) Tj ET
+BT /F3 8.6 Tf 50.0 254.0 Td (   citation, confirm:) Tj ET
+BT /F3 8.6 Tf 50.0 242.4 Td (     - file:// links point to real files on disk) Tj ET
+BT /F3 8.6 Tf 50.0 230.8 Td (     - relative markdown links resolve to real notes files) Tj ET
+BT /F3 8.6 Tf 50.0 219.2 Td (     - source citations match the path:line claimed \(sample-check 10%) Tj ET
+BT /F3 8.6 Tf 50.0 207.6 Td (       by opening the cited doc and confirming the topic is actually) Tj ET
+BT /F3 8.6 Tf 50.0 196.0 Td (       there\)) Tj ET
+BT /F3 8.6 Tf 50.0 184.4 Td (   Report total counts and resolve rates.) Tj ET
+BT /F3 8.6 Tf 50.0 172.8 Td () Tj ET
+BT /F3 8.6 Tf 50.0 158.2 Td (CONSTRAINTS:) Tj ET
+BT /F3 8.6 Tf 50.0 146.6 Td (- Read-only on the corpus. Never modify any source document.) Tj ET
+BT /F3 8.6 Tf 50.0 135.0 Td (- The output goes ONLY to ./knowledge-base/ \(a new folder\). Don't) Tj ET
+BT /F3 8.6 Tf 50.0 123.4 Td (  scatter notes alongside the source docs.) Tj ET
+BT /F3 8.6 Tf 50.0 111.8 Td (- If a doc is encrypted, paywalled, or unreadable \(corrupt PDF\), skip) Tj ET
+BT /F3 8.6 Tf 50.0 100.2 Td (  it and list it in the "uncharted" footer.) Tj ET
+BT /F3 8.6 Tf 50.0 88.6 Td (- If you find sensitive data \(credentials, PII\) in the docs, redact) Tj ET
+BT /F3 8.6 Tf 50.0 77.0 Td (  it in your notes and flag it as a high-severity Open Question -) Tj ET
+BT /F3 8.6 Tf 50.0 65.4 Td (  don't propagate secrets into the knowledge base.) Tj ET
+BT /F1 8 Tf 50 24 Td (Documentation_Mindmap_Prompt.md) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Length 4892 >>
+stream
+BT /F3 8.6 Tf 50.0 794.0 Td (- Use standard file:// links: absolute paths, no trailing) Tj ET
+BT /F3 8.6 Tf 50.0 782.4 Td (  punctuation, URL-encode spaces. Note in the generated HTML footer) Tj ET
+BT /F3 8.6 Tf 50.0 770.8 Td (  that Chrome \(and Edge\) block file:// -> file:// nav by default;) Tj ET
+BT /F3 8.6 Tf 50.0 759.2 Td (  launch with --allow-file-access-from-files and an isolated) Tj ET
+BT /F3 8.6 Tf 50.0 747.6 Td (  --user-data-dir profile to enable clickthrough.) Tj ET
+BT /F3 8.6 Tf 50.0 736.0 Td () Tj ET
+BT /F3 8.6 Tf 50.0 721.4 Td (OUTPUT:) Tj ET
+BT /F3 8.6 Tf 50.0 709.8 Td (- ./knowledge-base/mindmap.html \(single-file, opens standalone\)) Tj ET
+BT /F3 8.6 Tf 50.0 698.2 Td (- ./knowledge-base/INDEX.md) Tj ET
+BT /F3 8.6 Tf 50.0 686.6 Td (- ./knowledge-base/notes/*.md \(one file per topic\)) Tj ET
+BT /F3 8.6 Tf 50.0 675.0 Td (- A summary message in the chat: subagents dispatched, total docs) Tj ET
+BT /F3 8.6 Tf 50.0 663.4 Td (  surveyed, total topics identified, anchor-concept list, link) Tj ET
+BT /F3 8.6 Tf 50.0 651.8 Td (  resolve rate, top 5 Open Questions worth following up.) Tj ET
+BT /F1 9.8 Tf 50.0 640.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 624.4 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 611.6 Td () Tj ET
+BT /F2 14.0 Tf 50.0 587.8 Td (What you get back) Tj ET
+BT /F1 9.8 Tf 50.0 567.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 552.0 Td (Three artifacts in a single new folder:) Tj ET
+BT /F1 9.8 Tf 50.0 539.2 Td () Tj ET
+BT /F1 9.6 Tf 62.0 523.4 Td (- knowledge-base/mindmap.html - open in a browser. Chrome \(and Edge\) block file:// -> file://) Tj ET
+BT /F1 9.6 Tf 50.0 510.8 Td (  navigation by default - launch with --allow-file-access-from-files --user-data-) Tj ET
+BT /F1 9.6 Tf 50.0 498.2 Td (  dir=/tmp/chrome-mindmap to enable clickthrough into source docs \(the /tmp/ profile isolates) Tj ET
+BT /F1 9.6 Tf 50.0 485.6 Td (  the security-relaxed session from your normal browsing\). The "read it once" view: scan the) Tj ET
+BT /F1 9.6 Tf 50.0 473.0 Td (  anchor concepts, click into the partitions you care about, follow citations back to the) Tj ET
+BT /F1 9.6 Tf 50.0 460.4 Td (  source docs.) Tj ET
+BT /F1 9.6 Tf 62.0 447.8 Td (- knowledge-base/INDEX.md - the "live with it" view: grep-friendly, diffable, fits in PRs and) Tj ET
+BT /F1 9.6 Tf 50.0 435.2 Td (  code reviews. A team can maintain this alongside the docs as they evolve.) Tj ET
+BT /F1 9.6 Tf 62.0 422.6 Td (- knowledge-base/notes/<topic>.md - one file per topic with full citations and cross-) Tj ET
+BT /F1 9.6 Tf 50.0 410.0 Td (  references. Use these for onboarding handoffs, audit prep, knowledge transfer.) Tj ET
+BT /F1 9.8 Tf 50.0 397.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 381.6 Td (Typical numbers \(run on a substantial corpus, 80-150 documents, 4-6 subagents\):) Tj ET
+BT /F1 9.6 Tf 62.0 368.8 Td (- Wall-clock time: 10-20 min depending on corpus size) Tj ET
+BT /F1 9.6 Tf 62.0 356.2 Td (- Topics extracted: 60-120 in a mid-size corpus) Tj ET
+BT /F1 9.6 Tf 62.0 343.6 Td (- Anchor concepts \(cross-referenced 3+ times\): 8-15) Tj ET
+BT /F1 9.6 Tf 62.0 331.0 Td (- Link resolve rate: aim for >95%) Tj ET
+BT /F1 9.8 Tf 50.0 318.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 302.6 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 289.8 Td () Tj ET
+BT /F2 14.0 Tf 50.0 266.0 Td (How to customize) Tj ET
+BT /F1 9.8 Tf 50.0 246.0 Td () Tj ET
+BT /F3 8.3 Tf 50.0 230.2 Td (Knob | Default | When to change) Tj ET
+BT /F3 8.3 Tf 50.0 218.9 Td (--- | --- | ---) Tj ET
+BT /F3 8.3 Tf 50.0 207.6 Td (Output folder | ./knowledge-base/ | Change to ./kb/ or ./docs-map/ if you collide with an existing) Tj ET
+BT /F3 8.3 Tf 50.0 196.3 Td (folder) Tj ET
+BT /F3 8.3 Tf 50.0 185.0 Td (Partition count | 4-7 | Small focused corpus: 2-3. Multi-system or huge corpus: 8-10, but consider) Tj ET
+BT /F3 8.3 Tf 50.0 173.7 Td (running twice with different roots instead) Tj ET
+BT /F3 8.3 Tf 50.0 162.4 Td (Default partitions | Architecture / Ops / Security / Onboarding / APIs / Domain / Process | Replace) Tj ET
+BT /F3 8.3 Tf 50.0 151.1 Td (with domain-specific axes for your context - e.g., for a regulatory archive: "Regulation X / Audit) Tj ET
+BT /F3 8.3 Tf 50.0 139.8 Td (Findings / Remediation Plans / Evidence") Tj ET
+BT /F3 8.3 Tf 50.0 128.5 Td (Anchor count | 5-10 top-traffic topics | If you want a denser overview, raise to 15. If you want a) Tj ET
+BT /F3 8.3 Tf 50.0 117.2 Td (tight executive summary, drop to 3) Tj ET
+BT /F3 8.3 Tf 50.0 105.9 Td (Source citation style | path:line-range \(or path:page-range for PDFs\) | If your docs are in a system) Tj ET
+BT /F3 8.3 Tf 50.0 94.6 Td (with stable URLs \(Confluence, Notion\), substitute URL-based citations instead of path-based) Tj ET
+BT /F3 8.3 Tf 50.0 83.3 Td (Confidence labels | high / med / low | If your team uses a different vocabulary \(verified / draft /) Tj ET
+BT /F3 8.3 Tf 50.0 72.0 Td (hearsay\), swap in your terms) Tj ET
+BT /F1 8 Tf 50 24 Td (Documentation_Mindmap_Prompt.md) Tj ET
+endstream
+endobj
+10 0 obj
+<< /Length 4827 >>
+stream
+BT /F1 9.8 Tf 50.0 794.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 778.2 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 765.4 Td () Tj ET
+BT /F2 14.0 Tf 50.0 741.6 Td (Failure modes + recovery) Tj ET
+BT /F1 9.8 Tf 50.0 721.6 Td () Tj ET
+BT /F3 8.3 Tf 50.0 705.8 Td (Failure | Symptom | Recovery) Tj ET
+BT /F3 8.3 Tf 50.0 694.5 Td (--- | --- | ---) Tj ET
+BT /F3 8.3 Tf 50.0 683.2 Td (Corpus too large for one pass | Subagents return incomplete reports, context windows fill | Run twice) Tj ET
+BT /F3 8.3 Tf 50.0 671.9 Td (with different roots: once on docs/architecture/, once on docs/operations/. Merge the two knowledge-) Tj ET
+BT /F3 8.3 Tf 50.0 660.6 Td (base/ outputs by hand or with a follow-up synthesis pass.) Tj ET
+BT /F3 8.3 Tf 50.0 649.3 Td (Docs are mostly diagrams or screenshots | Subagents report "image-only, no extractable text" | Don't) Tj ET
+BT /F3 8.3 Tf 50.0 638.0 Td (run this prompt - it's for text. Convert diagrams to text descriptions \(Claude can OCR + describe\) in) Tj ET
+BT /F3 8.3 Tf 50.0 626.7 Td (a preprocessing pass first, then run this.) Tj ET
+BT /F3 8.3 Tf 50.0 615.4 Td (Lots of contradictions between docs | Open Questions list explodes \(50+ entries\) | Don't suppress them) Tj ET
+BT /F3 8.3 Tf 50.0 604.1 Td (- that's a real finding about your docs. Triage in the synthesis pass: contradictions that block) Tj ET
+BT /F3 8.3 Tf 50.0 592.8 Td (onboarding go first, stylistic inconsistencies go last.) Tj ET
+BT /F3 8.3 Tf 50.0 581.5 Td (Outdated source docs | Notes cite obsolete behavior | The prompt doesn't fix stale docs - it surfaces) Tj ET
+BT /F3 8.3 Tf 50.0 570.2 Td (them. Add a "last-updated" check to the per-topic frontmatter and flag anything >12 months old as an) Tj ET
+BT /F3 8.3 Tf 50.0 558.9 Td (Open Question.) Tj ET
+BT /F3 8.3 Tf 50.0 547.6 Td (Sensitive data in docs | Subagent reports it found credentials, PII, or unredacted financials | The) Tj ET
+BT /F3 8.3 Tf 50.0 536.3 Td (prompt instructs subagents to flag-not-propagate. Verify the knowledge-base notes do NOT contain the) Tj ET
+BT /F3 8.3 Tf 50.0 525.0 Td (sensitive content. Then escalate the source doc to the appropriate owner.) Tj ET
+BT /F3 8.3 Tf 50.0 513.7 Td (HTML mind-map looks flat | All topics on one level, no hierarchy | The corpus probably IS flat \(no) Tj ET
+BT /F3 8.3 Tf 50.0 502.4 Td (nested structure\). That's an honest finding. Don't add fake hierarchy.) Tj ET
+BT /F3 8.3 Tf 50.0 491.1 Td (Per-topic notes get repetitive | Same boilerplate phrasing across 60 files | Add a one-line "writing) Tj ET
+BT /F3 8.3 Tf 50.0 479.8 Td (style" directive to the prompt: "Each note should be readable as a standalone paragraph - avoid) Tj ET
+BT /F3 8.3 Tf 50.0 468.5 Td (templated openings like 'This topic covers...'") Tj ET
+BT /F1 9.8 Tf 50.0 457.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 441.4 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 428.6 Td () Tj ET
+BT /F2 14.0 Tf 50.0 404.8 Td (How this maps to the workshop) Tj ET
+BT /F1 9.8 Tf 50.0 384.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 369.0 Td (This is one of two reusable take-home prompts from the ITSS workshop:) Tj ET
+BT /F1 9.6 Tf 62.0 356.2 Td (- Repo Architecture Mapping \(Repo_Architecture_Mapping_Prompt.md\) - for codebases) Tj ET
+BT /F1 9.6 Tf 62.0 343.6 Td (- Documentation Mind-Map \(this one\) - for documentation corpora) Tj ET
+BT /F1 9.8 Tf 50.0 331.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 315.2 Td (Same methodology: parallel subagent dispatch, file:line discipline, validation pass, single) Tj ET
+BT /F1 9.8 Tf 50.0 302.4 Td (command. Different units of work.) Tj ET
+BT /F1 9.8 Tf 50.0 289.6 Td () Tj ET
+BT /F1 9.8 Tf 50.0 273.8 Td (Apply it on Monday to:) Tj ET
+BT /F1 9.6 Tf 62.0 261.0 Td (- A legacy team's Confluence space when you're onboarding to it) Tj ET
+BT /F1 9.6 Tf 62.0 248.4 Td (- An exported regulatory archive \(banking compliance, GDPR, internal audit\)) Tj ET
+BT /F1 9.6 Tf 62.0 235.8 Td (- A /docs folder in a repo nobody on the team fully remembers) Tj ET
+BT /F1 9.6 Tf 62.0 223.2 Td (- A vendor's API documentation set before you commit to integration) Tj ET
+BT /F1 9.6 Tf 62.0 210.6 Td (- Your own team's internal docs as a knowledge audit - what's there, what's missing, what) Tj ET
+BT /F1 9.6 Tf 50.0 198.0 Td (  contradicts) Tj ET
+BT /F1 9.8 Tf 50.0 185.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 169.6 Td (The output is the artifact your team takes back. The methodology - parallel subagents,) Tj ET
+BT /F1 9.8 Tf 50.0 156.8 Td (source-citation discipline, dual HTML + markdown outputs - transfers across any future) Tj ET
+BT /F1 9.8 Tf 50.0 144.0 Td (tooling.) Tj ET
+BT /F1 9.8 Tf 50.0 131.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 115.4 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 102.6 Td () Tj ET
+BT /F1 9.8 Tf 50.0 86.8 Td (ITSS Workshop - 28 May 2026. Take-home prompt. Free to copy, modify, redistribute internally.) Tj ET
+BT /F1 8 Tf 50 24 Td (Documentation_Mindmap_Prompt.md) Tj ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 6 0 R /Annots [] >>
+endobj
+12 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 7 0 R /Annots [] >>
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 8 0 R /Annots [] >>
+endobj
+14 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 9 0 R /Annots [] >>
+endobj
+15 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 10 0 R /Annots [] >>
+endobj
+16 0 obj
+<< /Title (Documentation_Mindmap_Prompt.md) /Producer (basic markdown renderer) /CreationDate (D:20260526204550Z) >>
+endobj
+xref
+0 17
+0000000000 65535 f
+0000000015 00000 n
+0000000064 00000 n
+0000000150 00000 n
+0000000247 00000 n
+0000000349 00000 n
+0000000444 00000 n
+0000004704 00000 n
+0000010201 00000 n
+0000015599 00000 n
+0000020543 00000 n
+0000025423 00000 n
+0000025581 00000 n
+0000025739 00000 n
+0000025897 00000 n
+0000026055 00000 n
+0000026214 00000 n
+trailer
+<< /Size 17 /Root 1 0 R /Info 16 0 R >>
+startxref
+26347
+%%EOF
