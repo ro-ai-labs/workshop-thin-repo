@@ -36,15 +36,15 @@ Restart Docker Desktop, then "Reopen in Container" again.
 Postgres or Redis might not be healthy. Check:
 
 ```bash
-docker compose -f ~/workshop/twenty/packages/twenty-docker/docker-compose.dev.yml ps
+docker compose -f ./workshop/twenty/packages/twenty-docker/docker-compose.dev.yml ps
 ```
 
 If a service is `unhealthy`, wipe and restart:
 
 ```bash
-docker compose -f ~/workshop/twenty/packages/twenty-docker/docker-compose.dev.yml down -v
-docker compose -f ~/workshop/twenty/packages/twenty-docker/docker-compose.dev.yml up -d
-cd ~/workshop/twenty && yarn workspace twenty-server database:init:prod
+docker compose -f ./workshop/twenty/packages/twenty-docker/docker-compose.dev.yml down -v
+docker compose -f ./workshop/twenty/packages/twenty-docker/docker-compose.dev.yml up -d
+cd ./workshop/twenty && yarn workspace twenty-server database:init:prod
 ```
 
 ## Live Preview shows blank page

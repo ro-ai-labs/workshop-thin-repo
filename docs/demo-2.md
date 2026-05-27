@@ -1,6 +1,6 @@
 # Demo 2 — Twenty CRM, Live Feature Build (4-Prompt Loop)
 
-Target repo: `~/workshop/twenty`
+Target repo: `./workshop/twenty`
 Feature: Opportunity Confidence (default 20%) + Expected Value column with footer total
 
 ---
@@ -23,7 +23,7 @@ docker run -d --name twenty-redis -p 6379:6379 redis
 ### Platform startup
 
 ```bash
-cd ~/workshop/twenty
+cd ./workshop/twenty
 nvm install
 nvm use
 yarn
@@ -36,7 +36,7 @@ Wait for http://localhost:3001 to load.
 ### Claude session
 
 ```bash
-cd ~/workshop/twenty
+cd ./workshop/twenty
 claude
 ```
 

@@ -2,7 +2,7 @@
 # post-create.sh — runs once when the container is first created.
 #
 # Bootstraps the workshop:
-#   1. Creates the symlinks doc paths assume (~/workshop, drive-share)
+#   1. Creates the symlinks doc paths assume (./workshop, drive-share)
 #   2. Clones the three demo repos into ${WORKSHOP_HOME} (workspace mount,
 #      so participants' edits + git state survive container rebuild)
 #   3. Pre-pulls per-repo deps (bun install / yarn install)
@@ -33,7 +33,7 @@ fi
 
 # --- 1. Convenience symlinks -------------------------------------------------
 
-# ~/workshop -> $WORKSHOP_HOME so docs that say "~/workshop/codex" keep working.
+# ./workshop -> $WORKSHOP_HOME so docs that say "./workshop/codex" keep working.
 if [ ! -e "$HOME/workshop" ] && [ "$HOME/workshop" != "$WORKSHOP_HOME" ]; then
   ln -s "$WORKSHOP_HOME" "$HOME/workshop"
 fi

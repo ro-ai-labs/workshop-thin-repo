@@ -93,13 +93,13 @@ workspace mount + named volumes preserve the post-create work.
 Run `claude` from any demo directory:
 
 ```bash
-cd ~/workshop/codex          # Demo 1a (read-only architecture)
-cd ~/workshop/opencode       # Demo 1b
-cd ~/workshop/twenty         # Demo 2 (full feature build)
+cd ./workshop/codex          # Demo 1a (read-only architecture)
+cd ./workshop/opencode       # Demo 1b
+cd ./workshop/twenty         # Demo 2 (full feature build)
 ```
 
 Participant handout PDFs and the Demo 1 architecture-HTML fallbacks live at
-`~/workshop/drive-share/`.
+`./workshop/drive-share/`.
 
 Demo-specific paste-along prompts are in [`demo-1.md`](demo-1.md) and
 [`demo-2.md`](demo-2.md).

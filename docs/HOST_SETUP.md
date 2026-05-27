@@ -85,10 +85,10 @@ claude mcp add playwright npx @playwright/mcp@latest
 
 ## 3. Clone the demo repos
 
-Pick a working directory; the workshop expects `~/workshop/`:
+Pick a working directory; the workshop expects `./workshop/`:
 
 ```bash
-mkdir -p ~/workshop && cd ~/workshop
+mkdir -p ./workshop && cd ./workshop
 
 # Demo 1a: Codex CLI (Rust) — read-only architecture exploration
 git clone https://github.com/ro-ai-labs/codex.git
@@ -115,20 +115,20 @@ cd ..
 ### Demo 1
 
 ```bash
-cd ~/workshop/codex && claude    # type the P1 prompt from docs/demo-1.md
+cd ./workshop/codex && claude    # type the P1 prompt from docs/demo-1.md
 ```
 
 ### Demo 2
 
 In one terminal:
 ```bash
-cd ~/workshop/twenty && yarn start
+cd ./workshop/twenty && yarn start
 # Wait for http://localhost:3001 to load
 ```
 
 In another:
 ```bash
-cd ~/workshop/twenty && claude   # type the Phase 1 prompt from docs/demo-2.md
+cd ./workshop/twenty && claude   # type the Phase 1 prompt from docs/demo-2.md
 ```
 
 ## 5. Architecture HTMLs (Demo 1 viewing)
@@ -151,7 +151,7 @@ chmod +x ~/.local/bin/chrome-workshop
 # Add ~/.local/bin to PATH if not already
 ```
 
-Test: `chrome-workshop ~/workshop/codex/demo-examples/codex-architecture.html`
+Test: `chrome-workshop ./workshop/codex/demo-examples/codex-architecture.html`
 
 ## Cheatsheets
 

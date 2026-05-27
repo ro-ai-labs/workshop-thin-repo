@@ -52,10 +52,10 @@ Verify by hand after the welcome banner prints:
 
 1. Inside a `claude` session, install the 7 plugins via `/plugin marketplace add ...`
    and `/plugin add ...`. `/plugin list` should then show all 7.
-2. `cd ~/workshop/twenty && yarn start` → http://localhost:3001 loads (~30s)
-3. Right-click `~/workshop/drive-share/demo-codex-architecture.html` → Show Preview → page renders
+2. `cd ./workshop/twenty && yarn start` → http://localhost:3001 loads (~30s)
+3. Right-click `./workshop/drive-share/demo-codex-architecture.html` → Show Preview → page renders
 4. In a `claude` session: `/plugin` lists `plugin-dev` (Demo 1 Part 2 uses
-   the `plugin-dev:create-plugin` skill to scaffold `~/workshop/itss-plugins/` live)
+   the `plugin-dev:create-plugin` skill to scaffold `./workshop/itss-plugins/` live)
 5. **Persistence check:** `docker compose down` the devcontainer, then "Reopen
    in Container" again. Second post-create completes in seconds — the named
    volumes (cargo / bun / dind / plugins) + the workspace bind preserved

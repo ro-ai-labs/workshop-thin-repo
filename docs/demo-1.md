@@ -1,9 +1,9 @@
 # Demo 1 — Live Architecture Review: Codex (Rust) + opencode (TypeScript)
 
 Target repos:
-- Pane A: `~/workshop/codex`
-- Pane B: `~/workshop/opencode`
-- Pane C: `~/workshop/` (used for live plugin install in P4)
+- Pane A: `./workshop/codex`
+- Pane B: `./workshop/opencode`
+- Pane C: `./workshop/` (used for live plugin install in P4)
 
 ---
 
@@ -35,11 +35,11 @@ Two terminal panes with a running `claude` session each:
 
 ```bash
 # Pane A
-cd ~/workshop/codex
+cd ./workshop/codex
 claude
 
 # Pane B
-cd ~/workshop/opencode
+cd ./workshop/opencode
 claude
 ```
 
@@ -443,7 +443,7 @@ so anyone in the org can run it in any repo without retyping the prompt.
 
 ```
 Use the plugin-dev:create-plugin skill to scaffold a Claude Code plugin
-MARKETPLACE at ~/workshop/itss-plugins/ that ITSS would own internally.
+MARKETPLACE at ./workshop/itss-plugins/ that ITSS would own internally.
 Include:
 - .claude-plugin-marketplace.json (marketplace manifest, name "itss-plugins")
 - plugins/ directory
@@ -461,10 +461,10 @@ Show the resulting file tree when done.
 ### P6.2 — Bootstrap fallback (paste verbatim if the live prompt stalls)
 
 ```bash
-mkdir -p ~/workshop/itss-plugins/plugins/architecture-html/.claude-plugin
-mkdir -p ~/workshop/itss-plugins/plugins/architecture-html/skills/architecture-html
+mkdir -p ./workshop/itss-plugins/plugins/architecture-html/.claude-plugin
+mkdir -p ./workshop/itss-plugins/plugins/architecture-html/skills/architecture-html
 
-cat > ~/workshop/itss-plugins/.claude-plugin-marketplace.json <<'EOF'
+cat > ./workshop/itss-plugins/.claude-plugin-marketplace.json <<'EOF'
 {
   "name": "itss-plugins",
   "description": "Internal marketplace for ITSS",
@@ -479,7 +479,7 @@ cat > ~/workshop/itss-plugins/.claude-plugin-marketplace.json <<'EOF'
 }
 EOF
 
-cat > ~/workshop/itss-plugins/plugins/architecture-html/.claude-plugin/plugin.json <<'EOF'
+cat > ./workshop/itss-plugins/plugins/architecture-html/.claude-plugin/plugin.json <<'EOF'
 {
   "name": "architecture-html",
   "version": "0.1.0",
@@ -487,7 +487,7 @@ cat > ~/workshop/itss-plugins/plugins/architecture-html/.claude-plugin/plugin.js
 }
 EOF
 
-cat > ~/workshop/itss-plugins/plugins/architecture-html/skills/architecture-html/SKILL.md <<'EOF'
+cat > ./workshop/itss-plugins/plugins/architecture-html/skills/architecture-html/SKILL.md <<'EOF'
 ---
 name: architecture-html
 description: Use when the user asks to generate an HTML architecture page, visualize a codebase's modules in a browser, or produce a clickable file:// architecture diagram for the current repo
@@ -537,7 +537,7 @@ apply and add a "Not present in this codebase" line for the ones that don't.
    (agent loop, hooks, etc.) that emerges from the codebase.
 EOF
 
-cat > ~/workshop/itss-plugins/README.md <<'EOF'
+cat > ./workshop/itss-plugins/README.md <<'EOF'
 # ITSS Plugins
 
 Internal Claude Code marketplace.
@@ -545,7 +545,7 @@ Internal Claude Code marketplace.
 ## Install
 
 ```
-/plugin marketplace add ~/workshop/itss-plugins
+/plugin marketplace add ./workshop/itss-plugins
 /plugin install architecture-html@itss-plugins
 ```
 
@@ -565,7 +565,7 @@ EOF
 ### P6.3 — Reveal
 
 ```bash
-tree ~/workshop/itss-plugins/
+tree ./workshop/itss-plugins/
 ```
 
 ### P6.4 — Install handshake (optional)
@@ -573,7 +573,7 @@ tree ~/workshop/itss-plugins/
 Inside the Pane C `claude` session:
 
 ```
-/plugin marketplace add ~/workshop/itss-plugins
+/plugin marketplace add ./workshop/itss-plugins
 /plugin install architecture-html@itss-plugins
 /reload-plugins
 ```
@@ -581,7 +581,7 @@ Inside the Pane C `claude` session:
 Run the skill on a different repo to prove it generalizes:
 
 ```bash
-cd ~/workshop/opencode
+cd ./workshop/opencode
 claude
 ```
 
@@ -597,7 +597,7 @@ Use the architecture-html skill to produce the page for this repo.
 
 | Failure | Fallback |
 |---|---|
-| P2 generation too slow | Open the pre-rehearsed HTML fallbacks in `~/workshop/drive-share/` |
+| P2 generation too slow | Open the pre-rehearsed HTML fallbacks in `./workshop/drive-share/` |
 | P2.5 dashboard fails to open | Skip P2.5; P2 fallback HTMLs remain on screen |
-| P6.1 produces no file writes in 30 sec | Play `~/workshop/drive-share/itss-marketplace-scaffold.mp4` |
-| P6.1 fallback video unavailable | Open `~/workshop/drive-share/itss-marketplace-tree.png`, walk the tree |
+| P6.1 produces no file writes in 30 sec | Play `./workshop/drive-share/itss-marketplace-scaffold.mp4` |
+| P6.1 fallback video unavailable | Open `./workshop/drive-share/itss-marketplace-tree.png`, walk the tree |
