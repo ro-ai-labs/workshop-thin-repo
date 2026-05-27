@@ -69,16 +69,96 @@ Search for files related to permission checking, tool approval, or settings sche
 
 ## P2 — Architecture HTML
 
+Both prompts ask the agent to map the **8 named primitives of an agentic
+coding runtime** (open set):
+
+1. **context window** — turn/state assembly, what gets in, what gets evicted
+2. **tools** — definitions, registration, invocation
+3. **permissions / sandbox** — Allow/Ask/Deny model + sandbox mechanism (Seatbelt / bubblewrap / restricted tokens / path validation, etc.)
+4. **skills** — the structured-prompt unit, where they live, how they load
+5. **plugins** — extension model, manifest schema, install path
+6. **MCP** — Model Context Protocol client, server registration, transport types
+7. **memory** — AGENTS.md / CLAUDE.md (always-loaded instruction file at repo root)
+8. **subagents** — dispatch pattern that spawns a fresh agent instance with bounded prompt and isolated context
+
 Pane A (Codex):
 
 ```
-Generate an interactive HTML architecture page at `./../demo-examples/codex-architecture.html`. Visualize Codex's modules (agent loop, tools, permissions, sandbox, plugins) with clickable file:// links to the actual source files in this repo. Use simple HTML + CSS, no external dependencies. Self-contained, openable in a browser.
+Generate an interactive HTML architecture page at `./../demo-examples/codex-architecture.html`.
+
+Map this repo's implementation of the 8 named primitives of an agentic coding runtime:
+1. context window — how the conversation/turn state is assembled, what gets in, what gets evicted
+2. tools — definitions, registration, invocation
+3. permissions / sandbox — Allow/Ask/Deny model AND the sandbox mechanism (Seatbelt / bubblewrap / restricted tokens / path validation)
+4. skills — the structured-prompt unit, where they live, how they're loaded
+5. plugins — extension model, manifest schema, install path
+6. MCP — Model Context Protocol client, server registration, transport types
+7. memory — AGENTS.md / CLAUDE.md handling (the always-loaded instruction file at repo root)
+8. subagents — dispatch pattern that spawns a fresh agent instance with bounded prompt and isolated context
+
+For each primitive, include clickable file:// links to actual source files in this repo with file:line precision.
+
+Visual layout:
+- Top nav with anchor links to all 8 primitives
+- One <section> per primitive with file:line citations as inline file:// hrefs
+- Simple HTML + CSS, no external dependencies, no JS frameworks
+- Self-contained, openable directly in a browser
+
+The 8 primitives are an open set — surface anything additional that emerges from the codebase (agent loop, hooks, etc.) in an "Additional" section at the bottom.
 ```
 
 Pane B (opencode):
 
 ```
-Generate an interactive HTML architecture page at `./../demo-examples/opencode-architecture.html`. Visualize opencode's modules (agent loop, tools, permissions, sandbox, plugins) with clickable file:// links to the actual source files in this repo. Use simple HTML + CSS, no external dependencies. Self-contained, openable in a browser.
+Generate an interactive HTML architecture page at `./../demo-examples/opencode-architecture.html`.
+
+Map this repo's implementation of the 8 named primitives of an agentic coding runtime:
+1. context window — how the conversation/turn state is assembled, what gets in, what gets evicted
+2. tools — definitions, registration, invocation
+3. permissions / sandbox — Allow/Ask/Deny model AND the sandbox mechanism (Seatbelt / bubblewrap / restricted tokens / path validation)
+4. skills — the structured-prompt unit, where they live, how they're loaded
+5. plugins — extension model, manifest schema, install path
+6. MCP — Model Context Protocol client, server registration, transport types
+7. memory — AGENTS.md / CLAUDE.md handling (the always-loaded instruction file at repo root)
+8. subagents — dispatch pattern that spawns a fresh agent instance with bounded prompt and isolated context
+
+For each primitive, include clickable file:// links to actual source files in this repo with file:line precision.
+
+Visual layout:
+- Top nav with anchor links to all 8 primitives
+- One <section> per primitive with file:line citations as inline file:// hrefs
+- Simple HTML + CSS, no external dependencies, no JS frameworks
+- Self-contained, openable directly in a browser
+
+The 8 primitives are an open set — surface anything additional that emerges from the codebase (agent loop, hooks, etc.) in an "Additional" section at the bottom.
+```
+
+### Generic version (run on any repo)
+
+```
+Generate an interactive HTML architecture page at `./demo-examples/<repo-name>-architecture.html` (create the directory if missing). Derive <repo-name> from package.json / Cargo.toml / pyproject.toml, or fall back to the basename of `git remote get-url origin`.
+
+Map this repo's implementation of the 8 named primitives of an agentic coding runtime:
+1. context window — how the conversation/turn state is assembled, what gets in, what gets evicted
+2. tools — definitions, registration, invocation
+3. permissions / sandbox — Allow/Ask/Deny model AND the sandbox mechanism (Seatbelt / bubblewrap / restricted tokens / path validation)
+4. skills — the structured-prompt unit, where they live, how they're loaded
+5. plugins — extension model, manifest schema, install path
+6. MCP — Model Context Protocol client, server registration, transport types
+7. memory — AGENTS.md / CLAUDE.md handling (the always-loaded instruction file at repo root)
+8. subagents — dispatch pattern that spawns a fresh agent instance with bounded prompt and isolated context
+
+If this repo is NOT an agentic coding runtime, map whichever primitives apply and add a "Not present in this codebase" line for the ones that don't.
+
+For each primitive, include clickable file:// links to actual source files in this repo with file:line precision.
+
+Visual layout:
+- Top nav with anchor links to all 8 primitives
+- One <section> per primitive with file:line citations as inline file:// hrefs
+- Simple HTML + CSS, no external dependencies, no JS frameworks
+- Self-contained, openable directly in a browser
+
+The 8 primitives are an open set — surface anything additional that emerges from the codebase (agent loop, hooks, etc.) in an "Additional" section at the bottom.
 ```
 
 Live generation takes ~8–10 min. Open pre-rehearsed fallbacks instead:
@@ -195,41 +275,46 @@ description: Use when the user asks to generate an HTML architecture page, visua
 
 # architecture-html
 
-Generate an interactive HTML architecture page for the current repo.
+Generate an interactive HTML architecture page for the current repo, mapping
+the 8 named primitives of an agentic coding runtime (open set).
 
 ## Output
 
 Write to `./demo-examples/<repo-name>-architecture.html` (create the directory
 if missing). `<repo-name>` comes from `package.json`, `Cargo.toml`,
-`pyproject.toml`, or the basename of the repo's `git remote get-url origin`.
+`pyproject.toml`, or the basename of `git remote get-url origin`.
 
-## Content
+## The 8 primitives to map
 
-Visualize the repo's modules in five sections:
+1. **context window** — turn/state assembly, what gets in, what gets evicted
+2. **tools** — definitions, registration, invocation
+3. **permissions / sandbox** — Allow/Ask/Deny model AND sandbox mechanism (Seatbelt / bubblewrap / restricted tokens / path validation)
+4. **skills** — the structured-prompt unit, where they live, how they're loaded
+5. **plugins** — extension model, manifest schema, install path
+6. **MCP** — Model Context Protocol client, server registration, transport types
+7. **memory** — AGENTS.md / CLAUDE.md (always-loaded instruction file at repo root)
+8. **subagents** — dispatch pattern that spawns a fresh agent instance with bounded prompt and isolated context
 
-1. Agent loop
-2. Tool definitions and registration
-3. Permission / approval logic
-4. Sandbox or isolation mechanism
-5. Plugin / extension model
-
-For each module, include clickable `file://` links to actual source files in
-this repo with `file:line` precision where useful.
+If the current repo is NOT an agentic coding runtime, map whichever primitives
+apply and add a "Not present in this codebase" line for the ones that don't.
 
 ## Constraints
 
 - Simple HTML + CSS only — no external dependencies, no JS frameworks.
 - Self-contained: openable directly in a browser via `file://`.
-- Use anchor links between sections for in-page navigation.
+- Top nav with anchor links to all 8 primitives.
+- One `<section>` per primitive with `file:line` citations as inline `file://` hrefs.
 
 ## Process
 
 1. Identify the repo name (sources above).
 2. Scan `src/`, `packages/`, `codex-rs/`, or whatever the repo's top-level
-   source layout is, for the five categories above.
+   source layout is, for each of the 8 primitives.
 3. Map each finding to `file:line` citations.
-4. Emit the HTML with one `<section>` per category, anchor links in a top
-   nav, and inline `file://` `href`s for every citation.
+4. Emit the HTML with one `<section>` per primitive, top-nav anchor links,
+   inline `file://` `href`s on every citation.
+5. Add an "Additional" section at the bottom for anything beyond the 8
+   (agent loop, hooks, etc.) that emerges from the codebase.
 EOF
 
 cat > ~/workshop/itss-plugins/README.md <<'EOF'
