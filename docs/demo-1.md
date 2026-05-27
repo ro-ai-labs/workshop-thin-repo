@@ -266,7 +266,7 @@ Side-by-side narration of primitives visible in each diagram. No new Claude prom
 
 ---
 
-## P4 — Install Hookify live
+## P4 — Hookify: install, trigger, author a custom rule
 
 Open Pane C:
 
@@ -275,11 +275,156 @@ cd ./workshop
 claude
 ```
 
+### P4.1 — Install
+
 Inside the `claude` session:
 
 ```
 /plugin install hookify@claude-plugins-official
+/reload-plugins
 ```
+
+### P4.2 — Inspect the bundled rules
+
+Hookify ships with example rules — markdown files with YAML frontmatter,
+versionable in git, readable by humans. The plugin loads them from its own
+`examples/` directory and from `.claude/hookify.<rule-name>.local.md` in the
+current repo.
+
+```
+/hookify:list
+```
+
+Open one of the bundled rules in the editor to show what a rule IS:
+
+```bash
+cat ~/.claude/plugins/cache/claude-plugins-official/hookify/*/examples/dangerous-rm.local.md
+```
+
+The rule body:
+
+```markdown
+---
+name: block-dangerous-rm
+enabled: true
+event: bash
+pattern: rm\s+-rf
+action: block
+---
+
+⚠️ **Dangerous rm command detected!**
+
+This command could delete important files. Please:
+- Verify the path is correct
+- Consider using a safer approach
+- Make sure you have backups
+```
+
+Rule fields:
+- **event:** `bash` | `file` | `stop` | `prompt` | `all` — which hook trigger fires the rule
+- **pattern:** regex matched against the command (`bash`), the new file content (`file`), the transcript (`stop`), or the prompt (`prompt`)
+- **action:** `warn` (show message, allow) | `block` (prevent the operation)
+
+### P4.3 — Trigger the dangerous-rm rule
+
+In the `claude` session, ask Claude to run a destructive command:
+
+```
+Run this for me: rm -rf /tmp/hookify-demo-target
+```
+
+The hookify rule blocks the bash call and surfaces the rule's message to
+Claude. Claude reports back that the operation was blocked.
+
+### P4.4 — Author a new rule live: "block commit without a test"
+
+The frontend-TDD pattern the workshop teaches needs a guardrail: don't let
+the agent commit a component without a sibling test. Author the rule via
+`/hookify` (interactive scaffold) — or paste the bootstrap below.
+
+**Live prompt (via interactive `/hookify`):**
+
+```
+/hookify
+```
+
+Then describe the rule when prompted:
+
+```
+Block bash commands that try to `git commit` when the staged changes include a *.tsx file without a matching *.test.tsx sibling in the same directory.
+```
+
+**Bootstrap fallback** (paste verbatim if the interactive flow stalls):
+
+```bash
+mkdir -p .claude
+cat > .claude/hookify.require-test-for-tsx.local.md <<'EOF'
+---
+name: require-test-for-tsx
+enabled: true
+event: bash
+action: block
+conditions:
+  - field: command
+    operator: regex_match
+    pattern: ^git\s+commit
+  - field: staged_files_summary
+    operator: matches_pattern
+    pattern: "\\.tsx$"
+  - field: staged_files_summary
+    operator: not_matches_pattern
+    pattern: "\\.test\\.tsx$"
+---
+
+🚫 **Component committed without a sibling test**
+
+You're committing one or more `.tsx` files that don't have a matching
+`.test.tsx` sibling in the same directory.
+
+Workshop rule (Frontend TDD pattern, Demo 2 Phase 5):
+- accessibility-tree selectors, not pixel screenshots
+- one test file per component, sibling to the component
+- a hookify rule (this one) blocks the commit until the test exists
+
+To proceed:
+1. Add the test file (`Component.test.tsx` next to `Component.tsx`)
+2. Stage it: `git add path/to/Component.test.tsx`
+3. Retry the commit
+EOF
+```
+
+### P4.5 — Verify the new rule loaded
+
+```
+/hookify:list
+```
+
+The list now shows `require-test-for-tsx` alongside the bundled examples.
+
+### P4.6 — Trigger the new rule
+
+Stage a `.tsx` file without a sibling test and ask Claude to commit:
+
+```
+Stage src/components/Demo.tsx and commit it with message "add demo component". Don't add a test file.
+```
+
+The hookify rule blocks the `git commit` and surfaces the rule's message.
+
+---
+
+**Why this demo lands:** the rule is a markdown file with YAML
+frontmatter. It lives in `.claude/` next to the code. It goes through
+PR review like any other code. It's diffable, blameable, revertable. The
+team's discipline is committed to the repo, not stored in a wiki nobody reads.
+
+**Other useful rule events to mention** (no need to demo, just name them):
+- `event: file` — fires on Edit / Write / MultiEdit. Use for "warn on
+  console.log", "block edits to .env*", "require type annotations".
+- `event: stop` — fires when the agent tries to stop. Use for "block stop
+  if no tests ran this session".
+- `event: prompt` — fires on user prompt submission. Use for "warn if the
+  prompt looks like a credential paste".
 
 ---
 
