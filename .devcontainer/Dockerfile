@@ -63,12 +63,10 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- \
  && rustc --version | grep "1.93.0" \
  && cargo --version
 
-# ---- Layer 5: Claude Code CLI + docker-compose v1 shim ----
-RUN npm install -g @anthropic-ai/claude-code \
- && claude --version
-
-# docker-compose v1 compat shim — deliverables docs sometimes say
-# "docker-compose up" while modern is "docker compose". DinD provides v2.
+# ---- Layer 5: docker-compose v1 shim ----
+# Deliverables docs sometimes say "docker-compose up" while modern is
+# "docker compose". DinD provides v2. Claude Code CLI moved to a vscode-side
+# step further down (it installs to $HOME/.local/, so must run as vscode).
 RUN printf '#!/usr/bin/env bash\nexec docker compose "$@"\n' > /usr/local/bin/docker-compose \
  && chmod +x /usr/local/bin/docker-compose
 
@@ -95,6 +93,15 @@ ENV NVM_DIR=/home/vscode/.nvm
 RUN curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash \
  && bash -c '. "$NVM_DIR/nvm.sh" && nvm install 24.5.0 && nvm alias default 24.5.0 && nvm cache clear' \
  && bash -c '. "$NVM_DIR/nvm.sh" && nvm --version && node --version'
+
+# ---- Claude Code CLI (native installer from claude.ai) ----
+# Anthropic's current install channel installs to $HOME/.local/share/claude
+# with a symlink at $HOME/.local/bin/claude. Replaces the npm distribution
+# (`npm i -g @anthropic-ai/claude-code`), which the CLI itself prompts users
+# to migrate away from. Runs as vscode so files land in the right home.
+ENV PATH="/home/vscode/.local/bin:${PATH}"
+RUN curl -fsSL https://claude.ai/install.sh | bash \
+ && claude --version
 
 # Plugins are NOT baked. Participants install them at workshop time via
 # `claude /plugin add <name>@claude-plugins-official` (or the equivalent inside

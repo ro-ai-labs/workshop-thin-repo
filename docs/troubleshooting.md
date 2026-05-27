@@ -54,14 +54,25 @@ to e.g. 3010, then right-click → Show Preview again.
 
 ## `/plugin list` shows no plugins
 
-The bind mount may have overridden the image's plugin config. Recovery:
+Expected on first reopen — plugins are **not** baked into the image; install
+them yourself inside a `claude` session. They persist across rebuilds via the
+`itss-workshop-plugins` named volume mounted at `/home/vscode/.claude/plugins`.
 
-```bash
-# Inside the container:
-cp /etc/skel/.claude/plugins/*.json ~/.claude/plugins/
+```
+/plugin marketplace add anthropics/claude-plugins-official
+/plugin marketplace add Lum1104/Understand-Anything
+/plugin install superpowers@claude-plugins-official
+/plugin install plugin-dev@claude-plugins-official
+/plugin install understand-anything@understand-anything
+# ...etc — see docs/demo-1.md pre-flight for the full set
 ```
 
-Then restart `claude`.
+If the named volume gets corrupted, reset it from the host:
+
+```bash
+docker volume rm itss-workshop-plugins
+# then "Reopen in Container" → install plugins again
+```
 
 ## GitHub PR extension wants you to sign in
 
