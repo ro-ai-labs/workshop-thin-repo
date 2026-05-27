@@ -1,7 +1,13 @@
-# Demo 2 — Twenty CRM, Live Feature Build (4-Prompt Loop)
+# Demo 2 - Twenty CRM, Live Feature Build (Superpowers Loop)
 
 Target repo: `./workshop/twenty`
 Feature: Opportunity Confidence (default 20%) + Expected Value column with footer total
+
+This demo builds directly on Demo 1. The `architecture-html` skill scaffolded
+in Demo 1 P6 is reused here to orient on Twenty, and `superpowers` (installed
+in Demo 1 pre-flight) drives the full brainstorm -> plan -> TDD execute ->
+self-review loop. No standalone "design", "plan", or "review" prompt -
+superpowers covers all three.
 
 ---
 
@@ -31,7 +37,7 @@ npx nx database:reset twenty-server
 npx nx start
 ```
 
-Wait for http://localhost:3001 to load.
+Wait for the dev server to print its local URL and load it in the browser. (Twenty's `nx start` picks a free port - typically 3000 or 3001 - so trust whatever it prints, don't assume.)
 
 ### Claude session
 
@@ -40,11 +46,19 @@ cd ./workshop/twenty
 claude
 ```
 
-If superpowers isn't installed yet in this container:
+Verify the plugins from Demo 1 carried over:
 
 ```
-/plugin marketplace add anthropics/claude-plugins-official
-/plugin install superpowers@claude-plugins-official
+/plugin list
+```
+
+Expected: `superpowers` (installed in Demo 1 pre-flight) and `architecture-html`
+(scaffolded + installed in Demo 1 P6). If `architecture-html` is missing,
+install it from the local marketplace:
+
+```
+/plugin marketplace add ./workshop/itss-plugins
+/plugin install architecture-html@itss-plugins
 ```
 
 Verify Playwright MCP:
@@ -55,52 +69,32 @@ Verify Playwright MCP:
 
 ---
 
-## Prompt 1 — Project review
+## Prompt 1 - Orient with the architecture-html skill (carry-over from Demo 1)
 
 ```
-Please review and summarize the project. Include the number of files and lines of code in the source (not including node_modules), and the high level structure.
+Use the architecture-html skill to produce an architecture page for this repo.
 ```
+
+Output: `./docs/architecture-map.html` - read-only orientation of Twenty's
+NestJS server, Vite/React front, GraphQL bridge, Postgres + Redis infra,
+with clickable `file://` links to source. This is the ground truth the next
+prompt's design conversation hangs off - the agent has structured knowledge
+of where Opportunity lives before being asked to extend it.
 
 ---
 
-## Prompt 2 — Feature design, no code
+## Prompt 2 - Build the feature with superpowers (with before/after Playwright e2e)
 
 ```
-I'd like to build a new feature: Opportunity Confidence
-1. Every Opportunity in the database to have a confidence that defaults to 20%
-2. In the frontend, in the Opportunities tab, show the opportunity confidence for each opportunity; allow the user to change the confidence to 0-100%; also show a column for "Expected Value" (confidence * value) for each opportunity, with a total expected value at the bottom
-Do not start work yet — please let me know if you have any questions or thoughts about this.
+Use superpowers to build a new feature: Opportunity Confidence. Let's start by brainstorming about it and the defining the specifications. Every Opportunity in the database should have a confidence field that defaults to 20%, and in the frontend Opportunities tab show that confidence per row, let me change it to any value 0-100%, and add an Expected Value column equal to confidence × amount per row with a footer total across all visible rows. Before you touch any code, run a baseline Playwright e2e against the running Twenty dev server - log in, go to Opportunities, and assert that today there's no Confidence field on a row and no Expected Value column - that locks in the starting state. After the feature is built, run Playwright again against the same dev server: set Confidence to 75 on the first opportunity, blur to save, reload, and assert that Confidence persists as 75, that Expected Value equals 75% × amount, and that the footer total updates across all visible rows. Use the accessibility tree for assertions, not pixel screenshots, and make sure `.playwright-mcp/` is in `.gitignore` so traces and debug screenshots don't end up in commits. Self-review at the end with an explicit before-vs-after comparison drawn from the two Playwright runs.
 ```
 
----
+Superpowers self-paces through brainstorm, plan, execute, self-review. Natural
+pause points in the live session: after the brainstorm settles, after the plan
+is written, after execution finishes. Confirm and let it carry on.
 
-## Prompt 3 — Plan, still no code
-
-```
-Now please write a detailed file called CONFIDENCE_PLAN.md in the project root directory that lists out all the steps and tasks involved together with tests and success criteria at each stage in turn. Do not start work.
-```
-
----
-
-## Prompt 4a — Execute
-
-```
-Plan looks good. Execute CONFIDENCE_PLAN.md. Use fresh subagent per task — zero context inheritance. You orchestrate, you don't implement directly.
-```
-
-## Prompt 4b — Self-review
-
-```
-Please write a file CODE_REVIEW.md in the project root that lists out the key changes made and give a self-appraisal of every major change. At the end, summarize overall feedback and issues, including anything that needs to be fixed now and any future improvements.
-```
-
----
-
-## Optional verification — Playwright MCP
-
-```
-Use Playwright MCP to verify the new Confidence feature end-to-end. Navigate to localhost:3001, log in if needed, go to Opportunities, pick the first row, change Confidence to 75, blur to save. Reload, verify Confidence is 75 and Expected Value reflects 75% × amount. Use the accessibility tree, not screenshots.
-```
+Push back if the agent invents a spec detail or skips either Playwright run.
+Both before AND after e2e must happen.
 
 ---
 
