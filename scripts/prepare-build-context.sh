@@ -22,14 +22,10 @@ fi
 
 echo "==> Staging deliverables content into $DEST/deliverables-content/"
 rm -rf "$DEST/deliverables-content"
-mkdir -p "$DEST/deliverables-content"/{cheatsheets,pdfs,ship-it-with-ai,knowledge-base,demo-examples,scripts}
+mkdir -p "$DEST/deliverables-content"/{cheatsheets,pdfs,demo-examples,scripts}
 
 cp "$DELIV/cheatsheets/"*.md            "$DEST/deliverables-content/cheatsheets/"
 cp "$DELIV/drive-share/"*.pdf           "$DEST/deliverables-content/pdfs/"
-cp "$DELIV/ship-it-with-ai/Ship_It_With_AI.md"   "$DEST/deliverables-content/ship-it-with-ai/"
-cp "$DELIV/ship-it-with-ai/ship_it_with_ai.html" "$DEST/deliverables-content/ship-it-with-ai/"
-cp "$DELIV/ship-it-with-ai/cover."*     "$DEST/deliverables-content/ship-it-with-ai/" 2>/dev/null || true
-cp -r "$DELIV/knowledge-base/"*         "$DEST/deliverables-content/knowledge-base/"
 
 cp "$DELIV/drive-share/demo-codex-architecture.html" \
    "$DEST/deliverables-content/demo-examples/codex-architecture-fallback.html"

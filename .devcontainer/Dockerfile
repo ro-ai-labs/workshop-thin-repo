@@ -141,8 +141,6 @@ RUN mkdir -p /home/vscode/workshop/docs \
  && chown -R vscode:vscode /home/vscode/workshop
 COPY --chown=vscode:vscode build-context/deliverables-content/cheatsheets       /home/vscode/workshop/docs/cheatsheets
 COPY --chown=vscode:vscode build-context/deliverables-content/pdfs              /home/vscode/workshop/docs/pdfs
-COPY --chown=vscode:vscode build-context/deliverables-content/ship-it-with-ai   /home/vscode/workshop/docs/ship-it-with-ai
-COPY --chown=vscode:vscode build-context/deliverables-content/knowledge-base    /home/vscode/workshop/docs/knowledge-base
 COPY --chown=vscode:vscode build-context/deliverables-content/demo-examples     /home/vscode/workshop/demo-examples
 USER vscode
 

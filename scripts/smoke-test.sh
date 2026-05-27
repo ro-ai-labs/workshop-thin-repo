@@ -67,8 +67,8 @@ echo "== Docs / cheatsheets =="
 check "Workshop handout PDF"    test -f "$WORKSHOP/docs/pdfs/00_Workshop_Handout.pdf"
 check "CLAUDE.md cheatsheet"    test -f "$WORKSHOP/docs/cheatsheets/CLAUDE_AGENTS_md_Cheatsheet.md"
 check "Kill Signal card"        test -f "$WORKSHOP/docs/cheatsheets/Kill_Signal_Decision_Card.md"
-check "ship-it-with-ai"         test -f "$WORKSHOP/docs/ship-it-with-ai/Ship_It_With_AI.md"
-check "knowledge-base index"    test -f "$WORKSHOP/docs/knowledge-base/INDEX.md"
+check "MCP supply-chain card"   test -f "$WORKSHOP/docs/cheatsheets/MCP_Plugin_Supply_Chain_Checklist.md"
+check "Arch Mapping prompt"     test -f "$WORKSHOP/docs/cheatsheets/Repo_Architecture_Mapping_Prompt.md"
 
 echo "== Understand-Anything pre-gen =="
 # Twenty + opencode forks have .understand-anything/ committed; codex doesn't

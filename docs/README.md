@@ -84,7 +84,7 @@ cd ~/workshop/twenty         # Demo 2 (full feature build)
 cd ~/workshop/spring-boot-pr-demo  # Demo 3
 ```
 
-Cheatsheets, PDFs, the field manual, and the knowledge base live at
+Cheatsheets (markdown) and the participant handout PDFs live at
 `~/workshop/docs/`.
 
 Demo-specific paste-along prompts are in [`demo-1.md`](demo-1.md),
