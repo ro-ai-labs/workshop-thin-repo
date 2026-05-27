@@ -162,6 +162,12 @@ RUN cd /home/vscode/workshop/spring-boot-pr-demo \
  && ls $HOME/.m2/repository/org/springframework/boot >/dev/null
 
 # ---- Layer 11: Demo 1a — codex (Rust, read-only architecture exploration) ----
+# CARGO_HOME=/usr/local/cargo was created root-owned by Layer 5's rustup install.
+# Cargo writes to {git,registry}/ under CARGO_HOME, so vscode needs write access.
+USER root
+RUN chown -R vscode:vscode /usr/local/cargo
+USER vscode
+
 ARG CODEX_SHA
 ARG CODEX_REPO=https://github.com/ro-ai-labs/codex.git
 RUN test -n "${CODEX_SHA}" || (echo "ERROR: --build-arg CODEX_SHA=<sha> required"; exit 1) \
@@ -169,7 +175,7 @@ RUN test -n "${CODEX_SHA}" || (echo "ERROR: --build-arg CODEX_SHA=<sha> required
  && cd /home/vscode/workshop/codex \
  && git checkout ${CODEX_SHA}
 
-# cargo fetch from codex-rs/ — populates ~/.cargo/registry/cache and src.
+# cargo fetch from codex-rs/ — populates /usr/local/cargo/{registry,git}/ caches.
 # We do NOT run `cargo build` (Demo 1 is read-only).
 RUN cd /home/vscode/workshop/codex/codex-rs && cargo fetch
 

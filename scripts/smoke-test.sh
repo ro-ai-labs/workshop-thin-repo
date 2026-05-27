@@ -46,7 +46,7 @@ check "spring-boot demo/risky-changes branch" \
 
 echo "== Cached deps =="
 check "Maven offline cache"  test -d "$HOME/.m2/repository/org/springframework/boot"
-check "Cargo registry cache" test -d "$HOME/.cargo/registry/cache"
+check "Cargo registry cache" test -d "${CARGO_HOME:-/usr/local/cargo}/registry/cache"
 check "Bun install cache"    test -d "$HOME/.bun/install/cache"
 check "Twenty .yarn cache"   test -d "$WORKSHOP/twenty/.yarn/cache"
 check "Playwright Chromium"  bash -c 'ls $HOME/.cache/ms-playwright/chromium-*/chrome-linux*/chrome 2>/dev/null'
