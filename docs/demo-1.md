@@ -434,10 +434,14 @@ Verbal callout only. No prompt.
 
 ---
 
-## P6 — Demo 1 Part 2: scaffold a marketplace + a plugin derived from P2
+## P6 — Demo 1 Part 2: scaffold a marketplace + a plugin derived from the generic prompt
 
-The demo plugin wraps the **P2 HTML-architecture prompt** as a reusable skill,
-so anyone in the org can run it in any repo without retyping the prompt.
+The demo plugin wraps the **generic Repo Architecture Mapping prompt** (the
+Monday take-home variant from P2 above) as a reusable skill — so anyone in
+the org can run it on any repo (legacy or otherwise) without retyping the
+multi-line prompt. The P2 Pane A/B variants are workshop-only, locked to
+the 8-primitive shape; the productionized plugin uses the generic version
+that adapts to whatever codebase it's pointed at.
 
 ### P6.1 — Live prompt in Pane C
 
@@ -449,11 +453,20 @@ Include:
 - plugins/ directory
 - One plugin: plugins/architecture-html/ with .claude-plugin/plugin.json +
   skills/architecture-html/SKILL.md
-- The skill should wrap exactly the live prompt we ran in P2: generate
-  an interactive HTML architecture page at ./demo-examples/<repo>-architecture.html,
-  visualize agent loop + tools + permissions + sandbox + plugins with
-  clickable file:// links to actual source files, simple HTML + CSS,
-  no external dependencies, self-contained.
+- The skill should wrap the GENERIC Repo Architecture Mapping prompt from
+  this demo (the take-home version, NOT the Codex/opencode 8-primitive
+  variant). Its body is:
+    * Orchestrator first pass on top-level + README + package manifests
+    * Decompose into 3–5 exploration scopes (entry / business logic /
+      data layer / integrations / infrastructure — adjusted per repo size)
+    * Dispatch one subagent per scope via the Task tool, each returning a
+      structured markdown table per module with file:line citations
+    * Synthesize, resolve overlaps, build coherent architecture model
+    * Generate ./docs/architecture-map.html with header + one section per
+      scope + cross-cutting patterns + uncharted footer + open questions
+    * Validate every file:// link, report resolve rate
+  Constraints: read-only on the repo, simple HTML + CSS, no external deps,
+  self-contained openable in a browser, file:// uses absolute paths.
 - README.md explaining how to /plugin marketplace add + /plugin install
 Show the resulting file tree when done.
 ```
@@ -490,51 +503,104 @@ EOF
 cat > ./workshop/itss-plugins/plugins/architecture-html/skills/architecture-html/SKILL.md <<'EOF'
 ---
 name: architecture-html
-description: Use when the user asks to generate an HTML architecture page, visualize a codebase's modules in a browser, or produce a clickable file:// architecture diagram for the current repo
+description: Use when the user asks to map a codebase's architecture into an interactive HTML, generate an architecture diagram with clickable file:// links, or produce a Repo Architecture Mapping output for the current repo
 ---
 
 # architecture-html
 
-Generate an interactive HTML architecture page for the current repo, mapping
-the 8 named primitives of an agentic coding runtime (open set).
+Produce an interactive HTML architecture map of the current repository, using
+parallel subagents for exploration, with clickable `file://` links to every
+cited source location and a validation pass at the end.
 
-## Output
+This skill is repo-agnostic. It works on any codebase.
 
-Write to `./demo-examples/<repo-name>-architecture.html` (create the directory
-if missing). `<repo-name>` comes from `package.json`, `Cargo.toml`,
-`pyproject.toml`, or the basename of `git remote get-url origin`.
+## Approach (orchestrator → subagents → orchestrator)
 
-## The 8 primitives to map
+### 1. Orchestrator first pass
 
-1. **context window** — turn/state assembly, what gets in, what gets evicted
-2. **tools** — definitions, registration, invocation
-3. **permissions / sandbox** — Allow/Ask/Deny model AND sandbox mechanism (Seatbelt / bubblewrap / restricted tokens / path validation)
-4. **skills** — the structured-prompt unit, where they live, how they're loaded
-5. **plugins** — extension model, manifest schema, install path
-6. **MCP** — Model Context Protocol client, server registration, transport types
-7. **memory** — AGENTS.md / CLAUDE.md (always-loaded instruction file at repo root)
-8. **subagents** — dispatch pattern that spawns a fresh agent instance with bounded prompt and isolated context
+Read the top-level directory listing, the README, and the primary package
+manifest you find (`package.json`, `Cargo.toml`, `pyproject.toml`, `go.mod`,
+`pom.xml`, `build.gradle`, etc.). Identify primary language(s), framework(s),
+license, and the high-level shape of the codebase.
 
-If the current repo is NOT an agentic coding runtime, map whichever primitives
-apply and add a "Not present in this codebase" line for the ones that don't.
+### 2. Decompose into 3–5 exploration scopes
+
+Pick what fits THIS repo. Default scopes (adjust based on what you actually
+see):
+
+- Entry points + bootstrap (CLI mains, server starts, top-level scripts)
+- Core business logic / domain modules
+- Data layer / persistence / state management
+- Integration surfaces (API clients, external services, MCP / tool
+  integrations, message queues)
+- Infrastructure (build, test, deployment, CI, IaC)
+
+If the repo is small (<5k LOC) or single-purpose (a CLI tool, a library),
+use 2–3 scopes instead of 5. If it's a monorepo, use one scope per package
+or one per service.
+
+### 3. Dispatch one subagent per scope via the Task tool
+
+Each subagent gets:
+
+- Scope name + one-sentence purpose
+- 1–3 starting directories or files
+- Output contract: structured markdown with a table per module —
+  `Module | Purpose (one sentence) | Key files (file:line) | Notable patterns | Open questions`
+- Quality bar: every claim has a file:line citation. No claims without
+  citations. Don't invent paths. If something is unclear, flag it as an
+  Open Question rather than guessing.
+
+### 4. Synthesize when all return
+
+- Resolve overlaps: if two subagents touched the same file, prefer the more
+  specific one.
+- Note any disagreements as Open Questions.
+- Build a single coherent architecture model.
+
+### 5. Generate interactive HTML at `./docs/architecture-map.html`
+
+Required structure:
+
+- **Header block:** repo name (from git remote or README), primary
+  language(s), license (read from `LICENSE` if present), generation
+  timestamp.
+- **One section per scope**, color-coded with distinct backgrounds.
+- **Per module:** name, one-line purpose, key files as clickable `file://`
+  links using ABSOLUTE paths to this repo (use the current working
+  directory's absolute path as the prefix).
+- **Cross-cutting patterns section** — if multiple subagents observed the
+  same pattern across scopes (dependency injection style, async pattern,
+  error-handling convention).
+- **Footer:** list of top-level directories/files NOT covered (so the reader
+  knows what's uncharted), plus all Open Questions surfaced by subagents.
+- Simple HTML + CSS, no external dependencies, no JS frameworks. Must open
+  standalone in a browser.
+
+### 6. Validate every `file://` link
+
+Walk the generated HTML, extract every `href="file:///..."`, confirm the
+target exists on disk. Fix or remove any broken link. Report the total link
+count and resolve rate (e.g., `73/73 links resolve, 100%`).
 
 ## Constraints
 
-- Simple HTML + CSS only — no external dependencies, no JS frameworks.
-- Self-contained: openable directly in a browser via `file://`.
-- Top nav with anchor links to all 8 primitives.
-- One `<section>` per primitive with `file:line` citations as inline `file://` hrefs.
+- Read-only on the repo. Don't modify any source files.
+- If the repo is >100k LOC, scope each subagent to a specific subdirectory
+  rather than a whole concern. Otherwise the subagents return too much.
+- If the repo has no recognizable structure (e.g., research code, abandoned
+  experiments), say so and stop. Don't invent architecture.
+- Use standard `file://` links: absolute paths, no trailing punctuation, no
+  spaces (URL-encode if needed). Note in the generated HTML footer that
+  Chrome (and Edge) block `file://` → `file://` nav by default; launch with
+  `--allow-file-access-from-files` and an isolated `--user-data-dir` profile
+  to enable clickthrough.
 
-## Process
+## Output filename
 
-1. Identify the repo name (sources above).
-2. Scan `src/`, `packages/`, `codex-rs/`, or whatever the repo's top-level
-   source layout is, for each of the 8 primitives.
-3. Map each finding to `file:line` citations.
-4. Emit the HTML with one `<section>` per primitive, top-nav anchor links,
-   inline `file://` `href`s on every citation.
-5. Add an "Additional" section at the bottom for anything beyond the 8
-   (agent loop, hooks, etc.) that emerges from the codebase.
+Default: `./docs/architecture-map.html`. Change to `./docs/architecture-<scope>.html`
+if generating multiple maps in the same repo, or drop into the repo root if
+the team doesn't keep a `/docs` directory.
 EOF
 
 cat > ./workshop/itss-plugins/README.md <<'EOF'
@@ -578,10 +644,12 @@ Inside the Pane C `claude` session:
 /reload-plugins
 ```
 
-Run the skill on a different repo to prove it generalizes:
+Run the skill on a NON-agentic repo to prove it generalizes — Twenty CRM
+makes the point cleanly (no agent loop, no subagents, just a regular
+TypeScript monorepo):
 
 ```bash
-cd ./workshop/opencode
+cd ./workshop/twenty
 claude
 ```
 
@@ -590,6 +658,11 @@ In the `claude` session:
 ```
 Use the architecture-html skill to produce the page for this repo.
 ```
+
+Expected: `./docs/architecture-map.html` with sections for entry points,
+NestJS server, Vite/React front, GraphQL bridge, Postgres + Redis
+infrastructure — read-only, validated `file://` links, no architectural
+invention.
 
 ---
 
