@@ -137,7 +137,8 @@ RUN npx --yes playwright@latest install chromium \
 # ---- Layer 9: Static workshop content (cheatsheets, PDFs, books, KB) ----
 USER root
 RUN mkdir -p /home/vscode/workshop/docs \
-             /home/vscode/workshop/demo-examples
+             /home/vscode/workshop/demo-examples \
+ && chown -R vscode:vscode /home/vscode/workshop
 COPY --chown=vscode:vscode build-context/deliverables-content/cheatsheets       /home/vscode/workshop/docs/cheatsheets
 COPY --chown=vscode:vscode build-context/deliverables-content/pdfs              /home/vscode/workshop/docs/pdfs
 COPY --chown=vscode:vscode build-context/deliverables-content/ship-it-with-ai   /home/vscode/workshop/docs/ship-it-with-ai
