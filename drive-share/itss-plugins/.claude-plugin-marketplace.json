@@ -1,0 +1,18 @@
+{
+  "name": "itss-plugins",
+  "description": "Internal Claude Code plugin marketplace owned by ITSS. Houses workflow plugins the team relies on for common engineering tasks.",
+  "version": "0.1.0",
+  "owner": {
+    "name": "ITSS",
+    "email": "itss@example.com"
+  },
+  "plugins": [
+    {
+      "name": "architecture-html",
+      "source": "./plugins/architecture-html",
+      "description": "Generate a self-contained interactive HTML architecture page for any repo, with clickable file:// links to actual source files at file:line precision.",
+      "category": "analysis",
+      "tags": ["architecture", "documentation", "html", "visualization", "agentic-runtime"]
+    }
+  ]
+}
