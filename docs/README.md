@@ -1,9 +1,9 @@
 # ITSS Workshop 2026 — Devcontainer
 
-This devcontainer packages everything you need for the three workshop demos:
-sources for Codex CLI, opencode, Twenty CRM, and a Spring Boot PR demo; all
-their dependencies; Claude Code with 8 workshop plugins pre-installed;
-Playwright Chromium; and the workshop's cheatsheets / handouts as offline docs.
+This devcontainer packages everything you need for the workshop demos:
+sources for Codex CLI, opencode, and Twenty CRM; all their dependencies; Claude
+Code with 8 workshop plugins pre-installed; Playwright Chromium; and the
+participant handout PDFs as offline copies.
 
 > ## ⚠️ Host requirement: x86_64 (Intel/AMD) only
 >
@@ -81,14 +81,13 @@ Run `claude` from any demo directory:
 cd ~/workshop/codex          # Demo 1a (read-only architecture)
 cd ~/workshop/opencode       # Demo 1b
 cd ~/workshop/twenty         # Demo 2 (full feature build)
-cd ~/workshop/spring-boot-pr-demo  # Demo 3
 ```
 
-Cheatsheets (markdown) and the participant handout PDFs live at
-`~/workshop/docs/`.
+Participant handout PDFs and the Demo 1 architecture-HTML fallbacks live at
+`~/workshop/drive-share/`.
 
-Demo-specific paste-along prompts are in [`demo-1.md`](demo-1.md),
-[`demo-2.md`](demo-2.md), [`demo-3.md`](demo-3.md).
+Demo-specific paste-along prompts are in [`demo-1.md`](demo-1.md) and
+[`demo-2.md`](demo-2.md).
 
 For troubleshooting (proxy, RAM, ports, plugins not visible), see
 [`troubleshooting.md`](troubleshooting.md).

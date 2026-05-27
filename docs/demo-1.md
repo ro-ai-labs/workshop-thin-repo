@@ -84,8 +84,8 @@ prompt running, then the artifact — not the wait.
 **Open fallbacks (recommended path):**
 
 ```bash
-chrome-workshop ~/workshop/demo-examples/codex-architecture-fallback.html
-chrome-workshop ~/workshop/demo-examples/opencode-architecture-fallback.html
+chrome-workshop ~/workshop/drive-share/demo-codex-architecture.html
+chrome-workshop ~/workshop/drive-share/demo-opencode-architecture.html
 ```
 
 `chrome-workshop` is a PATH launcher that wraps
@@ -284,7 +284,7 @@ its own.
 
 **Recovery (30-second rule):** if the live prompt produces no visible file
 writes within 30 sec, switch to the L1 screencast at
-`~/workshop/demo-examples/itss-marketplace-scaffold.mp4` and narrate over it.
+`~/workshop/drive-share/itss-marketplace-scaffold.mp4` and narrate over it.
 If that's also unavailable, open the L2 still
-`~/workshop/demo-examples/itss-marketplace-tree.png` and walk the tree
+`~/workshop/drive-share/itss-marketplace-tree.png` and walk the tree
 verbally.

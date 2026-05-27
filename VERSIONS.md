@@ -17,8 +17,8 @@ twenty:
   repo: https://github.com/ro-ai-labs/twenty.git
   sha:  ca96c78a81331a5d14b78002e325c5800dac2c3c
   branch: demo
-spring-boot-pr-demo:
-  generator: deliverables/demo-3-setup/create_demo_repo.sh (idempotent; no SHA)
+
+# (Demo 3 / spring-boot-pr-demo dropped 2026-05-27.)
 
 # Toolchains
 node:  24.5.0
@@ -26,8 +26,6 @@ yarn:  4.13.0
 bun:   1.3.14
 pnpm:  latest (Corepack)
 rust:  1.93.0 (clippy, rustfmt, rust-src)
-java:  Temurin 21
-maven: 3.9.x (apt default on Ubuntu 22.04)
 
 # Claude
 claude-code-cli: latest-stable-at-build

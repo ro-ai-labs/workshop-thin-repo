@@ -36,12 +36,11 @@
   "userEnvProbe": "loginInteractiveShell",
   "hostRequirements": { "cpus": 4, "memory": "8gb", "storage": "32gb" },
 
-  "forwardPorts": [3000, 3001, 3002, 8080],
+  "forwardPorts": [3000, 3001, 3002],
   "portsAttributes": {
     "3000": { "label": "Twenty backend",  "onAutoForward": "silent" },
     "3001": { "label": "Twenty frontend", "onAutoForward": "openBrowser" },
-    "3002": { "label": "Live Preview",    "onAutoForward": "silent" },
-    "8080": { "label": "Spring Boot (optional)" }
+    "3002": { "label": "Live Preview",    "onAutoForward": "silent" }
   },
 
   "postCreateCommand": "bash ${containerWorkspaceFolder}/.devcontainer/post-create.sh",
@@ -53,7 +52,6 @@
         "anthropic.claude-code",
         "ms-vscode.live-server",
         "ms-azuretools.vscode-docker",
-        "vscjava.vscode-java-pack",
         "rust-lang.rust-analyzer",
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
@@ -63,7 +61,6 @@
       "settings": {
         "livePreview.serverRoot": "/home/vscode/workshop",
         "livePreview.portNumber": 3002,
-        "java.configuration.updateBuildConfiguration": "automatic",
         "terminal.integrated.defaultProfile.linux": "bash"
       }
     }

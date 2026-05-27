@@ -20,24 +20,20 @@ if [ ! -d "$HOST_CLAUDE/plugins/cache" ]; then
   exit 1
 fi
 
-echo "==> Staging deliverables content into $DEST/deliverables-content/"
+echo "==> Staging drive-share content into $DEST/deliverables-content/drive-share/"
 rm -rf "$DEST/deliverables-content"
-mkdir -p "$DEST/deliverables-content"/{cheatsheets,pdfs,demo-examples,scripts}
+mkdir -p "$DEST/deliverables-content/drive-share"
 
-cp "$DELIV/cheatsheets/"*.md            "$DEST/deliverables-content/cheatsheets/"
-cp "$DELIV/drive-share/"*.pdf           "$DEST/deliverables-content/pdfs/"
-
-cp "$DELIV/drive-share/demo-codex-architecture.html" \
-   "$DEST/deliverables-content/demo-examples/codex-architecture-fallback.html"
-cp "$DELIV/drive-share/demo-opencode-architecture.html" \
-   "$DEST/deliverables-content/demo-examples/opencode-architecture-fallback.html"
+# Drive-share = the canonical Drive distribution: participant handout PDFs and
+# the Demo 1 architecture-HTML fallbacks. ailabs-arch-flows.zip is intentionally
+# excluded (plugin dropped per the Demo 1 Part 2 pivot, 2026-05-27).
+cp "$DELIV/drive-share/"*.pdf                            "$DEST/deliverables-content/drive-share/"
+cp "$DELIV/drive-share/demo-codex-architecture.html"     "$DEST/deliverables-content/drive-share/"
+cp "$DELIV/drive-share/demo-opencode-architecture.html"  "$DEST/deliverables-content/drive-share/"
 
 # Demo 1 Part 2 (Build & Own Your Marketplace) scaffolds itss-plugins/ live
 # via the plugin-dev:create-plugin skill — no pre-baked plugin to stage.
-
-cp "$DELIV/demo-3-setup/create_demo_repo.sh" \
-   "$DEST/deliverables-content/scripts/create_demo_repo.sh"
-chmod +x "$DEST/deliverables-content/scripts/create_demo_repo.sh"
+# Demo 3 (spring-boot-pr-demo) dropped 2026-05-27 — no generator to stage.
 
 # ---- Claude plugin cache (from host) ----
 echo "==> Staging Claude plugins from $HOST_CLAUDE/plugins/"

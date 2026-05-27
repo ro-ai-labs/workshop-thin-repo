@@ -19,15 +19,14 @@ cat <<'EOF'
   ╰─────────────────────────────────────────────────────────────╯
 
   Demos live under ~/workshop/:
-    • codex/                  Demo 1 — Rust architecture (read-only)
-    • opencode/               Demo 1 — TypeScript architecture (read-only)
-    • twenty/                 Demo 2 — Superpowers feature build
-    • spring-boot-pr-demo/    Demo 3 — pr-review-toolkit on risky-changes
+    • codex/        Demo 1 — Rust architecture (read-only)
+    • opencode/     Demo 1 — TypeScript architecture (read-only)
+    • twenty/       Demo 2 — Superpowers feature build
 
   Start Twenty UI:   cd ~/workshop/twenty && yarn start
                      (then http://localhost:3001)
-  View architecture: right-click ~/workshop/demo-examples/*.html → Show Preview
-  Cheatsheets:       ~/workshop/docs/
+  View architecture: right-click ~/workshop/drive-share/demo-*.html → Show Preview
+  Handouts:          ~/workshop/drive-share/*.pdf
   Demo 1 Part 2:     in a `claude` session, ask the plugin-dev:create-plugin
                      skill to scaffold a marketplace at ~/workshop/itss-plugins/
 

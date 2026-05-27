@@ -66,9 +66,8 @@ Inside the running container, verify by hand:
 1. Welcome banner prints in terminal
 2. `claude /plugin list` shows 8 plugins
 3. `cd ~/workshop/twenty && yarn start` → http://localhost:3001 loads (give it ~30s)
-4. Right-click `~/workshop/demo-examples/codex-architecture-fallback.html` → Show Preview → page renders
-5. `cd ~/workshop/spring-boot-pr-demo && git checkout demo/risky-changes && mvn test` runs
-6. In a `claude` session: `/plugin` lists `plugin-dev` (Demo 1 Part 2 uses
+4. Right-click `~/workshop/drive-share/demo-codex-architecture.html` → Show Preview → page renders
+5. In a `claude` session: `/plugin` lists `plugin-dev` (Demo 1 Part 2 uses
    the `plugin-dev:create-plugin` skill to scaffold `~/workshop/itss-plugins/` live)
 
 If any fail, fix in the Dockerfile / scripts, rebuild via `build-local.sh`, retry.

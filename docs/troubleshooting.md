@@ -65,7 +65,7 @@ Then restart `claude`.
 
 ## GitHub PR extension wants you to sign in
 
-Decline. Demo 3 doesn't need GitHub auth. If you want it for your own repos
+Decline. None of the demos need GitHub auth. If you want it for your own repos
 later, sign in then.
 
 ## Apple Silicon (M1/M2/M3) or ARM PC — image won't run
@@ -76,9 +76,9 @@ Rosetta/QEMU emulation, but it's 5–10× slower and Twenty's dev server is
 unusable in practice.
 
 Use the host-side manual setup recipe instead: [HOST_SETUP.md](HOST_SETUP.md).
-You install Node 24.5, Java 21, Rust, Bun, Maven, and Claude Code directly on
-your Mac/ARM machine, clone the demo repos, and run the same demos without the
-container. Takes ~30 min one-time.
+You install Node 24.5, Rust, Bun, and Claude Code directly on your Mac/ARM
+machine, clone the demo repos, and run the same demos without the container.
+Takes ~30 min one-time.
 
 ## Last resort: offline image install
 
