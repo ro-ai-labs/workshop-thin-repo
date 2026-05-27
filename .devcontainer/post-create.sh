@@ -71,10 +71,20 @@ if [ ! -d "$WORKSHOP_HOME/opencode/node_modules" ]; then
   ( cd "$WORKSHOP_HOME/opencode" && bun install --frozen-lockfile )
 fi
 
-# twenty: apply .env then yarn install
-if [ ! -f "$WORKSHOP_HOME/twenty/.env" ]; then
-  cp "$SCRIPT_DIR/twenty.env" "$WORKSHOP_HOME/twenty/.env"
-fi
+# twenty: seed per-package .env files from each package's .env.example.
+# Twenty's monorepo expects .env at packages/twenty-server and packages/twenty-front
+# (not at the repo root). The .env.example defaults point at localhost:5432 / 6379,
+# which is correct: db + redis run inside DinD with ports forwarded, so the
+# devcontainer reaches them via localhost.
+for pkg in twenty-server twenty-front; do
+  src="$WORKSHOP_HOME/twenty/packages/$pkg/.env.example"
+  dst="$WORKSHOP_HOME/twenty/packages/$pkg/.env"
+  if [ -f "$src" ] && [ ! -f "$dst" ]; then
+    cp "$src" "$dst"
+    echo "[post-create] twenty: seeded packages/$pkg/.env from .env.example"
+  fi
+done
+
 if [ ! -d "$WORKSHOP_HOME/twenty/.yarn/cache" ] || [ -z "$(ls -A "$WORKSHOP_HOME/twenty/.yarn/cache" 2>/dev/null)" ]; then
   echo "[post-create] twenty: yarn install (~8–12 min)..."
   ( cd "$WORKSHOP_HOME/twenty" && yarn install --immutable )
@@ -87,9 +97,11 @@ if [ ! -d "${CARGO_HOME:-/usr/local/cargo}/registry/cache" ] \
   ( cd "$WORKSHOP_HOME/codex/codex-rs" && cargo fetch )
 fi
 
-# --- 4. Twenty compose + DB init ---------------------------------------------
-
-COMPOSE_FILE="$WORKSHOP_HOME/twenty/packages/twenty-docker/docker-compose.dev.yml"
+# --- 4. Pre-pull Twenty's infra images into DinD ----------------------------
+# The canonical Demo 2 script runs Postgres + Redis as bare `docker run`
+# commands LIVE during the workshop, not via compose at post-create time.
+# That means we must NOT start them here (port 5432 would conflict). What we
+# CAN do is pre-pull the images so the live `docker run` is instant.
 
 echo "[post-create] waiting for docker daemon..."
 for _ in $(seq 1 30); do
@@ -97,30 +109,16 @@ for _ in $(seq 1 30); do
   sleep 2
 done
 if ! docker info >/dev/null 2>&1; then
-  echo "[post-create] WARN: docker daemon not available; skipping Twenty compose bring-up."
-  echo "[post-create]       Run later: docker compose -f $COMPOSE_FILE up -d"
+  echo "[post-create] WARN: docker daemon not available; skipping Twenty image pre-pull."
+  echo "[post-create]       Demo-time docker run will pull on first use."
   exit 0
 fi
 
-if [ -f "$COMPOSE_FILE" ]; then
-  echo "[post-create] starting Twenty's Postgres + Redis..."
-  docker compose -f "$COMPOSE_FILE" up -d
-
-  echo "[post-create] waiting for Postgres healthy..."
-  status=none
-  for _ in $(seq 1 60); do
-    status=$(docker inspect --format='{{.State.Health.Status}}' twenty-dev-db-1 2>/dev/null || echo none)
-    if [ "$status" = "healthy" ]; then break; fi
-    sleep 2
-  done
-  if [ "$status" != "healthy" ]; then
-    echo "[post-create] WARN: Postgres health unknown (status=$status); continuing"
+for img in postgres:16 redis; do
+  if ! docker image inspect "$img" >/dev/null 2>&1; then
+    echo "[post-create] pre-pulling $img into DinD..."
+    docker pull "$img" || echo "[post-create] WARN: failed to pull $img; demo-time docker run will retry"
   fi
-
-  echo "[post-create] running Twenty database init..."
-  ( cd "$WORKSHOP_HOME/twenty" && yarn workspace twenty-server "$TWENTY_DB_RESET_SCRIPT" ) || {
-    echo "[post-create] WARN: $TWENTY_DB_RESET_SCRIPT failed; Twenty will need manual DB init before yarn start"
-  }
-fi
+done
 
 echo "[post-create] complete"

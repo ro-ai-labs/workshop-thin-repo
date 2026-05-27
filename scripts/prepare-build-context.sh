@@ -27,6 +27,14 @@ cp -r "$HOST_CLAUDE/plugins/cache/"* "$DEST/claude-plugins/cache/"
 # in the linux/amd64 container. The Dockerfile re-runs `pnpm install` per-plugin.
 find "$DEST/claude-plugins/cache" -type d -name "node_modules" -prune -exec rm -rf {} + 2>/dev/null || true
 
+# Strip embedded .git directories from plugins shipped as full git checkouts
+# (e.g. sourcegraph). Without this they become broken submodules in our repo.
+find "$DEST/claude-plugins/cache" -type d -name ".git" -prune -exec rm -rf {} + 2>/dev/null || true
+
+# Strip Claude Code's per-process runtime state (.in_use/<pid> markers) — not
+# source content, will leak host PIDs into the image and the repo.
+find "$DEST/claude-plugins/cache" -type d -name ".in_use" -prune -exec rm -rf {} + 2>/dev/null || true
+
 # Copy plugin registry files (installed_plugins.json + known_marketplaces.json)
 for f in installed_plugins.json known_marketplaces.json; do
   if [ -f "$HOST_CLAUDE/plugins/$f" ]; then

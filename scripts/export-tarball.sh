@@ -1,33 +1,25 @@
 #!/usr/bin/env bash
 # scripts/export-tarball.sh
-# Saves the local image to a tarball for offline distribution.
-# Use only if ghcr.io is unreachable on workshop morning.
-#   Receive end: docker load -i itss-workshop-<tag>.tar
+# Saves itss-workshop:local to a tarball for offline-fallback distribution.
+# Recipient: docker load -i itss-workshop-2026.05.28.tar
 set -euo pipefail
 
-if [ ! -f /tmp/itss-build-vars.sh ]; then
-  echo "ERROR: /tmp/itss-build-vars.sh not found."
-  exit 1
-fi
-source /tmp/itss-build-vars.sh
-
 ROOT=$(cd "$(dirname "$0")/.." && pwd)
-OUT="$ROOT/itss-workshop-${IMAGE_TAG##*:}.tar"
+TAG="${1:-2026.05.28}"
+OUT="$ROOT/itss-workshop-${TAG}.tar"
 
-# Prefer local image; fall back to the pushed remote
-if docker image inspect itss-workshop:local >/dev/null 2>&1; then
-  src=itss-workshop:local
-elif docker image inspect "$IMAGE_TAG" >/dev/null 2>&1; then
-  src="$IMAGE_TAG"
-else
-  echo "ERROR: no local image found. Build first with build-local.sh or pull."
+if ! docker image inspect itss-workshop:local >/dev/null 2>&1; then
+  echo "ERROR: itss-workshop:local not found locally."
+  echo "       Build first with: bash scripts/build-local.sh"
   exit 1
 fi
 
-echo "Saving $src to $OUT ..."
-docker save -o "$OUT" "$src"
+echo "Saving itss-workshop:local to $OUT ..."
+docker save -o "$OUT" itss-workshop:local
 ls -lh "$OUT"
 
 echo ""
 echo "Distribute $OUT via USB / Drive."
 echo "Recipient command: docker load -i $(basename "$OUT")"
+echo "After load, image is available as itss-workshop:local — VS Code 'Reopen"
+echo "in Container' will then use the cached build instead of rebuilding."

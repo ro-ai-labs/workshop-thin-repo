@@ -20,12 +20,24 @@ check() {
 }
 
 echo "== Toolchain =="
-check "Node 24.5.x"         bash -c 'node --version | grep -E "^v24\.5\."'
-check "Yarn 4.x"            bash -c 'yarn --version | grep -E "^4\."'
+check "Node 24.x (system)"  bash -c 'node --version | grep -E "^v24\."'
+# nvm + Node 24.5.0 pre-cached so Twenty's `nvm install` (from its .nvmrc)
+# is a no-op at demo time, not a network fetch.
+check "nvm + Node 24.5.0"   bash -c '. "$HOME/.nvm/nvm.sh" && nvm which 24.5.0 | grep -E "v24\.5\.0"'
+# Corepack-managed yarn 4 only resolves inside a project context (package.json
+# with `packageManager: yarn@4.13.0`). Twenty has that. The bare image doesn't,
+# so we synthesise a tiny project to verify yarn 4 is reachable.
+check "Yarn 4.13 via Corepack" bash -c '
+  d=$(mktemp -d) && cd "$d" \
+    && printf "{\"packageManager\":\"yarn@4.13.0\"}\n" > package.json \
+    && yarn --version | grep -E "^4\."
+'
 check "Bun 1.3.x"           bash -c 'bun --version | grep -E "^1\.3\."'
 check "Rust 1.93.0"         bash -c 'rustc --version | grep "1.93.0"'
 check "Claude Code CLI"     command -v claude
-check "docker CLI"          command -v docker
+# docker CLI is provided at devcontainer-creation time by the docker-in-docker
+# feature, not by the image build. We only verify the v1-compat shim here;
+# the real DinD smoke happens in RUNBOOK Step 2 (reopen-in-container).
 check "docker-compose shim" command -v docker-compose
 check "tree (Demo 1 P6.3)"  command -v tree
 
@@ -39,7 +51,6 @@ echo "== Claude plugins baked =="
 check "hookify plugin"          test -d "$HOME/.claude/plugins/cache/claude-plugins-official/hookify"
 check "superpowers plugin"      test -d "$HOME/.claude/plugins/cache/claude-plugins-official/superpowers"
 check "pr-review-toolkit"       test -d "$HOME/.claude/plugins/cache/claude-plugins-official/pr-review-toolkit"
-check "code-review plugin"      test -d "$HOME/.claude/plugins/cache/claude-plugins-official/code-review"
 check "commit-commands plugin"  test -d "$HOME/.claude/plugins/cache/claude-plugins-official/commit-commands"
 check "security-guidance"       test -d "$HOME/.claude/plugins/cache/claude-plugins-official/security-guidance"
 check "plugin-dev plugin"       test -d "$HOME/.claude/plugins/cache/claude-plugins-official/plugin-dev"

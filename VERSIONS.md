@@ -36,11 +36,11 @@ plugins:
   - security-guidance @ claude-plugins-official
   - superpowers @ claude-plugins-official
   - pr-review-toolkit @ claude-plugins-official
-  - code-review @ claude-plugins-official
   - commit-commands @ claude-plugins-official
   - plugin-dev @ claude-plugins-official
   - understand-anything @ Lum1104/Understand-Anything
 
-# Image
-image: ghcr.io/ro-ai-labs/itss-workshop:2026.05.28
+# Image — built locally by each participant from .devcontainer/Dockerfile.
+# No container registry, no pull, no auth tokens.
+local-tag: itss-workshop:local
 platforms: linux/amd64   # x86_64 only. Apple Silicon / ARM PCs follow docs/HOST_SETUP.md

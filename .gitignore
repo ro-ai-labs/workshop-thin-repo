@@ -5,8 +5,9 @@
 *.tar
 *.tar.gz
 
-# Build context (claude plugins staged from host at build time; not source)
-/build-context/
+# build-context/claude-plugins/ IS committed — it's how participants get the
+# plugins baked into the image when they build the devcontainer locally.
+# Refresh via `scripts/prepare-build-context.sh` whenever host plugins change.
 
 # Demo repos — cloned into here by .devcontainer/post-create.sh at first reopen.
 # Lives on the host filesystem via the workspace bind-mount, so edits persist.

@@ -1,6 +1,18 @@
 {
   "name": "ITSS Workshop 2026",
-  "image": "ghcr.io/ro-ai-labs/itss-workshop:2026.05.28",
+  // No registry dependency: participants build this image locally on first
+  // "Reopen in Container" (~10-15 min, then cached for subsequent opens).
+  // The build context is the workspace root (one level up from this file) so
+  // the Dockerfile's `COPY build-context/claude-plugins/...` resolves.
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  // OFFLINE FALLBACK: if your `docker build` keeps failing (workshop wifi,
+  // proxy, etc.) and Mihai handed you the tarball on USB:
+  //   docker load -i itss-workshop-2026.05.28.tar
+  // Then comment out the "build" block above and uncomment the line below:
+  // "image": "itss-workshop:local",
 
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {

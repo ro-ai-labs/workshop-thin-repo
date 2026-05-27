@@ -79,6 +79,23 @@ RUN mkdir -p /home/vscode/.cache /home/vscode/.bun \
 USER vscode
 WORKDIR /home/vscode
 
+# Pre-cache Yarn 4 + pnpm in vscode's Corepack store. The root-side
+# `corepack prepare --activate` in Layer 2 only populated /root/.cache, so
+# without this step Twenty's first `yarn install` would download Yarn 4
+# fresh on workshop wifi.
+RUN corepack prepare yarn@4.13.0 --activate \
+ && corepack prepare pnpm@latest --activate
+
+# ---- nvm + Node 24.5.0 (Twenty's local-setup docs use `nvm install`) ----
+# Twenty's .nvmrc pins 24.5.0 exactly. The apt-installed system Node 24.x
+# (Layer 2) already satisfies engines: ^24.5.0, but having nvm available with
+# 24.5.0 pre-cached lets participants follow Twenty's docs verbatim and avoids
+# any network hit at demo time. Installs as vscode user — nvm lives in $HOME.
+ENV NVM_DIR=/home/vscode/.nvm
+RUN curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash \
+ && bash -c '. "$NVM_DIR/nvm.sh" && nvm install 24.5.0 && nvm alias default 24.5.0 && nvm cache clear' \
+ && bash -c '. "$NVM_DIR/nvm.sh" && nvm --version && node --version'
+
 # ---- Layer 6: Claude Code plugins (copied from host, rebuilt in container) ----
 # Host plugins are staged at build-context/claude-plugins/ by
 # scripts/prepare-build-context.sh. node_modules are stripped during staging
