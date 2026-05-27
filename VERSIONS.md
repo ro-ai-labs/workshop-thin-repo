@@ -30,8 +30,10 @@ pnpm:  latest (Corepack)
 rust:  1.93.0 (clippy, rustfmt, rust-src)
 
 # Claude
-claude-code-cli: latest-stable-at-build
-plugins:
+claude-code-cli: latest-stable-at-build (npm install -g @anthropic-ai/claude-code)
+# Plugins are NOT baked into the image. Install manually in-container via
+# `/plugin marketplace add` + `/plugin add`. Suggested set for the workshop:
+plugins-suggested:
   - hookify @ claude-plugins-official
   - security-guidance @ claude-plugins-official
   - superpowers @ claude-plugins-official

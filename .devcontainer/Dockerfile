@@ -96,47 +96,14 @@ RUN curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh |
  && bash -c '. "$NVM_DIR/nvm.sh" && nvm install 24.5.0 && nvm alias default 24.5.0 && nvm cache clear' \
  && bash -c '. "$NVM_DIR/nvm.sh" && nvm --version && node --version'
 
-# ---- Layer 6: Claude Code plugins (copied from host, rebuilt in container) ----
-# Host plugins are staged at build-context/claude-plugins/ by
-# scripts/prepare-build-context.sh. node_modules are stripped during staging
-# so we rebuild them inside the container below — handles the host-WSL2 vs
-# Linux-container path differences cleanly, and would naturally extend to other
-# different native binaries: esbuild, rollup, lightningcss, tailwind-oxide).
+# Plugins are NOT baked. Participants install them at workshop time via
+# `claude /plugin add <name>@claude-plugins-official` (or the equivalent inside
+# a `claude` session). The named volume mounted at /home/vscode/.claude/plugins
+# persists those installs across container rebuilds — see devcontainer.json.
+# Pre-create the dir so claude doesn't trip over a missing path on first run.
 USER root
-RUN mkdir -p /home/vscode/.claude/plugins/cache \
+RUN mkdir -p /home/vscode/.claude/plugins \
  && chown -R vscode:vscode /home/vscode/.claude
-USER vscode
-
-# Copy plugin cache (sources only, no node_modules — those are arch-specific)
-COPY --chown=vscode:vscode build-context/claude-plugins/cache /home/vscode/.claude/plugins/cache/
-# Copy registry files (installed_plugins.json + known_marketplaces.json)
-COPY --chown=vscode:vscode build-context/claude-plugins/installed_plugins.json /home/vscode/.claude/plugins/installed_plugins.json
-COPY --chown=vscode:vscode build-context/claude-plugins/known_marketplaces.json /home/vscode/.claude/plugins/known_marketplaces.json
-
-# Rebuild any plugin that has a package.json (handles understand-anything's
-# Vite-based dashboard with native deps). Skip silently if the layout doesn't
-# match expectations — better to ship the plugins as inert directories than
-# fail the whole build.
-RUN set -e \
- && for d in /home/vscode/.claude/plugins/cache/*/*/*/ ; do \
-      if [ -f "$d/package.json" ]; then \
-        echo "Rebuilding $d for $TARGETARCH" ; \
-        ( cd "$d" && pnpm install --frozen-lockfile 2>/dev/null \
-            || pnpm install 2>/dev/null \
-            || npm install 2>/dev/null \
-            || echo "  (no package manager succeeded; continuing)" ) ; \
-      fi ; \
-      if [ -f "$d/packages/dashboard/package.json" ]; then \
-        ( cd "$d/packages/dashboard" && pnpm install --frozen-lockfile 2>/dev/null \
-            || pnpm install 2>/dev/null \
-            || echo "  (dashboard install skipped)" ) ; \
-      fi ; \
-    done
-
-# Backup plugin config at /etc/skel for troubleshooting recovery
-USER root
-RUN mkdir -p /etc/skel/.claude/plugins \
- && cp /home/vscode/.claude/plugins/*.json /etc/skel/.claude/plugins/ 2>/dev/null || true
 USER vscode
 
 # ---- Layer 7: Playwright Chromium (used by Demo 2 Phase 5 VERIFY) ----

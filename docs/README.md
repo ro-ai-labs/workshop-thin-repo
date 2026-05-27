@@ -1,12 +1,16 @@
 # ITSS Workshop 2026 — Devcontainer
 
 This devcontainer builds a toolchain image locally on your machine (Node 24,
-Bun 1.3, Rust 1.93, Claude Code with 7 workshop plugins pre-installed,
-Playwright Chromium) — no `docker pull`, no container registry, no auth tokens.
-On first open, `.devcontainer/post-create.sh` clones the three demo repos
-(Codex, opencode, Twenty CRM) into `${workspaceFolder}/workshop/` on the
-**host filesystem** and runs `bun install` / `yarn install`. That way your
-edits + git state survive container rebuilds.
+Bun 1.3, Rust 1.93, Claude Code CLI, Playwright Chromium) — no `docker pull`,
+no container registry, no auth tokens. On first open, `.devcontainer/post-create.sh`
+clones the three demo repos (Codex, opencode, Twenty CRM) into
+`${workspaceFolder}/workshop/` on the **host filesystem** and runs
+`bun install` / `yarn install`. That way your edits + git state survive
+container rebuilds.
+
+Claude Code plugins are **not** baked into the image — install them once
+inside a `claude` session (`/plugin marketplace add ...`, `/plugin add ...`)
+and a named volume keeps them across rebuilds.
 
 Named volumes persist the things that don't sit on the workspace bind-mount —
 cargo cache, bun's global cache, and Docker-in-Docker's storage (so Twenty's
@@ -74,7 +78,7 @@ When VS Code opens, it will detect `.devcontainer/devcontainer.json` and show
 **First open** does two things in sequence:
 
 1. Builds the container image locally from `.devcontainer/Dockerfile` — installs
-   Node 24, Bun, Rust, Claude Code, the 7 plugins, Playwright Chromium. ~10-15 min.
+   Node 24, Bun, Rust, Claude Code CLI, Playwright Chromium. ~10-15 min.
 2. Runs `post-create.sh` — clones the demo repos, runs `bun install` + `yarn install`,
    starts Twenty's compose, seeds the DB. Another ~10-15 min.
 

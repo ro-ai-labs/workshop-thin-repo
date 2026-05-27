@@ -47,16 +47,10 @@ check "CARGO_HOME owner"    bash -c 'test -w "${CARGO_HOME:-/usr/local/cargo}"'
 echo "== Playwright Chromium pre-pulled =="
 check "Playwright Chromium" bash -c 'ls $HOME/.cache/ms-playwright/chromium-*/chrome-linux*/chrome 2>/dev/null'
 
-echo "== Claude plugins baked =="
-check "hookify plugin"          test -d "$HOME/.claude/plugins/cache/claude-plugins-official/hookify"
-check "superpowers plugin"      test -d "$HOME/.claude/plugins/cache/claude-plugins-official/superpowers"
-check "pr-review-toolkit"       test -d "$HOME/.claude/plugins/cache/claude-plugins-official/pr-review-toolkit"
-check "commit-commands plugin"  test -d "$HOME/.claude/plugins/cache/claude-plugins-official/commit-commands"
-check "security-guidance"       test -d "$HOME/.claude/plugins/cache/claude-plugins-official/security-guidance"
-check "plugin-dev plugin"       test -d "$HOME/.claude/plugins/cache/claude-plugins-official/plugin-dev"
-check "understand-anything"     bash -c 'test -d "$HOME/.claude/plugins/cache/understand-anything" || test -d "$HOME/.claude/plugins/cache/Lum1104__Understand-Anything"'
-check "installed_plugins.json"  test -f "$HOME/.claude/plugins/installed_plugins.json"
-check "known_marketplaces.json" test -f "$HOME/.claude/plugins/known_marketplaces.json"
+echo "== Plugin volume mountpoint exists =="
+# Plugins are installed manually at workshop time via `/plugin add`; the image
+# only needs to provide the parent directory so the named volume can mount.
+check "/home/vscode/.claude/plugins" test -d /home/vscode/.claude/plugins
 
 echo ""
 echo "Pass: $PASS  Fail: $FAIL"
