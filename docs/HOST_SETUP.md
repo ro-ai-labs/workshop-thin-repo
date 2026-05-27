@@ -106,11 +106,11 @@ mkdir -p ~/workshop && cd ~/workshop
 
 # Demo 1a: Codex CLI (Rust) — read-only architecture exploration
 git clone https://github.com/ro-ai-labs/codex.git
-cd codex && git checkout demo-arch && (cd codex-rs && cargo fetch) && cd ..
+cd codex && git checkout demo && (cd codex-rs && cargo fetch) && cd ..
 
 # Demo 1b: opencode (TypeScript via Bun)
 git clone https://github.com/ro-ai-labs/opencode.git
-cd opencode && bun install && cd ..
+cd opencode && git checkout demo && bun install && cd ..
 
 # Demo 2: Twenty CRM (Yarn 4 Berry monorepo)
 git clone https://github.com/ro-ai-labs/twenty.git

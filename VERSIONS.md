@@ -8,11 +8,11 @@ source-of-truth: docs/superpowers/specs/2026-05-27-itss-workshop-devcontainer-de
 codex:
   repo: https://github.com/ro-ai-labs/codex.git
   sha:  5349d134ee0e4e82d580d45080bbf42cd0caeb5b
-  branch: demo-arch
+  branch: demo
 opencode:
   repo: https://github.com/ro-ai-labs/opencode.git
   sha:  8e4b24178a411a78011b6024212422d9a98c6375
-  branch: ""  # OPENCODE_BRANCH not set in /tmp/itss-build-vars.sh; confirm with Mihai
+  branch: demo
 twenty:
   repo: https://github.com/ro-ai-labs/twenty.git
   sha:  ca96c78a81331a5d14b78002e325c5800dac2c3c

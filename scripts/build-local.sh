@@ -19,8 +19,8 @@ source /tmp/itss-build-vars.sh
 bash scripts/prepare-build-context.sh
 
 # Note: .understand-anything/ knowledge graphs are committed to the ro-ai-labs
-# forks (twenty + opencode confirmed; codex TBD). They arrive via `git clone`
-# inside the Dockerfile, so no host staging step here.
+# forks (twenty + opencode). Codex graph intentionally not baked — Demo 1 P2.5
+# falls back to pre-rendered HTML. Graphs arrive via `git clone` in Dockerfile.
 
 echo ""
 echo "==> Building itss-workshop:local (linux/amd64 only, for fast iteration)..."
