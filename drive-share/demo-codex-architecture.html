@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Codex - Architecture Map</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<style>
+  :root {
+    --paper: #f4efe4;
+    --paper-2: #ebe4d3;
+    --ink: #1b1d20;
+    --ink-soft: #4a4d52;
+    --ink-faint: #7d7a72;
+    --rule: #c9bfa9;
+    --rule-soft: #ddd3bc;
+    --card: #fbf8f1;
+    --shadow: 0 1px 0 #d8cfba, 0 8px 18px -10px rgba(20,16,8,.18);
+
+    --c-agent:   #b34a2a;
+    --c-tools:   #2f6b4a;
+    --c-perm:    #8a3033;
+    --c-sand:    #2c4a6b;
+    --c-plug:    #a8741b;
+    --c-entry:   #4b3d5d;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background:
+      repeating-linear-gradient(0deg, transparent 0 31px, rgba(28,29,32,.04) 31px 32px),
+      repeating-linear-gradient(90deg, transparent 0 31px, rgba(28,29,32,.04) 31px 32px),
+      var(--paper);
+    color: var(--ink);
+    font-family: ui-serif, "Iowan Old Style", "Source Serif Pro", Georgia, serif;
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  .mono, code, kbd { font-family: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace; }
+
+  header.top {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 28px 40px 30px;
+    border-bottom: 4px double var(--ink);
+    position: relative;
+  }
+  header.top::after {
+    content: "";
+    position: absolute;
+    left: 40px; right: 40px; bottom: -10px;
+    height: 2px;
+    background: var(--ink);
+    opacity: .25;
+  }
+  .crumb {
+    font-family: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #c8b78d;
+    margin-bottom: 10px;
+  }
+  .crumb .dot { color: #735f37; margin: 0 8px; }
+  h1 {
+    font-family: ui-serif, "Iowan Old Style", "Source Serif Pro", Georgia, serif;
+    font-weight: 600;
+    font-size: 44px;
+    letter-spacing: -.01em;
+    margin: 0 0 6px 0;
+    line-height: 1.05;
+  }
+  h1 .slash { color: #c2410c; font-style: italic; padding: 0 .15em; }
+  .tagline {
+    font-size: 16px;
+    color: #d8cfb6;
+    max-width: 640px;
+    margin: 0 0 18px 0;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+    align-items: center;
+    margin-top: 6px;
+  }
+  .meta .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #2a2c30;
+    border: 1px solid #3a3c40;
+    padding: 5px 10px;
+    border-radius: 999px;
+    font-family: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11px;
+    letter-spacing: .04em;
+    color: #ddd2af;
+  }
+  .meta .chip .swatch {
+    width: 9px; height: 9px; border-radius: 50%;
+    background: #c2410c;
+    box-shadow: 0 0 0 2px rgba(194,65,12,.18);
+  }
+  .meta .chip .swatch.rust   { background: #d97706; }
+  .meta .chip .swatch.ts     { background: #3178c6; }
+  .meta .chip .swatch.lic    { background: #5a7d6a; box-shadow: 0 0 0 2px rgba(90,125,106,.18); }
+
+  main {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 36px 40px 80px;
+  }
+  .lede {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: end;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .lede h2 {
+    font-family: ui-serif, "Iowan Old Style", "Source Serif Pro", Georgia, serif;
+    font-weight: 600;
+    font-size: 22px;
+    margin: 0 0 4px 0;
+    letter-spacing: -.005em;
+  }
+  .lede p {
+    margin: 0;
+    color: var(--ink-soft);
+    max-width: 760px;
+    font-size: 15px;
+  }
+  .legend {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    font-family: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    font-size: 10.5px;
+    color: var(--ink-faint);
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+  .legend .swatch { width: 10px; height: 10px; display: inline-block; vertical-align: -1px; margin-right: 5px; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 22px;
+  }
+  .card {
+    grid-column: span 6;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .card.wide { grid-column: span 12; }
+  .card.third { grid-column: span 4; }
+
+  .card .stripe {
+    height: 6px;
+    background: var(--accent);
+  }
+  .card header {
+    padding: 16px 20px 12px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    border-bottom: 1px dashed var(--rule-soft);
+  }
+  .card header .title {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .card header .num {
+    font-family: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: .12em;
+    font-weight: 600;
+  }
+  .card header h3 {
+    margin: 0;
+    font-family: ui-serif, "Iowan Old Style", "Source Serif Pro", Georgia, serif;
+    font-weight: 600;
+    font-size: 22px;
+    letter-spacing: -.005em;
+  }
+  .card header .role {
+    font-family: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    font-size: 10px;
+    color: var(--ink-faint);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .card .blurb {
+    padding: 10px 20px 8px;
+    color: var(--ink-soft);
+    font-size: 14.5px;
+  }
+  .card .files {
+    padding: 4px 8px 16px;
+    margin: 0;
+    list-style: none;
+  }
+  .card .files li {
+    display: grid;
+    grid-template-columns: 14px 1fr;
+    align-items: baseline;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 3px;
+    transition: background .12s ease;
+  }
+  .card .files li:hover {
+    background: rgba(28,29,32,.04);
+  }
+  .card .files li::before {
+    content: "▸";
+    color: var(--accent);
+    font-size: 10px;
+    line-height: 1.2;
+  }
+  .card .files a {
+    color: var(--ink);
+    text-decoration: none;
+    font-family: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12.5px;
+    border-bottom: 1px dashed transparent;
+  }
+  .card .files a:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+  .card .files .note {
+    grid-column: 2;
+    color: var(--ink-faint);
+    font-size: 12.5px;
+    font-style: italic;
+    margin-top: 1px;
+  }
+
+  .card.agent  { --accent: var(--c-agent); }
+  .card.tools  { --accent: var(--c-tools); }
+  .card.perm   { --accent: var(--c-perm); }
+  .card.sand   { --accent: var(--c-sand); }
+  .card.plug   { --accent: var(--c-plug); }
+  .card.entry  { --accent: var(--c-entry); }
+
+  .flow {
+    margin: 28px 0 12px;
+    padding: 18px 22px;
+    background: var(--paper-2);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 20px;
+    align-items: center;
+  }
+  .flow .label {
+    font-family: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    font-size: 10.5px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    padding-right: 18px;
+    border-right: 1px solid var(--rule);
+  }
+  .flow ol {
+    margin: 0; padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 10px;
+    font-family: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12.5px;
+  }
+  .flow ol li {
+    padding: 4px 10px;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    color: var(--ink);
+  }
+  .flow ol li .k {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    margin-right: 6px;
+    vertical-align: 1px;
+  }
+  .flow .arrow { color: var(--ink-faint); font-family: ui-monospace, monospace; }
+
+  footer.bottom {
+    margin-top: 36px;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+    color: var(--ink-faint);
+    font-size: 12.5px;
+    font-family: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  footer.bottom a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--ink-faint);
+  }
+  footer.bottom a:hover { color: var(--ink); border-bottom-style: solid; }
+
+  @media (max-width: 1080px) {
+    .card { grid-column: span 12; }
+    .card.third { grid-column: span 12; }
+    .lede { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    header.top { padding: 22px 20px 24px; }
+    main { padding: 24px 20px 60px; }
+    h1 { font-size: 32px; }
+    .flow { grid-template-columns: 1fr; }
+    .flow .label { border-right: none; border-bottom: 1px solid var(--rule); padding: 0 0 10px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="crumb">github.com<span class="dot">/</span>openai<span class="dot">/</span>codex<span class="dot">·</span>architecture map</div>
+  <h1>Codex<span class="slash">/</span>Architecture</h1>
+  <p class="tagline">A coding agent from OpenAI that runs locally. This map traces the primary primitives - how a turn flows from user input through tools, permission checks, and the sandbox.</p>
+  <div class="meta">
+    <span class="chip"><span class="swatch lic"></span>Apache-2.0</span>
+    <span class="chip"><span class="swatch rust"></span>Primary language · Rust</span>
+    <span class="chip"><span class="swatch ts"></span>Secondary · TypeScript (codex-cli, sdk)</span>
+    <span class="chip">repo · <code>openai/codex</code></span>
+    <span class="chip">monorepo · <code>codex-rs/</code> + <code>codex-cli/</code> + <code>sdk/</code></span>
+  </div>
+</header>
+
+<main>
+
+  <div class="lede">
+    <div>
+      <h2>The five primitives</h2>
+      <p>Every Codex turn is a loop: the <em>agent</em> proposes calls, the <em>tool</em> layer routes them, <em>permissions</em> decide what's allowed, the <em>sandbox</em> contains side-effects, and <em>plugins</em> extend the surface. Click any file path to open it locally.</p>
+    </div>
+    <div class="legend">
+      <span><span class="swatch" style="background:var(--c-agent)"></span>Agent</span>
+      <span><span class="swatch" style="background:var(--c-tools)"></span>Tools</span>
+      <span><span class="swatch" style="background:var(--c-perm)"></span>Perms</span>
+      <span><span class="swatch" style="background:var(--c-sand)"></span>Sandbox</span>
+      <span><span class="swatch" style="background:var(--c-plug)"></span>Plugins</span>
+    </div>
+  </div>
+
+  <div class="flow">
+    <div class="label">turn flow</div>
+    <ol>
+      <li><span class="k" style="background:var(--c-entry)"></span>cli / tui</li>
+      <li class="arrow">→</li>
+      <li><span class="k" style="background:var(--c-agent)"></span>agent loop</li>
+      <li class="arrow">→</li>
+      <li><span class="k" style="background:var(--c-tools)"></span>tool dispatch</li>
+      <li class="arrow">→</li>
+      <li><span class="k" style="background:var(--c-perm)"></span>permission check</li>
+      <li class="arrow">→</li>
+      <li><span class="k" style="background:var(--c-sand)"></span>sandbox exec</li>
+      <li class="arrow">→</li>
+      <li><span class="k" style="background:var(--c-plug)"></span>plugin / skill extensions</li>
+    </ol>
+  </div>
+
+  <section class="grid">
+
+    <article class="card agent">
+      <div class="stripe"></div>
+      <header>
+        <div class="title">
+          <span class="num">01</span>
+          <h3>Agent loop</h3>
+        </div>
+        <span class="role">codex-rs/core</span>
+      </header>
+      <p class="blurb">The heart of a session: a <code>CodexThread</code> drives turns, holds <code>TurnContext</code>, and routes model output into tool calls. Sub-agents (review, explorer, …) live in a registry alongside the main role.</p>
+      <ul class="files">
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/core/src/codex_thread.rs">codex-rs/core/src/codex_thread.rs</a><span class="note">top-level thread; spawns turns, owns history</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/core/src/session/mod.rs">codex-rs/core/src/session/mod.rs</a><span class="note">session machinery - root of per-conversation state</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/core/src/session/session.rs">codex-rs/core/src/session/session.rs</a><span class="note">Session: input queue, rollout, event bus</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/core/src/session/turn.rs">codex-rs/core/src/session/turn.rs</a><span class="note">one model→tool→model cycle</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/core/src/session/turn_context.rs">codex-rs/core/src/session/turn_context.rs</a><span class="note">resolved config + policy for the current turn</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/core/src/agent/mod.rs">codex-rs/core/src/agent/mod.rs</a><span class="note">multi-agent registry & role plumbing</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/core/src/agent/control.rs">codex-rs/core/src/agent/control.rs</a><span class="note">spawn / steer / cancel sub-agents</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/core/src/agent/registry.rs">codex-rs/core/src/agent/registry.rs</a><span class="note">named agent lookup; built-ins live here</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/core/src/client.rs">codex-rs/core/src/client.rs</a><span class="note">model client; what actually calls the Responses API</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/core/src/compact.rs">codex-rs/core/src/compact.rs</a><span class="note">context compaction when the window gets tight</span></li>
+      </ul>
+    </article>
+
+    <article class="card tools">
+      <div class="stripe"></div>
+      <header>
+        <div class="title">
+          <span class="num">02</span>
+          <h3>Tools</h3>
+        </div>
+        <span class="role">codex-rs/tools · core/src/tools</span>
+      </header>
+      <p class="blurb">A two-layer system: the <code>tools/</code> crate defines specs/dispatch types (including MCP & dynamic tools), and <code>core/src/tools/</code> ships the built-in handlers - shell, apply_patch, plan, multi-agent, MCP resource, view_image, request_user_input…</p>
+      <ul class="files">
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/tools/src/lib.rs">codex-rs/tools/src/lib.rs</a><span class="note">crate root: ToolKind, dispatch entry</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/tools/src/tool_executor.rs">codex-rs/tools/src/tool_executor.rs</a><span class="note">runs a tool call against a registered handler</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/tools/src/tool_spec.rs">codex-rs/tools/src/tool_spec.rs</a><span class="note">JSON spec exposed to the model</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/tools/src/tool_definition.rs">codex-rs/tools/src/tool_definition.rs</a><span class="note">native tool definitions (built-ins)</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/tools/src/mcp_tool.rs">codex-rs/tools/src/mcp_tool.rs</a><span class="note">MCP server tools surfaced as tool calls</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/tools/src/dynamic_tool.rs">codex-rs/tools/src/dynamic_tool.rs</a><span class="note">tools registered at runtime (skills/plugins)</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/core/src/tools/orchestrator.rs">codex-rs/core/src/tools/orchestrator.rs</a><span class="note">per-turn tool orchestration</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/core/src/tools/router.rs">codex-rs/core/src/tools/router.rs</a><span class="note">routes a call to the right handler</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/core/src/tools/registry.rs">codex-rs/core/src/tools/registry.rs</a><span class="note">in-process tool registry</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/core/src/tools/handlers/shell.rs">codex-rs/core/src/tools/handlers/shell.rs</a><span class="note">the shell tool - most-used handler</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/core/src/tools/handlers/apply_patch.rs">codex-rs/core/src/tools/handlers/apply_patch.rs</a><span class="note">patch-apply tool (file edits)</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/core/src/tools/handlers/mcp.rs">codex-rs/core/src/tools/handlers/mcp.rs</a><span class="note">handler for MCP-backed tools</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/core/src/apply_patch.rs">codex-rs/core/src/apply_patch.rs</a><span class="note">apply_patch DSL + executor</span></li>
+      </ul>
+    </article>
+
+    <article class="card perm">
+      <div class="stripe"></div>
+      <header>
+        <div class="title">
+          <span class="num">03</span>
+          <h3>Permissions</h3>
+        </div>
+        <span class="role">core/config · execpolicy · guardian</span>
+      </header>
+      <p class="blurb">Decides what runs without asking. Profiles in <code>config/permissions.rs</code> resolve to per-tool decisions. The <code>execpolicy</code> DSL classifies shell invocations as safe/unsafe; the guardian gates the riskier ones with an approval round-trip.</p>
+      <ul class="files">
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/core/src/config/permissions.rs">codex-rs/core/src/config/permissions.rs</a><span class="note">user-facing permission profiles & merge rules</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/core/src/config/resolved_permission_profile.rs">codex-rs/core/src/config/resolved_permission_profile.rs</a><span class="note">resolved, per-turn permission snapshot</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/core/src/safety.rs">codex-rs/core/src/safety.rs</a><span class="note">global safety checks before execution</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/core/src/exec_policy.rs">codex-rs/core/src/exec_policy.rs</a><span class="note">wires execpolicy into the exec path</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/core/src/guardian/mod.rs">codex-rs/core/src/guardian/mod.rs</a><span class="note">approval workflow: ask-before-run</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/core/src/guardian/review.rs">codex-rs/core/src/guardian/review.rs</a><span class="note">guardian review pass on outputs</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/execpolicy/src/lib.rs">codex-rs/execpolicy/src/lib.rs</a><span class="note">DSL for classifying shell commands</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/execpolicy/src/policy.rs">codex-rs/execpolicy/src/policy.rs</a><span class="note">policy assembly</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/execpolicy/src/decision.rs">codex-rs/execpolicy/src/decision.rs</a><span class="note">Match / NoMatch / Forbidden outcomes</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/execpolicy/src/rule.rs">codex-rs/execpolicy/src/rule.rs</a><span class="note">rule language: arg matchers, capabilities</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/shell-escalation/src/lib.rs">codex-rs/shell-escalation/src/lib.rs</a><span class="note">"escalate to user" prompt plumbing</span></li>
+      </ul>
+    </article>
+
+    <article class="card sand">
+      <div class="stripe"></div>
+      <header>
+        <div class="title">
+          <span class="num">04</span>
+          <h3>Sandbox</h3>
+        </div>
+        <span class="role">sandboxing · linux-sandbox · windows-sandbox-rs</span>
+      </header>
+      <p class="blurb">Three backends share one manager: <strong>seatbelt</strong> on macOS, <strong>landlock + bubblewrap</strong> on Linux, and a native Windows sandbox. The crate transforms a permission profile into a concrete policy and spawns the child under it.</p>
+      <ul class="files">
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/sandboxing/src/lib.rs">codex-rs/sandboxing/src/lib.rs</a><span class="note">crate root, common types</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/sandboxing/src/manager.rs">codex-rs/sandboxing/src/manager.rs</a><span class="note">picks the backend; orchestrates spawn</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/sandboxing/src/policy_transforms.rs">codex-rs/sandboxing/src/policy_transforms.rs</a><span class="note">permission profile → sandbox policy</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/sandboxing/src/seatbelt.rs">codex-rs/sandboxing/src/seatbelt.rs</a><span class="note">macOS: Apple Seatbelt (.sb policies)</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/sandboxing/src/seatbelt_base_policy.sbpl">codex-rs/sandboxing/src/seatbelt_base_policy.sbpl</a><span class="note">base seatbelt policy (SBPL)</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/sandboxing/src/landlock.rs">codex-rs/sandboxing/src/landlock.rs</a><span class="note">Linux: LSM filesystem confinement</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/sandboxing/src/bwrap.rs">codex-rs/sandboxing/src/bwrap.rs</a><span class="note">Linux: bubblewrap namespace wrapper</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/linux-sandbox/src/lib.rs">codex-rs/linux-sandbox/src/lib.rs</a><span class="note">Linux helper binary (codex-linux-sandbox)</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/linux-sandbox/src/launcher.rs">codex-rs/linux-sandbox/src/launcher.rs</a><span class="note">spawn entrypoint for the sandbox child</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/windows-sandbox-rs">codex-rs/windows-sandbox-rs/</a><span class="note">Windows backend (crate)</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/core/src/sandboxing">codex-rs/core/src/sandboxing/</a><span class="note">core glue: injects sandbox into shell tool</span></li>
+      </ul>
+    </article>
+
+    <article class="card plug">
+      <div class="stripe"></div>
+      <header>
+        <div class="title">
+          <span class="num">05</span>
+          <h3>Plugins &amp; skills</h3>
+        </div>
+        <span class="role">plugin · core-plugins · skills</span>
+      </header>
+      <p class="blurb">Plugins are installable bundles (a marketplace + local store); skills are smaller in-process extensions surfaced as <code>@-mentions</code>. Both register dynamic tools, system prompt fragments, and MCP-style resources.</p>
+      <ul class="files">
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/plugin/src/lib.rs">codex-rs/plugin/src/lib.rs</a><span class="note">plugin types (PluginId, loader outcome)</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/core-plugins/src/lib.rs">codex-rs/core-plugins/src/lib.rs</a><span class="note">runtime plugin system entry</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/core-plugins/src/manager.rs">codex-rs/core-plugins/src/manager.rs</a><span class="note">load / unload / list installed plugins</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/core-plugins/src/manifest.rs">codex-rs/core-plugins/src/manifest.rs</a><span class="note">plugin manifest schema</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/core-plugins/src/marketplace.rs">codex-rs/core-plugins/src/marketplace.rs</a><span class="note">marketplace client (search/install)</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/core-plugins/src/store.rs">codex-rs/core-plugins/src/store.rs</a><span class="note">local plugin store on disk</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/core-plugins/src/loader.rs">codex-rs/core-plugins/src/loader.rs</a><span class="note">load a manifest into a runnable plugin</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/skills/src/lib.rs">codex-rs/skills/src/lib.rs</a><span class="note">skills crate (definition/assets)</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/core-skills/src/lib.rs">codex-rs/core-skills/src/lib.rs</a><span class="note">in-process skill manager</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/core-skills/src/manager.rs">codex-rs/core-skills/src/manager.rs</a><span class="note">load/render/inject skills into a turn</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/core-skills/src/injection.rs">codex-rs/core-skills/src/injection.rs</a><span class="note">skill prompt injection rules</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/core/src/plugins/mod.rs">codex-rs/core/src/plugins/mod.rs</a><span class="note">core-side glue: discover, mention, render</span></li>
+      </ul>
+    </article>
+
+    <article class="card entry wide">
+      <div class="stripe"></div>
+      <header>
+        <div class="title">
+          <span class="num">06</span>
+          <h3>Entry points &amp; surfaces</h3>
+        </div>
+        <span class="role">cli · tui · exec · mcp-server · app-server</span>
+      </header>
+      <p class="blurb">Codex ships several front-ends over the same core: the interactive <strong>TUI</strong>, headless <strong>exec</strong>, an <strong>MCP server</strong> for IDE/desktop integration, an <strong>app-server</strong> for the Codex desktop app, plus the npm <code>codex-cli</code> shim.</p>
+      <ul class="files" style="columns: 2; column-gap: 24px;">
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/cli/src/main.rs">codex-rs/cli/src/main.rs</a><span class="note">codex binary entry; subcommand dispatch</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/cli/src/lib.rs">codex-rs/cli/src/lib.rs</a><span class="note">top-level CLI plumbing</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/tui/src/app.rs">codex-rs/tui/src/app.rs</a><span class="note">interactive terminal UI app shell</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/tui/src/chatwidget.rs">codex-rs/tui/src/chatwidget.rs</a><span class="note">the chat widget that hosts turns</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/exec/src/main.rs">codex-rs/exec/src/main.rs</a><span class="note">headless / scripted runs (codex exec)</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/exec/src/cli.rs">codex-rs/exec/src/cli.rs</a><span class="note">exec subcommand arg parsing</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/mcp-server/src/main.rs">codex-rs/mcp-server/src/main.rs</a><span class="note">MCP server entry (IDE/desktop integration)</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/mcp-server/src/codex_tool_runner.rs">codex-rs/mcp-server/src/codex_tool_runner.rs</a><span class="note">routes MCP requests into a CodexThread</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/app-server/src/bin">codex-rs/app-server/src/bin/</a><span class="note">app-server binary for the desktop app</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-rs/protocol/src/lib.rs">codex-rs/protocol/src/lib.rs</a><span class="note">shared protocol types across surfaces</span></li>
+        <li><a href="file:///home/mihai/workshop/codex/codex-cli">codex-cli/</a><span class="note">TypeScript npm shim - <code>npm i -g @openai/codex</code></span></li>
+        <li><a href="file:///home/mihai/workshop/codex/sdk">sdk/</a><span class="note">the public SDKs (Node, Python)</span></li>
+      </ul>
+    </article>
+
+  </section>
+
+  <footer class="bottom">
+    <div>generated for local browsing · open files with <code>file://</code> · <a href="file:///home/mihai/workshop/codex">repo root</a> · <a href="file:///home/mihai/workshop/codex/README.md">README</a> · <a href="file:///home/mihai/workshop/codex/LICENSE">LICENSE</a> · <a href="file:///home/mihai/workshop/codex/AGENTS.md">AGENTS.md</a></div>
+    <div>monorepo · <code>codex-rs/</code> · <code>codex-cli/</code> · <code>sdk/</code> · <code>docs/</code></div>
+  </footer>
+
+</main>
+
+</body>
+</html>

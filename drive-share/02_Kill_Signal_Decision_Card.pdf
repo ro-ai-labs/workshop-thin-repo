@@ -1,0 +1,174 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [9 0 R 10 0 R 11 0 R] /Count 3 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Length 4364 >>
+stream
+BT /F2 18.0 Tf 50.0 786.0 Td (Kill Signal Decision Card) Tj ET
+BT /F1 9.8 Tf 50.0 762.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 746.2 Td (One page. Print landscape. Run before any AI-heavy task on a legacy codebase.) Tj ET
+BT /F1 9.8 Tf 50.0 733.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 717.6 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 704.8 Td () Tj ET
+BT /F2 14.0 Tf 50.0 681.0 Td (Step 1 - Count Kill Signals \(5 min\)) Tj ET
+BT /F1 9.8 Tf 50.0 661.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 645.2 Td (For the project / module in front of you, mark each that applies:) Tj ET
+BT /F1 9.8 Tf 50.0 632.4 Td () Tj ET
+BT /F3 8.3 Tf 50.0 616.6 Td (# | Signal | Quick test | OK) Tj ET
+BT /F3 8.3 Tf 50.0 605.3 Td (--- | --- | --- | :-:) Tj ET
+BT /F3 8.3 Tf 50.0 594.0 Td (1 | No tests \(<30% coverage\) | Run coverage tool; spot-check a critical service | [ ]) Tj ET
+BT /F3 8.3 Tf 50.0 582.7 Td (2 | No documentation \(tribal knowledge\) | Can the senior dev be on vacation for 2 weeks and the team) Tj ET
+BT /F3 8.3 Tf 50.0 571.4 Td (still ships? | [ ]) Tj ET
+BT /F3 8.3 Tf 50.0 560.1 Td (3 | Tight coupling \(>5 modules affected\) | git log --stat on the last 5 PRs - any one PR touch >5) Tj ET
+BT /F3 8.3 Tf 50.0 548.8 Td (files in different domains? | [ ]) Tj ET
+BT /F3 8.3 Tf 50.0 537.5 Td (4 | Scattered business rules | Is the AML / reconciliation / commission logic findable in one file? |) Tj ET
+BT /F3 8.3 Tf 50.0 526.2 Td ([ ]) Tj ET
+BT /F3 8.3 Tf 50.0 514.9 Td (5 | Regulatory constraints | PCI-DSS, GDPR, EU AI Act, NIS2, banking AML - at least one applies? | [ ]) Tj ET
+BT /F3 8.3 Tf 50.0 503.6 Td (6 | Team can't evaluate output | If AI generated a crypto module right now, who could review it? | [ ]) Tj ET
+BT /F3 8.3 Tf 50.0 492.3 Td (7 | Model-context fit \(thin pretraining\) | Is the codebase in a proprietary DSL, internal framework,) Tj ET
+BT /F3 8.3 Tf 50.0 481.0 Td (or rare language with no public corpus? Thin model-context fit means the agent looks confident but) Tj ET
+BT /F3 8.3 Tf 50.0 469.7 Td (pattern-matches the wrong corpus. | [ ]) Tj ET
+BT /F3 8.3 Tf 50.0 458.4 Td (8 | Velocity-of-change \(mid-migration\) | Is the framework or a core dependency mid-migration right) Tj ET
+BT /F3 8.3 Tf 50.0 447.1 Td (now? High velocity-of-change means code straddles old + new; the agent mixes idioms. | [ ]) Tj ET
+BT /F1 9.8 Tf 50.0 435.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 420.0 Td (Total: ___ / 8) Tj ET
+BT /F1 9.8 Tf 50.0 407.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 391.4 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 378.6 Td () Tj ET
+BT /F2 14.0 Tf 50.0 354.8 Td (Step 2 - Traffic Light Action) Tj ET
+BT /F1 9.8 Tf 50.0 334.8 Td () Tj ET
+BT /F3 8.3 Tf 50.0 319.0 Td (Signals | Color | What you do this week) Tj ET
+BT /F3 8.3 Tf 50.0 307.7 Td (:-: | :-: | ---) Tj ET
+BT /F3 8.3 Tf 50.0 296.4 Td (0-1 | ? GREEN | AI-led full agentic workflow. Champions self-direct. Standard governance applies) Tj ET
+BT /F3 8.3 Tf 50.0 285.1 Td (\(CLAUDE.md, kill-zone\).) Tj ET
+BT /F3 8.3 Tf 50.0 273.8 Td (2-3 | ? YELLOW | AI-assisted. Human leads, agent supports. Every PR reviewed manually + by pr-review-) Tj ET
+BT /F3 8.3 Tf 50.0 262.5 Td (toolkit. Smaller task packets \(GREEN-sized only\).) Tj ET
+BT /F3 8.3 Tf 50.0 251.2 Td (4+ | ? RED | DO NOT use AI here yet. Invest in codebase readiness FIRST: tests, docs, decoupling. Re-) Tj ET
+BT /F3 8.3 Tf 50.0 239.9 Td (classify in 6 weeks.) Tj ET
+BT /F1 9.8 Tf 50.0 228.6 Td () Tj ET
+BT /F1 9.8 Tf 50.0 212.8 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 200.0 Td () Tj ET
+BT /F2 14.0 Tf 50.0 176.2 Td (Step 3 - Choose Tool by Task) Tj ET
+BT /F1 9.8 Tf 50.0 156.2 Td () Tj ET
+BT /F3 8.3 Tf 50.0 140.4 Td (You want to... | Use | Why) Tj ET
+BT /F3 8.3 Tf 50.0 129.1 Td (--- | --- | ---) Tj ET
+BT /F3 8.3 Tf 50.0 117.8 Td (Explore an unfamiliar codebase | Claude Code | Agent loop + Read/Glob/Grep) Tj ET
+BT /F3 8.3 Tf 50.0 106.5 Td (Refactor Spring Boot \(GREEN/YELLOW\) | Claude Code + Superpowers | 6-phase methodology enforces) Tj ET
+BT /F3 8.3 Tf 50.0 95.2 Td (discipline) Tj ET
+BT /F3 8.3 Tf 50.0 83.9 Td (Review every PR | pr-review-toolkit \(6 local agents\) | Specialized agents, parallel review) Tj ET
+BT /F3 8.3 Tf 50.0 72.6 Td (Critical-path review before merge | /ultrareview \(cloud fleet, if data policy allows\) | Independent) Tj ET
+BT /F3 8.3 Tf 50.0 61.3 Td (verification, multi-dimensional review) Tj ET
+BT /F1 8 Tf 50 24 Td (Kill_Signal_Decision_Card.md) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Length 4145 >>
+stream
+BT /F3 8.3 Tf 50.0 794.0 Td (Long migration \(multi-day\) | Claude Code Agent View --bg | Async, 2-4 parallel sessions) Tj ET
+BT /F3 8.3 Tf 50.0 782.7 Td (Quick inline autocomplete | Cursor Tab or GitHub Copilot | Lower-friction tier) Tj ET
+BT /F3 8.3 Tf 50.0 771.4 Td (Pair-programming UI session | Cursor or Aider | UI-first ergonomics) Tj ET
+BT /F3 8.3 Tf 50.0 760.1 Td (Doc analysis \(non-code\) | CoWork | Same model, non-dev surface) Tj ET
+BT /F1 9.8 Tf 50.0 748.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 733.0 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 720.2 Td () Tj ET
+BT /F2 14.0 Tf 50.0 696.4 Td (3 Banking Examples \(one per color\)) Tj ET
+BT /F1 9.8 Tf 50.0 676.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 660.6 Td (? GREEN - Customer notification template service) Tj ET
+BT /F1 9.6 Tf 62.0 647.8 Td (- Tests at 78%; documented; isolated; no regulatory text inside the templates themselves; mid-) Tj ET
+BT /F1 9.6 Tf 50.0 635.2 Td (  level dev owns it; team can read the AI output.) Tj ET
+BT /F1 9.6 Tf 62.0 622.6 Td (- Signal count: 0. AI-led. Champion can self-direct.) Tj ET
+BT /F1 9.8 Tf 50.0 610.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 594.2 Td (? YELLOW - Account-statement PDF generator) Tj ET
+BT /F1 9.6 Tf 62.0 581.4 Td (- Tests at 45%; logic somewhat documented; touches account-service + customer-service + format-) Tj ET
+BT /F1 9.6 Tf 50.0 568.8 Td (  service \(3 modules\); no scattered business rules; PCI-DSS scope; team can mostly evaluate.) Tj ET
+BT /F1 9.6 Tf 62.0 556.2 Td (- Signal count: 2 \(tests + regulatory\). AI-assisted. Human leads; every PR through pr-review-) Tj ET
+BT /F1 9.6 Tf 50.0 543.6 Td (  toolkit; smaller task packets.) Tj ET
+BT /F1 9.8 Tf 50.0 531.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 515.2 Td (? RED - Reconciliation engine for SWIFT messages) Tj ET
+BT /F1 9.6 Tf 62.0 502.4 Td (- Tests at 12% \(legacy\); no docs \(Andrei's head\); tight coupling across 11 modules; AML rules) Tj ET
+BT /F1 9.6 Tf 50.0 489.8 Td (  scattered in 8 files; multi-jurisdiction regulatory; only 2 people in the company can verify) Tj ET
+BT /F1 9.6 Tf 50.0 477.2 Td (  output.) Tj ET
+BT /F1 9.6 Tf 62.0 464.6 Td (- Signal count: 6/8. DO NOT use AI here. First: 6-week investment in tests + docs + decoupling.) Tj ET
+BT /F1 9.6 Tf 50.0 452.0 Td (  Re-classify after.) Tj ET
+BT /F1 9.8 Tf 50.0 439.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 423.6 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 410.8 Td () Tj ET
+BT /F2 14.0 Tf 50.0 387.0 Td (Counts you'll typically see in ITSS-style projects) Tj ET
+BT /F1 9.8 Tf 50.0 367.0 Td () Tj ET
+BT /F3 8.3 Tf 50.0 351.2 Td (Project type | Typical signal count | Color) Tj ET
+BT /F3 8.3 Tf 50.0 339.9 Td (--- | --- | ---) Tj ET
+BT /F3 8.3 Tf 50.0 328.6 Td (New microservice \(greenfield, started 2024+\) | 0-1 | GREEN) Tj ET
+BT /F3 8.3 Tf 50.0 317.3 Td (Standard Spring Boot CRUD service \(2-4 years old\) | 1-2 | GREEN / YELLOW boundary) Tj ET
+BT /F3 8.3 Tf 50.0 306.0 Td (Legacy monolith fragment \(5+ years, partial migration\) | 3-5 | YELLOW / RED boundary) Tj ET
+BT /F3 8.3 Tf 50.0 294.7 Td (Core banking transaction engine \(10+ years, regulatory\) | 4-7 | RED) Tj ET
+BT /F3 8.3 Tf 50.0 283.4 Td (Integration layer / ESB legacy | 4-6 | RED) Tj ET
+BT /F1 9.8 Tf 50.0 272.1 Td () Tj ET
+BT /F1 9.8 Tf 50.0 256.3 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 243.5 Td () Tj ET
+BT /F2 14.0 Tf 50.0 219.7 Td (When NOT to invest in readiness \(RED projects\)) Tj ET
+BT /F1 9.8 Tf 50.0 199.7 Td () Tj ET
+BT /F1 9.8 Tf 50.0 183.9 Td (Sometimes the right answer is "AI never works here, the codebase is end-of-life." Markers:) Tj ET
+BT /F1 9.6 Tf 62.0 171.1 Td (- Replacement project already approved with budget) Tj ET
+BT /F1 9.6 Tf 62.0 158.5 Td (- Codebase scheduled for sunset in <18 months) Tj ET
+BT /F1 9.6 Tf 62.0 145.9 Td (- The 6-week readiness investment costs more than the AI savings would return in 18 months) Tj ET
+BT /F1 9.8 Tf 50.0 133.3 Td () Tj ET
+BT /F1 9.8 Tf 50.0 117.5 Td (In those cases: keep human-led, plan the sunset, redirect AI investment elsewhere.) Tj ET
+BT /F1 9.8 Tf 50.0 104.7 Td () Tj ET
+BT /F1 9.8 Tf 50.0 88.9 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 76.1 Td () Tj ET
+BT /F1 8 Tf 50 24 Td (Kill_Signal_Decision_Card.md) Tj ET
+endstream
+endobj
+8 0 obj
+<< /Length 158 >>
+stream
+BT /F1 9.8 Tf 50.0 794.0 Td (ITSS Workshop - 28 May 2026. Apply quarterly per active project.) Tj ET
+BT /F1 8 Tf 50 24 Td (Kill_Signal_Decision_Card.md) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 6 0 R /Annots [] >>
+endobj
+10 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 7 0 R /Annots [] >>
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 8 0 R /Annots [] >>
+endobj
+12 0 obj
+<< /Title (Kill_Signal_Decision_Card.md) /Producer (basic markdown renderer) /CreationDate (D:20260526204550Z) >>
+endobj
+xref
+0 13
+0000000000 65535 f
+0000000015 00000 n
+0000000064 00000 n
+0000000135 00000 n
+0000000232 00000 n
+0000000334 00000 n
+0000000429 00000 n
+0000004845 00000 n
+0000009042 00000 n
+0000009251 00000 n
+0000009408 00000 n
+0000009566 00000 n
+0000009724 00000 n
+trailer
+<< /Size 13 /Root 1 0 R /Info 12 0 R >>
+startxref
+9854
+%%EOF

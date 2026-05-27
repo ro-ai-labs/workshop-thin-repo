@@ -1,0 +1,775 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>opencode · architecture</title>
+<style>
+  :root {
+    --bg:        #0e1014;
+    --bg-elev:   #161922;
+    --bg-card:   #1a1e29;
+    --border:    #262b39;
+    --border-hi: #3a4258;
+    --text:      #e6e8ee;
+    --text-dim:  #9aa3b8;
+    --text-mute: #6b748a;
+    --accent:    #f97316;
+    --accent-2:  #fbbf24;
+    --link:      #7dd3fc;
+    --link-hov:  #bae6fd;
+    --good:      #4ade80;
+    --line:      #2a3142;
+    --mono: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(circle at 15% -10%, rgba(249,115,22,0.07), transparent 40%),
+      radial-gradient(circle at 90% 0%, rgba(125,211,252,0.05), transparent 35%);
+    min-height: 100vh;
+  }
+
+  .page {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 40px 32px 80px;
+  }
+
+  header.masthead {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 40px;
+  }
+  .brand {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .brand .repo {
+    font-family: var(--mono);
+    font-size: 32px;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .brand .repo::before {
+    content: "◆ ";
+    color: var(--accent);
+    margin-right: 2px;
+  }
+  .brand .tag {
+    color: var(--text-dim);
+    font-size: 15px;
+    font-style: italic;
+  }
+  .subtitle {
+    color: var(--text-mute);
+    font-family: var(--mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin-top: 6px;
+  }
+  .meta-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .badge {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 5px 10px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    color: var(--text-dim);
+    background: var(--bg-elev);
+    white-space: nowrap;
+  }
+  .badge b {
+    color: var(--text);
+    font-weight: 600;
+    margin-right: 4px;
+  }
+  .badge.lang  { border-color: rgba(125,211,252,0.4); }
+  .badge.lang b  { color: var(--link); }
+  .badge.lic   { border-color: rgba(74,222,128,0.4); }
+  .badge.lic b   { color: var(--good); }
+  .badge.ver   { border-color: rgba(251,191,36,0.4); }
+  .badge.ver b   { color: var(--accent-2); }
+
+  .intro {
+    color: var(--text-dim);
+    max-width: 760px;
+    font-size: 14px;
+    margin-bottom: 36px;
+  }
+  .intro code {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent-2);
+    background: var(--bg-elev);
+    padding: 1px 6px;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+  }
+
+  .layer { margin: 0 0 28px; }
+  .layer-label {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 14px;
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--text-mute);
+  }
+  .layer-label::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--line), transparent);
+  }
+  .layer-label .lnum {
+    font-family: var(--mono);
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .grid { display: grid; gap: 16px; }
+  .grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+  @media (max-width: 1000px) {
+    .grid.cols-3, .grid.cols-4 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .grid.cols-2, .grid.cols-3, .grid.cols-4 { grid-template-columns: 1fr; }
+    .page { padding: 24px 16px 48px; }
+    header.masthead { grid-template-columns: 1fr; }
+    .meta-row { justify-content: flex-start; }
+  }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 18px 18px 14px;
+    position: relative;
+    transition: border-color 120ms, transform 120ms;
+  }
+  .card:hover { border-color: var(--border-hi); }
+  .card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 18px;
+    width: 28px; height: 2px;
+    background: var(--accent);
+    border-radius: 0 0 2px 2px;
+  }
+  .card.k-runtime::before  { background: var(--accent); }
+  .card.k-tools::before    { background: var(--link); }
+  .card.k-safety::before   { background: var(--good); }
+  .card.k-extend::before   { background: #c084fc; }
+  .card.k-io::before       { background: var(--accent-2); }
+  .card.k-infra::before    { background: var(--text-mute); }
+
+  .card-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .card-title {
+    font-family: var(--mono);
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+  .card-kind {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--text-mute);
+  }
+  .card-desc {
+    color: var(--text-dim);
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 0 0 12px;
+  }
+
+  ul.files {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px dashed var(--line);
+    padding-top: 10px;
+  }
+  ul.files li {
+    margin: 0;
+    padding: 3px 0;
+    font-family: var(--mono);
+    font-size: 12px;
+    line-height: 1.5;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  ul.files li::before {
+    content: "›";
+    color: var(--text-mute);
+    flex-shrink: 0;
+  }
+  ul.files a {
+    color: var(--link);
+    text-decoration: none;
+    border-bottom: 1px dotted transparent;
+    transition: color 100ms, border-color 100ms;
+    word-break: break-all;
+  }
+  ul.files a:hover {
+    color: var(--link-hov);
+    border-bottom-color: var(--link-hov);
+  }
+  ul.files .note {
+    color: var(--text-mute);
+    font-size: 11px;
+    margin-left: 4px;
+  }
+
+  .flow {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 22px;
+    margin-bottom: 40px;
+  }
+  .flow-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--text-mute);
+    margin-bottom: 16px;
+  }
+  .pipe {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: 12px;
+  }
+  .pipe .step {
+    flex: 1 1 0;
+    min-width: 140px;
+    padding: 12px 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    text-align: center;
+    color: var(--text);
+    position: relative;
+  }
+  .pipe .step b {
+    display: block;
+    color: var(--text);
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+  .pipe .step span {
+    color: var(--text-mute);
+    font-size: 11px;
+  }
+  .pipe .arr {
+    align-self: center;
+    color: var(--text-mute);
+    padding: 0 8px;
+    font-size: 16px;
+    user-select: none;
+  }
+  @media (max-width: 900px) {
+    .pipe { flex-direction: column; }
+    .pipe .arr { transform: rotate(90deg); padding: 6px 0; }
+  }
+
+  footer {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    color: var(--text-mute);
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  footer code {
+    font-family: var(--mono);
+    color: var(--text-dim);
+  }
+  footer .note { max-width: 720px; }
+
+  ::selection { background: rgba(249,115,22,0.35); color: var(--text); }
+</style>
+</head>
+<body>
+  <div class="page">
+
+    <header class="masthead">
+      <div>
+        <div class="brand">
+          <span class="repo">opencode</span>
+          <span class="tag">The open-source AI coding agent.</span>
+        </div>
+        <div class="subtitle">Architecture map · packages/opencode/src</div>
+      </div>
+      <div class="meta-row">
+        <span class="badge lang"><b>Language</b> TypeScript</span>
+        <span class="badge lic"><b>License</b> MIT</span>
+        <span class="badge ver"><b>Runtime</b> Bun · Effect</span>
+        <span class="badge"><b>Branch</b> dev</span>
+      </div>
+    </header>
+
+    <p class="intro">
+      A walk through opencode's core primitives - the agent loop, the tool registry, the permission gate,
+      shell execution, and the plugin / MCP extension points. Every file link below points to the local source
+      via <code>file://</code>; click any to open it in your editor's default handler.
+      Cards are colour-tagged: <span style="color:var(--accent)">●</span> runtime,
+      <span style="color:var(--link)">●</span> tools,
+      <span style="color:var(--good)">●</span> safety,
+      <span style="color:#c084fc">●</span> extension,
+      <span style="color:var(--accent-2)">●</span> I/O,
+      <span style="color:var(--text-mute)">●</span> infra.
+    </p>
+
+    <section class="flow">
+      <div class="flow-title">Request flow · single tool call</div>
+      <div class="pipe">
+        <div class="step"><b>CLI / TUI</b><span>user prompt</span></div>
+        <span class="arr">→</span>
+        <div class="step"><b>Session</b><span>agent loop</span></div>
+        <span class="arr">→</span>
+        <div class="step"><b>LLM</b><span>provider · tool call</span></div>
+        <span class="arr">→</span>
+        <div class="step"><b>Permission</b><span>allow / ask / deny</span></div>
+        <span class="arr">→</span>
+        <div class="step"><b>Tool</b><span>execute</span></div>
+        <span class="arr">→</span>
+        <div class="step"><b>Bus</b><span>events / UI</span></div>
+      </div>
+    </section>
+
+    <section class="layer">
+      <div class="layer-label"><span class="lnum">01</span> Agent runtime</div>
+      <div class="grid cols-3">
+
+        <article class="card k-runtime">
+          <div class="card-head">
+            <div class="card-title">Session · agent loop</div>
+            <div class="card-kind">core</div>
+          </div>
+          <p class="card-desc">
+            The main loop. Streams LLM output, dispatches tool calls, manages context,
+            handles compaction, retries, and revert.
+          </p>
+          <ul class="files">
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/session/session.ts">session/session.ts</a><span class="note">orchestrator</span></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/session/llm.ts">session/llm.ts</a><span class="note">streaming</span></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/session/processor.ts">session/processor.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/session/compaction.ts">session/compaction.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/session/overflow.ts">session/overflow.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/session/retry.ts">session/retry.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/session/revert.ts">session/revert.ts</a></li>
+          </ul>
+        </article>
+
+        <article class="card k-runtime">
+          <div class="card-head">
+            <div class="card-title">Agent definitions</div>
+            <div class="card-kind">core</div>
+          </div>
+          <p class="card-desc">
+            Agent profiles (general, plan, subagent). Each profile composes a system prompt,
+            tool subset, and permission scope.
+          </p>
+          <ul class="files">
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/agent/agent.ts">agent/agent.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/agent/subagent-permissions.ts">agent/subagent-permissions.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/agent/prompt">agent/prompt/</a><span class="note">prompts</span></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/session/system.ts">session/system.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/session/instruction.ts">session/instruction.ts</a></li>
+          </ul>
+        </article>
+
+        <article class="card k-runtime">
+          <div class="card-head">
+            <div class="card-title">Message + state</div>
+            <div class="card-kind">core</div>
+          </div>
+          <p class="card-desc">
+            Versioned message schema, run state, status, and todos as part of the agent's
+            working memory.
+          </p>
+          <ul class="files">
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/session/message-v2.ts">session/message-v2.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/session/schema.ts">session/schema.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/session/run-state.ts">session/run-state.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/session/status.ts">session/status.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/session/todo.ts">session/todo.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/session/summary.ts">session/summary.ts</a></li>
+          </ul>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="layer">
+      <div class="layer-label"><span class="lnum">02</span> Tools</div>
+      <div class="grid cols-4">
+
+        <article class="card k-tools">
+          <div class="card-head">
+            <div class="card-title">Tool contract</div>
+            <div class="card-kind">interface</div>
+          </div>
+          <p class="card-desc">
+            <code>Tool.Def</code> &mdash; id, description, params, JSON schema, <code>execute()</code>.
+            Registry composes all built-ins + plugin tools.
+          </p>
+          <ul class="files">
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/tool/tool.ts">tool/tool.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/tool/registry.ts">tool/registry.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/tool/schema.ts">tool/schema.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/tool/truncate.ts">tool/truncate.ts</a></li>
+          </ul>
+        </article>
+
+        <article class="card k-tools">
+          <div class="card-head">
+            <div class="card-title">Filesystem tools</div>
+            <div class="card-kind">read · write</div>
+          </div>
+          <p class="card-desc">
+            Read, write, edit, glob, grep, apply_patch. Edits route through the permission gate
+            before touching disk.
+          </p>
+          <ul class="files">
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/tool/read.ts">read.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/tool/write.ts">write.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/tool/edit.ts">edit.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/tool/glob.ts">glob.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/tool/grep.ts">grep.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/tool/apply_patch.ts">apply_patch.ts</a></li>
+          </ul>
+        </article>
+
+        <article class="card k-tools">
+          <div class="card-head">
+            <div class="card-title">Shell · LSP · web</div>
+            <div class="card-kind">execute · fetch</div>
+          </div>
+          <p class="card-desc">
+            Shell command execution, LSP diagnostics queries, web fetch / search, MCP-mediated
+            websearch.
+          </p>
+          <ul class="files">
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/tool/shell.ts">shell.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/tool/shell">tool/shell/</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/tool/lsp.ts">lsp.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/tool/webfetch.ts">webfetch.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/tool/websearch.ts">websearch.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/tool/mcp-websearch.ts">mcp-websearch.ts</a></li>
+          </ul>
+        </article>
+
+        <article class="card k-tools">
+          <div class="card-head">
+            <div class="card-title">Meta tools</div>
+            <div class="card-kind">control</div>
+          </div>
+          <p class="card-desc">
+            Plan-mode entry / exit, todo write, subagent task dispatch, repo overview, user-facing
+            question / skill calls.
+          </p>
+          <ul class="files">
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/tool/plan.ts">plan.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/tool/todo.ts">todo.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/tool/task.ts">task.ts</a><span class="note">subagent</span></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/tool/task_status.ts">task_status.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/tool/repo_overview.ts">repo_overview.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/tool/repo_clone.ts">repo_clone.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/tool/question.ts">question.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/tool/skill.ts">skill.ts</a></li>
+          </ul>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="layer">
+      <div class="layer-label"><span class="lnum">03</span> Safety &amp; sandboxing</div>
+      <div class="grid cols-2">
+
+        <article class="card k-safety">
+          <div class="card-head">
+            <div class="card-title">Permission gate</div>
+            <div class="card-kind">policy</div>
+          </div>
+          <p class="card-desc">
+            Every tool call passes through a rules engine: wildcard patterns, allow / ask / deny actions,
+            cached "always" answers, persisted per session.
+          </p>
+          <ul class="files">
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/permission/index.ts">permission/index.ts</a><span class="note">core</span></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/permission/evaluate.ts">permission/evaluate.ts</a><span class="note">rule eval</span></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/permission/arity.ts">permission/arity.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/permission/schema.ts">permission/schema.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/agent/subagent-permissions.ts">agent/subagent-permissions.ts</a></li>
+          </ul>
+        </article>
+
+        <article class="card k-safety">
+          <div class="card-head">
+            <div class="card-title">Shell sandbox</div>
+            <div class="card-kind">execute</div>
+          </div>
+          <p class="card-desc">
+            Spawns commands via cross-spawn / node-pty. Snapshot system captures filesystem state
+            before risky operations so reverts are possible.
+          </p>
+          <ul class="files">
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/shell/shell.ts">shell/shell.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/tool/shell/prompt.ts">tool/shell/prompt.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/tool/shell/id.ts">tool/shell/id.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/snapshot">snapshot/</a><span class="note">revert state</span></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/pty">pty/</a><span class="note">terminal</span></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/patch">patch/</a></li>
+          </ul>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="layer">
+      <div class="layer-label"><span class="lnum">04</span> Extension surfaces</div>
+      <div class="grid cols-3">
+
+        <article class="card k-extend">
+          <div class="card-head">
+            <div class="card-title">Plugins</div>
+            <div class="card-kind">user code</div>
+          </div>
+          <p class="card-desc">
+            User-installable TypeScript plugins. Loader resolves <code>package.json</code> entries,
+            invokes lifecycle hooks, and registers extra tools.
+          </p>
+          <ul class="files">
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/plugin/index.ts">plugin/index.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/plugin/loader.ts">plugin/loader.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/plugin/install.ts">plugin/install.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/plugin/meta.ts">plugin/meta.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/plugin">packages/plugin/</a><span class="note">SDK</span></li>
+          </ul>
+        </article>
+
+        <article class="card k-extend">
+          <div class="card-head">
+            <div class="card-title">MCP servers</div>
+            <div class="card-kind">protocol</div>
+          </div>
+          <p class="card-desc">
+            Model Context Protocol client. Discovers external tool servers,
+            handles OAuth, exposes their tools to the agent.
+          </p>
+          <ul class="files">
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/mcp/index.ts">mcp/index.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/mcp/auth.ts">mcp/auth.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/mcp/oauth-provider.ts">mcp/oauth-provider.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/mcp/oauth-callback.ts">mcp/oauth-callback.ts</a></li>
+          </ul>
+        </article>
+
+        <article class="card k-extend">
+          <div class="card-head">
+            <div class="card-title">Providers · models</div>
+            <div class="card-kind">LLM gateway</div>
+          </div>
+          <p class="card-desc">
+            Provider abstraction over Anthropic, OpenAI, GitHub Copilot, Azure, Codex,
+            and others. Per-provider plugins live next to the loader.
+          </p>
+          <ul class="files">
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/provider/provider.ts">provider/provider.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/provider/transform.ts">provider/transform.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/provider/auth.ts">provider/auth.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/provider/model-status.ts">provider/model-status.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/plugin/github-copilot">plugin/github-copilot/</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/plugin/codex.ts">plugin/codex.ts</a></li>
+          </ul>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="layer">
+      <div class="layer-label"><span class="lnum">05</span> Interfaces · I/O</div>
+      <div class="grid cols-3">
+
+        <article class="card k-io">
+          <div class="card-head">
+            <div class="card-title">CLI · TUI</div>
+            <div class="card-kind">entry</div>
+          </div>
+          <p class="card-desc">
+            <code>opencode</code> binary entry. Sub-commands wire up the runtime,
+            then hand control to the terminal UI or the headless run loop.
+          </p>
+          <ul class="files">
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/index.ts">src/index.ts</a><span class="note">entry</span></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/cli">src/cli/</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/cli/cmd">cli/cmd/</a><span class="note">commands</span></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/cli/ui.ts">cli/ui.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/cli/bootstrap.ts">cli/bootstrap.ts</a></li>
+          </ul>
+        </article>
+
+        <article class="card k-io">
+          <div class="card-head">
+            <div class="card-title">HTTP server</div>
+            <div class="card-kind">api</div>
+          </div>
+          <p class="card-desc">
+            Hono-based local server: exposes sessions, events, and tool I/O for
+            the desktop / web clients and remote agents.
+          </p>
+          <ul class="files">
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/server/server.ts">server/server.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/server/routes">server/routes/</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/server/auth.ts">server/auth.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/server/event.ts">server/event.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/server/cors.ts">server/cors.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/server/mdns.ts">server/mdns.ts</a><span class="note">discovery</span></li>
+          </ul>
+        </article>
+
+        <article class="card k-io">
+          <div class="card-head">
+            <div class="card-title">LSP · IDE · ACP</div>
+            <div class="card-kind">editor</div>
+          </div>
+          <p class="card-desc">
+            Embedded LSP client for diagnostics, IDE-side integrations,
+            and ACP (Agent Client Protocol) for editor pairings.
+          </p>
+          <ul class="files">
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/lsp/lsp.ts">lsp/lsp.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/lsp/client.ts">lsp/client.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/lsp/diagnostic.ts">lsp/diagnostic.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/lsp/launch.ts">lsp/launch.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/ide">ide/</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/acp">acp/</a></li>
+          </ul>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="layer">
+      <div class="layer-label"><span class="lnum">06</span> Infrastructure</div>
+      <div class="grid cols-4">
+
+        <article class="card k-infra">
+          <div class="card-head">
+            <div class="card-title">Event bus</div>
+            <div class="card-kind">pubsub</div>
+          </div>
+          <p class="card-desc">In-process event bus. Tools, session, UI, and plugins all converse here.</p>
+          <ul class="files">
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/bus/index.ts">bus/index.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/bus/bus-event.ts">bus/bus-event.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/bus/global.ts">bus/global.ts</a></li>
+          </ul>
+        </article>
+
+        <article class="card k-infra">
+          <div class="card-head">
+            <div class="card-title">Storage</div>
+            <div class="card-kind">persist</div>
+          </div>
+          <p class="card-desc">SQLite (via drizzle), JSON migration, per-project storage of sessions and permissions.</p>
+          <ul class="files">
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/storage">storage/</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/session/session.sql.ts">session.sql.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/data-migration.ts">data-migration.ts</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/data-migration.sql.ts">data-migration.sql.ts</a></li>
+          </ul>
+        </article>
+
+        <article class="card k-infra">
+          <div class="card-head">
+            <div class="card-title">Config · auth</div>
+            <div class="card-kind">setup</div>
+          </div>
+          <p class="card-desc">Config loader, account auth, model auth, identity resolution.</p>
+          <ul class="files">
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/config">config/</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/auth">auth/</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/account">account/</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/identity">identity/</a></li>
+          </ul>
+        </article>
+
+        <article class="card k-infra">
+          <div class="card-head">
+            <div class="card-title">Project · git · worktree</div>
+            <div class="card-kind">vcs</div>
+          </div>
+          <p class="card-desc">Project root resolution, git wrappers, ephemeral worktrees for sandboxed edits.</p>
+          <ul class="files">
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/project">project/</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/git">git/</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/worktree">worktree/</a></li>
+            <li><a href="file:///home/mihai/workshop/opencode/packages/opencode/src/file">file/</a></li>
+          </ul>
+        </article>
+
+      </div>
+    </section>
+
+    <footer>
+      <div class="note">
+        Generated against <code>packages/opencode/src</code> on the <code>dev</code> branch.
+        Click any file path to open it locally &mdash; some browsers block <code>file://</code>
+        links from HTTP pages, so open this document directly from your filesystem.
+      </div>
+      <div>
+        <code>opencode</code> · MIT · TypeScript
+      </div>
+    </footer>
+
+  </div>
+</body>
+</html>

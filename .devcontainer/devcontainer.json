@@ -1,0 +1,105 @@
+{
+  "name": "ITSS Workshop 2026",
+  // No registry dependency: participants build this image locally on first
+  // "Reopen in Container" (~10-15 min, then cached for subsequent opens).
+  // The build context is the workspace root (one level up from this file) so
+  // the Dockerfile's `COPY build-context/claude-plugins/...` resolves.
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  // OFFLINE FALLBACK: if your `docker build` keeps failing (workshop wifi,
+  // proxy, etc.) and Mihai handed you the tarball on USB:
+  //   docker load -i itss-workshop-2026.05.28.tar
+  // Then comment out the "build" block above and uncomment the line below:
+  // "image": "itss-workshop:local",
+
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "version": "latest",
+      "moby": true
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "username": "vscode",
+      "userUid": "automatic",
+      "userGid": "automatic"
+    }
+  },
+
+  "remoteUser": "vscode",
+  "updateRemoteUserUID": true,
+
+  // Ensure the host-side bind-mount sources exist before docker tries to bind
+  // them. Without this, participants who haven't run `claude login` on host
+  // get "source path does not exist" from docker and the container fails to
+  // start. Empty files are harmless — claude treats them as "no auth", and a
+  // `claude login` inside the container writes back through the bind to the
+  // host, so subsequent reopens carry the token over.
+  "initializeCommand": "mkdir -p \"${localEnv:HOME}/.claude\" && touch \"${localEnv:HOME}/.claude.json\" \"${localEnv:HOME}/.claude/.credentials.json\"",
+
+  "mounts": [
+    // Claude auth bridges host <-> container via two narrow bind mounts.
+    // `claude login` works in either direction; the file lives on the host.
+    "source=${localEnv:HOME}/.claude.json,target=/home/vscode/.claude.json,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.claude/.credentials.json,target=/home/vscode/.claude/.credentials.json,type=bind,consistency=cached",
+
+    // Named volumes — persist post-create's heavy work across container rebuilds.
+    // The workspace bind-mount already preserves $WORKSHOP_HOME/{codex,opencode,twenty}
+    // (incl. node_modules + .yarn/cache on the host filesystem). The named volumes
+    // below cover what lives OUTSIDE the workspace bind:
+    //   • cargo registry + git caches (codex's `cargo fetch` results)
+    //   • bun's global install cache (opencode's package downloads)
+    //   • Docker-in-Docker's storage (Twenty's Postgres data + compose state)
+    "source=itss-workshop-cargo,target=/usr/local/cargo,type=volume",
+    "source=itss-workshop-bun,target=/home/vscode/.bun,type=volume",
+    "source=itss-workshop-dind,target=/var/lib/docker,type=volume",
+    // Plugins live in a named volume so manual `/plugin add ...` installs
+    // done inside the container persist across rebuilds. Auth (.claude.json
+    // + .credentials.json) stays bind-mounted to the host above.
+    "source=itss-workshop-plugins,target=/home/vscode/.claude/plugins,type=volume"
+  ],
+
+  "containerEnv": {
+    "WORKSHOP_HOME": "${containerWorkspaceFolder}/workshop",
+    "EDITOR": "code --wait",
+    "TZ": "Europe/Bucharest"
+  },
+  "remoteEnv": {
+    "GIT_AUTHOR_NAME":  "${localEnv:GIT_AUTHOR_NAME}",
+    "GIT_AUTHOR_EMAIL": "${localEnv:GIT_AUTHOR_EMAIL}"
+  },
+
+  "userEnvProbe": "loginInteractiveShell",
+  "hostRequirements": { "cpus": 4, "memory": "8gb", "storage": "32gb" },
+
+  "forwardPorts": [3000, 3001, 3002],
+  "portsAttributes": {
+    "3000": { "label": "Twenty backend",  "onAutoForward": "silent" },
+    "3001": { "label": "Twenty frontend", "onAutoForward": "openBrowser" },
+    "3002": { "label": "Live Preview",    "onAutoForward": "silent" }
+  },
+
+  "postCreateCommand": "bash ${containerWorkspaceFolder}/.devcontainer/post-create.sh",
+  "postStartCommand":  "bash ${containerWorkspaceFolder}/.devcontainer/post-start.sh",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "anthropic.claude-code",
+        "ms-vscode.live-server",
+        "ms-azuretools.vscode-docker",
+        "rust-lang.rust-analyzer",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "redhat.vscode-yaml",
+        "GitHub.vscode-pull-request-github"
+      ],
+      "settings": {
+        "livePreview.serverRoot": "${containerWorkspaceFolder}/workshop",
+        "livePreview.portNumber": 3002,
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  }
+}

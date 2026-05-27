@@ -1,0 +1,17 @@
+{
+  "folders": [
+    { "name": "ITSS Workshop (this repo)", "path": "." },
+    { "name": "Demo 1a — Codex", "path": "workshop/codex" },
+    { "name": "Demo 1b — opencode", "path": "workshop/opencode" },
+    { "name": "Demo 2 — Twenty", "path": "workshop/twenty" },
+    { "name": "Drive-share (handouts + Demo 1 HTMLs)", "path": "drive-share" }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/.git": true,
+      "**/node_modules": true,
+      "**/target": true,
+      "**/.yarn/cache": true
+    }
+  }
+}

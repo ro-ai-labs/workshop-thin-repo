@@ -1,0 +1,115 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [8 0 R 9 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Length 3502 >>
+stream
+BT /F2 18.0 Tf 50.0 786.0 Td (Manager Day-7 Worksheet) Tj ET
+BT /F1 9.8 Tf 50.0 762.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 746.2 Td (By Friday, June 5, 2026: pick one GREEN project + one champion.) Tj ET
+BT /F1 9.8 Tf 50.0 733.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 717.6 Td (This worksheet is for the manager track. Fill it in by Day 7 after the workshop \(June 4\) so) Tj ET
+BT /F1 9.8 Tf 50.0 704.8 Td (the GREEN project + champion is locked by Friday June 5.) Tj ET
+BT /F1 9.8 Tf 50.0 692.0 Td () Tj ET
+BT /F2 14.0 Tf 50.0 668.2 Td (Project triage) Tj ET
+BT /F1 9.8 Tf 50.0 648.2 Td () Tj ET
+BT /F3 8.3 Tf 50.0 632.4 Td (Field | Project 1 | Project 2 | Project 3) Tj ET
+BT /F3 8.3 Tf 50.0 621.1 Td (--- | --- | --- | ---) Tj ET
+BT /F3 8.3 Tf 50.0 609.8 Td (Project name |  |  |) Tj ET
+BT /F3 8.3 Tf 50.0 598.5 Td (Kill-signal count | __ / 7 | __ / 7 | __ / 7) Tj ET
+BT /F3 8.3 Tf 50.0 587.2 Td (GREEN / YELLOW / RED |  |  |) Tj ET
+BT /F3 8.3 Tf 50.0 575.9 Td (Champion owner |  |  |) Tj ET
+BT /F3 8.3 Tf 50.0 564.6 Td (Week-1 action |  |  |) Tj ET
+BT /F1 9.8 Tf 50.0 553.3 Td () Tj ET
+BT /F2 14.0 Tf 50.0 529.5 Td (The 7 kill signals \(from Brownfield Decision Framework\)) Tj ET
+BT /F1 9.8 Tf 50.0 509.5 Td () Tj ET
+BT /F1 9.6 Tf 62.0 493.7 Td (1. No test suite at all) Tj ET
+BT /F1 9.6 Tf 62.0 481.1 Td (2. > 50% of test suite intentionally skipped \(@Disabled, it.skip, xfail\)) Tj ET
+BT /F1 9.6 Tf 62.0 468.5 Td (3. CI broken > 2 weeks) Tj ET
+BT /F1 9.6 Tf 62.0 455.9 Td (4. Code review backlog > 30 PRs) Tj ET
+BT /F1 9.6 Tf 62.0 443.3 Td (5. No README and no working ./run script) Tj ET
+BT /F1 9.6 Tf 62.0 430.7 Td (6. > 3 different framework versions in one service) Tj ET
+BT /F1 9.6 Tf 62.0 418.1 Td (7. Last commit touched > 50 files) Tj ET
+BT /F1 9.8 Tf 50.0 405.5 Td () Tj ET
+BT /F2 14.0 Tf 50.0 381.7 Td (Traffic light rule) Tj ET
+BT /F1 9.8 Tf 50.0 361.7 Td () Tj ET
+BT /F1 9.6 Tf 62.0 345.9 Td (- RED -- 3 or more signals: do not pilot AI here. The team is fighting fundamentals; AI) Tj ET
+BT /F1 9.6 Tf 50.0 333.3 Td (  amplifies the noise.) Tj ET
+BT /F1 9.6 Tf 62.0 320.7 Td (- YELLOW -- 1 or 2 signals: pilot tightly scoped, with the champion supervising. Don't expand) Tj ET
+BT /F1 9.6 Tf 50.0 308.1 Td (  until the signal count drops.) Tj ET
+BT /F1 9.6 Tf 62.0 295.5 Td (- GREEN -- 0 signals: first pilot lands here. Highest signal-to-noise; the team can tell when) Tj ET
+BT /F1 9.6 Tf 50.0 282.9 Td (  AI is actually helping.) Tj ET
+BT /F1 9.8 Tf 50.0 270.3 Td () Tj ET
+BT /F2 14.0 Tf 50.0 246.5 Td (Week-1 action examples) Tj ET
+BT /F1 9.8 Tf 50.0 226.5 Td () Tj ET
+BT /F1 9.6 Tf 62.0 210.7 Td (- Skeleton CLAUDE.md committed to the GREEN project's repo) Tj ET
+BT /F1 9.6 Tf 62.0 198.1 Td (- Champion runs the Demo 2 6-phase loop on one feature end-to-end) Tj ET
+BT /F1 9.6 Tf 62.0 185.5 Td (- Agent View / Claude Code installed for two devs on the GREEN team) Tj ET
+BT /F1 9.6 Tf 62.0 172.9 Td (- Kill-signal triage of all team projects written into the team's roadmap doc) Tj ET
+BT /F1 9.8 Tf 50.0 160.3 Td () Tj ET
+BT /F2 14.0 Tf 50.0 136.5 Td (Day 30 / 60 / 90 leadership conversation) Tj ET
+BT /F1 9.8 Tf 50.0 116.5 Td () Tj ET
+BT /F3 8.3 Tf 50.0 100.7 Td (Day | What you tell the VP) Tj ET
+BT /F3 8.3 Tf 50.0 89.4 Td (--- | ---) Tj ET
+BT /F3 8.3 Tf 50.0 78.1 Td (30 | GREEN project signed off; champion running 6-phase loop weekly; first measurable delta \(cycle) Tj ET
+BT /F3 8.3 Tf 50.0 66.8 Td (time on small features\)) Tj ET
+BT /F1 8 Tf 50 24 Td (Manager_Day7_Worksheet.md) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Length 955 >>
+stream
+BT /F3 8.3 Tf 50.0 794.0 Td (60 | Second project moved from YELLOW to GREEN via test-suite work; pilot delta measurable in PR-) Tj ET
+BT /F3 8.3 Tf 50.0 782.7 Td (review-cycle metrics) Tj ET
+BT /F3 8.3 Tf 50.0 771.4 Td (90 | Two GREEN projects; CLAUDE.md / AGENTS.md committed in three repos; team adoption rate target ?) Tj ET
+BT /F3 8.3 Tf 50.0 760.1 Td (50% of touched PRs use the 6-phase methodology) Tj ET
+BT /F1 9.8 Tf 50.0 748.8 Td () Tj ET
+BT /F2 14.0 Tf 50.0 725.0 Td (See also) Tj ET
+BT /F1 9.8 Tf 50.0 705.0 Td () Tj ET
+BT /F1 9.6 Tf 62.0 689.2 Td (- Kill_Signal_Decision_Card.md -- 3-step brownfield decision card with banking examples) Tj ET
+BT /F1 9.6 Tf 62.0 676.6 Td (- CLAUDE_AGENTS_md_Cheatsheet.md -- file format quick-reference + minimal skeletons) Tj ET
+BT /F1 9.6 Tf 62.0 664.0 Td (- Participant Handout: "Diana's 12 Challenges -> Workshop Landing" \(Item 12 lands here\)) Tj ET
+BT /F1 8 Tf 50 24 Td (Manager_Day7_Worksheet.md) Tj ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 6 0 R /Annots [] >>
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 7 0 R /Annots [] >>
+endobj
+10 0 obj
+<< /Title (Manager_Day7_Worksheet.md) /Producer (basic markdown renderer) /CreationDate (D:20260526204338Z) >>
+endobj
+xref
+0 11
+0000000000 65535 f
+0000000015 00000 n
+0000000064 00000 n
+0000000127 00000 n
+0000000224 00000 n
+0000000326 00000 n
+0000000421 00000 n
+0000003975 00000 n
+0000004981 00000 n
+0000005138 00000 n
+0000005295 00000 n
+trailer
+<< /Size 11 /Root 1 0 R /Info 10 0 R >>
+startxref
+5422
+%%EOF

@@ -1,0 +1,356 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [13 0 R 14 0 R 15 0 R 16 0 R 17 0 R] /Count 5 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Length 4311 >>
+stream
+BT /F2 18.0 Tf 50.0 786.0 Td (CLAUDE.md / AGENTS.md - Cheatsheet) Tj ET
+BT /F1 9.8 Tf 50.0 762.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 746.2 Td (One page. Print landscape. Pin near monitor.) Tj ET
+BT /F1 9.8 Tf 50.0 733.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 717.6 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 704.8 Td () Tj ET
+BT /F2 14.0 Tf 50.0 681.0 Td (Which file for what?) Tj ET
+BT /F1 9.8 Tf 50.0 661.0 Td () Tj ET
+BT /F3 8.3 Tf 50.0 645.2 Td ( | CLAUDE.md | AGENTS.md) Tj ET
+BT /F3 8.3 Tf 50.0 633.9 Td (--- | --- | ---) Tj ET
+BT /F3 8.3 Tf 50.0 622.6 Td (Who reads it directly | Claude Code \(every session, into context window\) | Codex directly; Claude Code) Tj ET
+BT /F3 8.3 Tf 50.0 611.3 Td (only via @AGENTS.md import inside CLAUDE.md \(or symlink\). Claude Code does NOT read AGENTS.md) Tj ET
+BT /F3 8.3 Tf 50.0 600.0 Td (natively.) Tj ET
+BT /F3 8.3 Tf 50.0 588.7 Td (Purpose | Conventions, forbidden patterns, testing rules, project memory | Cross-tool orchestration) Tj ET
+BT /F3 8.3 Tf 50.0 577.4 Td (protocol: roles, handoffs, test authority, multi-agent contracts) Tj ET
+BT /F3 8.3 Tf 50.0 566.1 Td (Location | Project root \(or .claude/CLAUDE.md\) | Project root, alongside CLAUDE.md) Tj ET
+BT /F3 8.3 Tf 50.0 554.8 Td (Bridging the gap | n/a | Reference it from CLAUDE.md: See @AGENTS.md for multi-agent orchestration) Tj ET
+BT /F3 8.3 Tf 50.0 543.5 Td (rules. Or symlink it.) Tj ET
+BT /F3 8.3 Tf 50.0 532.2 Td (Length budget | ?200 lines | ?200 lines) Tj ET
+BT /F1 9.8 Tf 50.0 520.9 Td () Tj ET
+BT /F1 9.8 Tf 50.0 505.1 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 492.3 Td () Tj ET
+BT /F2 14.0 Tf 50.0 468.5 Td (Loading / import model) Tj ET
+BT /F1 9.8 Tf 50.0 448.5 Td () Tj ET
+BT /F1 9.8 Tf 50.0 432.7 Td (Per the official Memory docs \(https://code.claude.com/docs/en/memory\), Claude Code reads) Tj ET
+BT /F1 9.8 Tf 50.0 419.9 Td (CLAUDE.md, not AGENTS.md. Per the official Codex docs) Tj ET
+BT /F1 9.8 Tf 50.0 407.1 Td (\(https://developers.openai.com/codex/guides/agents-md\), Codex reads AGENTS.md before work.) Tj ET
+BT /F1 9.8 Tf 50.0 394.3 Td (These files are loaded into context as instructions; they are not hard security controls.) Tj ET
+BT /F1 9.8 Tf 50.0 381.5 Td () Tj ET
+BT /F1 9.8 Tf 50.0 365.7 Td (Common locations:) Tj ET
+BT /F1 9.6 Tf 62.0 352.9 Td (- Managed policy, e.g. /Library/Application Support/ClaudeCode/CLAUDE.md, /etc/claude-) Tj ET
+BT /F1 9.6 Tf 50.0 340.3 Td (  code/CLAUDE.md, or C:\\Program Files\\ClaudeCode\\CLAUDE.md) Tj ET
+BT /F1 9.6 Tf 62.0 327.7 Td (- User rules: ~/.claude/CLAUDE.md) Tj ET
+BT /F1 9.6 Tf 62.0 315.1 Td (- Project rules: ./CLAUDE.md or ./.claude/CLAUDE.md) Tj ET
+BT /F1 9.6 Tf 62.0 302.5 Td (- Local checkout rules: ./CLAUDE.local.md \(gitignored\)) Tj ET
+BT /F1 9.6 Tf 62.0 289.9 Td (- Imports: @AGENTS.md, @.claude/rules/<topic>.md) Tj ET
+BT /F1 9.8 Tf 50.0 277.3 Td () Tj ET
+BT /F1 9.8 Tf 50.0 261.5 Td (Important nuance: Claude Code concatenates relevant memory files into context. If two rules) Tj ET
+BT /F1 9.8 Tf 50.0 248.7 Td (contradict each other, Claude may choose one arbitrarily. The fix is not "rely on override) Tj ET
+BT /F1 9.8 Tf 50.0 235.9 Td (order"; the fix is to reconcile or delete the conflict.) Tj ET
+BT /F1 9.8 Tf 50.0 223.1 Td () Tj ET
+BT /F1 9.8 Tf 50.0 207.3 Td (For AGENTS.md to be active in Claude Code: add @AGENTS.md inside your project CLAUDE.md, OR) Tj ET
+BT /F1 9.8 Tf 50.0 194.5 Td (symlink AGENTS.md -> CLAUDE.md.) Tj ET
+BT /F1 9.8 Tf 50.0 181.7 Td () Tj ET
+BT /F1 9.8 Tf 50.0 165.9 Td (For GitHub Copilot: official repository instructions live in .github/copilot-instructions.md.) Tj ET
+BT /F1 9.8 Tf 50.0 153.1 Td (Keep AGENTS.md as the cross-agent source and mirror only the essential rules if Copilot is) Tj ET
+BT /F1 9.8 Tf 50.0 140.3 Td (part of the toolchain.) Tj ET
+BT /F1 9.8 Tf 50.0 127.5 Td () Tj ET
+BT /F1 9.8 Tf 50.0 111.7 Td (For Codex overrides: Codex checks each directory on the path to the working directory and) Tj ET
+BT /F1 9.8 Tf 50.0 98.9 Td (includes at most one instruction file per directory. In each directory it prefers) Tj ET
+BT /F1 9.8 Tf 50.0 86.1 Td (AGENTS.override.md, then AGENTS.md, then configured fallback filenames. Put specialized) Tj ET
+BT /F1 9.8 Tf 50.0 73.3 Td (overrides close to the service or package they govern.) Tj ET
+BT /F1 8 Tf 50 24 Td (CLAUDE_AGENTS_md_Cheatsheet.md) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Type /Annot /Subtype /Link /Rect [50.0 430.7 498.4 444.5] /Border [0 0 0] /A << /S /URI /URI (https://code.claude.com/docs/en/memory) >> >>
+endobj
+8 0 obj
+<< /Type /Annot /Subtype /Link /Rect [50.0 405.1 508.6 418.9] /Border [0 0 0] /A << /S /URI /URI (https://developers.openai.com/codex/guides/agents-md) >> >>
+endobj
+9 0 obj
+<< /Length 4010 >>
+stream
+BT /F1 9.8 Tf 50.0 794.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 778.2 Td (When the project grows, split overflow into .claude/rules/<topic>.md and import via) Tj ET
+BT /F1 9.8 Tf 50.0 765.4 Td (@.claude/rules/<topic>.md in CLAUDE.md - never let any single file exceed 200 lines.) Tj ET
+BT /F1 9.8 Tf 50.0 752.6 Td () Tj ET
+BT /F1 9.8 Tf 50.0 736.8 Td (For large codebases, start Claude Code from the service/package directory you are changing.) Tj ET
+BT /F1 9.8 Tf 50.0 724.0 Td (Claude walks upward and loads the relevant parent CLAUDE.md files, so root context is still) Tj ET
+BT /F1 9.8 Tf 50.0 711.2 Td (available without forcing every unrelated package rule into the task. If a parent file) Tj ET
+BT /F1 9.8 Tf 50.0 698.4 Td (creates contradictions, exclude irrelevant memory with claudeMdExcludes rather than adding) Tj ET
+BT /F1 9.8 Tf 50.0 685.6 Td (counter-rules.) Tj ET
+BT /F1 9.8 Tf 50.0 672.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 657.0 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 644.2 Td () Tj ET
+BT /F2 14.0 Tf 50.0 620.4 Td (Which extension when?) Tj ET
+BT /F1 9.8 Tf 50.0 600.4 Td () Tj ET
+BT /F3 8.3 Tf 50.0 584.6 Td (Need | Use | Example) Tj ET
+BT /F3 8.3 Tf 50.0 573.3 Td (--- | --- | ---) Tj ET
+BT /F3 8.3 Tf 50.0 562.0 Td (Project context and recurring instructions | CLAUDE.md / .claude/rules/ | "Use pnpm, run pytest,) Tj ET
+BT /F3 8.3 Tf 50.0 550.7 Td (follow PEP8.") Tj ET
+BT /F3 8.3 Tf 50.0 539.4 Td (Deterministic lifecycle automation | Hooks / hookify | Format after edits, block commit without tests,) Tj ET
+BT /F3 8.3 Tf 50.0 528.1 Td (notify on completion.) Tj ET
+BT /F3 8.3 Tf 50.0 516.8 Td (External state or systems | MCP | Query Jira, fetch GitHub PRs, read Confluence, access approved) Tj ET
+BT /F3 8.3 Tf 50.0 505.5 Td (databases.) Tj ET
+BT /F3 8.3 Tf 50.0 494.2 Td (Focused delegated investigation | Subagent | Research migration risks and return a summary.) Tj ET
+BT /F3 8.3 Tf 50.0 482.9 Td (Independent concurrent workstreams | Worktrees / agent teams | One agent fixes API, another updates) Tj ET
+BT /F3 8.3 Tf 50.0 471.6 Td (UI, each in an isolated checkout.) Tj ET
+BT /F1 9.8 Tf 50.0 460.3 Td () Tj ET
+BT /F1 9.8 Tf 50.0 444.5 Td (Rule of thumb: guidance goes in CLAUDE.md; enforcement goes in hooks; external access goes) Tj ET
+BT /F1 9.8 Tf 50.0 431.7 Td (through MCP; parallel work needs isolated contexts.) Tj ET
+BT /F1 9.8 Tf 50.0 418.9 Td () Tj ET
+BT /F1 9.8 Tf 50.0 403.1 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 390.3 Td () Tj ET
+BT /F2 14.0 Tf 50.0 366.5 Td (CLAUDE.md - minimal skeleton) Tj ET
+BT /F1 9.8 Tf 50.0 346.5 Td () Tj ET
+BT /F3 8.6 Tf 50.0 330.7 Td (## Project) Tj ET
+BT /F3 8.6 Tf 50.0 319.1 Td ([Stack, version, prod/non-prod, data sensitivity]) Tj ET
+BT /F3 8.6 Tf 50.0 307.5 Td () Tj ET
+BT /F3 8.6 Tf 50.0 292.9 Td (## Architecture \(5 lines max\)) Tj ET
+BT /F3 8.6 Tf 50.0 281.3 Td ([Controller -> Service -> Repository; package layout]) Tj ET
+BT /F3 8.6 Tf 50.0 269.7 Td () Tj ET
+BT /F3 8.6 Tf 50.0 255.1 Td (## Forbidden Patterns) Tj ET
+BT /F3 8.6 Tf 50.0 243.5 Td (- Never expose PII in logs \(mask IBAN, card, account\)) Tj ET
+BT /F3 8.6 Tf 50.0 231.9 Td (- Always parameterized queries \(no string concat in SQL\)) Tj ET
+BT /F3 8.6 Tf 50.0 220.3 Td (- Constructor injection only \(no @Autowired on fields\)) Tj ET
+BT /F3 8.6 Tf 50.0 208.7 Td (- No business logic in controllers) Tj ET
+BT /F3 8.6 Tf 50.0 197.1 Td () Tj ET
+BT /F3 8.6 Tf 50.0 182.5 Td (## Mistake Journal \(append-only\)) Tj ET
+BT /F3 8.6 Tf 50.0 170.9 Td (- [Date] Claude did X, should have done Y. Cause: missing context about Z.) Tj ET
+BT /F3 8.6 Tf 50.0 159.3 Td () Tj ET
+BT /F3 8.6 Tf 50.0 144.7 Td (## Testing) Tj ET
+BT /F3 8.6 Tf 50.0 133.1 Td (- Framework: JUnit 5 + Mockito + Testcontainers) Tj ET
+BT /F3 8.6 Tf 50.0 121.5 Td (- Run: ./gradlew test) Tj ET
+BT /F3 8.6 Tf 50.0 109.9 Td (- Every public service method has a test) Tj ET
+BT /F1 9.8 Tf 50.0 98.3 Td () Tj ET
+BT /F2 14.0 Tf 50.0 74.5 Td (AGENTS.md - minimal skeleton) Tj ET
+BT /F1 8 Tf 50 24 Td (CLAUDE_AGENTS_md_Cheatsheet.md) Tj ET
+endstream
+endobj
+10 0 obj
+<< /Length 4226 >>
+stream
+BT /F1 9.8 Tf 50.0 794.0 Td () Tj ET
+BT /F3 8.6 Tf 50.0 778.2 Td (## Roles) Tj ET
+BT /F3 8.6 Tf 50.0 766.6 Td (- Lead: planning + orchestration; never implements) Tj ET
+BT /F3 8.6 Tf 50.0 755.0 Td (- Implementer \(subagent\): one per task, fresh context, no inheritance) Tj ET
+BT /F3 8.6 Tf 50.0 743.4 Td (- Reviewer \(subagent\): spec compliance + code quality \(two separate agents\)) Tj ET
+BT /F3 8.6 Tf 50.0 731.8 Td (- QA fleet: pr-review-toolkit before human review) Tj ET
+BT /F3 8.6 Tf 50.0 720.2 Td () Tj ET
+BT /F3 8.6 Tf 50.0 705.6 Td (## Handoff Protocol) Tj ET
+BT /F3 8.6 Tf 50.0 694.0 Td (- Lead -> Implementer: task packet \(Goal + Files + Forbidden + Success Criteria\)) Tj ET
+BT /F3 8.6 Tf 50.0 682.4 Td (- Implementer -> Reviewer: diff + tests + claim of done) Tj ET
+BT /F3 8.6 Tf 50.0 670.8 Td (- Reviewer -> Lead: severity-ranked findings \(file:line\), NOT prose) Tj ET
+BT /F3 8.6 Tf 50.0 659.2 Td (- QA -> Human: GO / NO-GO with reproduction evidence) Tj ET
+BT /F3 8.6 Tf 50.0 647.6 Td () Tj ET
+BT /F3 8.6 Tf 50.0 633.0 Td (## Test Authority) Tj ET
+BT /F3 8.6 Tf 50.0 621.4 Td (- Implementer MUST run tests before claiming done) Tj ET
+BT /F3 8.6 Tf 50.0 609.8 Td (- Reviewer MUST run INDEPENDENT verification \(not implementer's tests\)) Tj ET
+BT /F3 8.6 Tf 50.0 598.2 Td (- Final QA: full regression + 3 random completed features) Tj ET
+BT /F3 8.6 Tf 50.0 586.6 Td () Tj ET
+BT /F3 8.6 Tf 50.0 572.0 Td (## Cross-Tool Notes) Tj ET
+BT /F3 8.6 Tf 50.0 560.4 Td (- Tool-specific config in .claude/, .cursor/, .aider/ - never collide) Tj ET
+BT /F3 8.6 Tf 50.0 548.8 Td (- AGENTS.md is the lowest-common-denominator contract) Tj ET
+BT /F1 9.8 Tf 50.0 537.2 Td () Tj ET
+BT /F1 9.8 Tf 50.0 521.4 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 508.6 Td () Tj ET
+BT /F2 14.0 Tf 50.0 484.8 Td (Common mistakes) Tj ET
+BT /F1 9.8 Tf 50.0 464.8 Td () Tj ET
+BT /F3 8.3 Tf 50.0 449.0 Td (Mistake | Fix) Tj ET
+BT /F3 8.3 Tf 50.0 437.7 Td (--- | ---) Tj ET
+BT /F3 8.3 Tf 50.0 426.4 Td (CLAUDE.md > 200 lines | Split into .claude/rules/<topic>.md) Tj ET
+BT /F3 8.3 Tf 50.0 415.1 Td (AGENTS.md contradicts CLAUDE.md | CLAUDE.md wins; reconcile or delete the conflict) Tj ET
+BT /F3 8.3 Tf 50.0 403.8 Td (Personal preferences in committed CLAUDE.md | Move to ~/.claude/CLAUDE.md) Tj ET
+BT /F3 8.3 Tf 50.0 392.5 Td (No Mistake Journal entries after 30 days | Either the team isn't actually using AI, OR isn't reviewing) Tj ET
+BT /F3 8.3 Tf 50.0 381.2 Td (critically - investigate) Tj ET
+BT /F3 8.3 Tf 50.0 369.9 Td ("Always use X" with no example | Add a 3-line snippet showing the right way) Tj ET
+BT /F1 9.8 Tf 50.0 358.6 Td () Tj ET
+BT /F1 9.8 Tf 50.0 342.8 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 330.0 Td () Tj ET
+BT /F2 14.0 Tf 50.0 306.2 Td (Banking-specific additions \(drop into Forbidden Patterns\)) Tj ET
+BT /F1 9.8 Tf 50.0 286.2 Td () Tj ET
+BT /F1 9.6 Tf 62.0 270.4 Td (- No float/double for money - BigDecimal only) Tj ET
+BT /F1 9.6 Tf 62.0 257.8 Td (- Idempotency keys required on transfer/payment endpoints) Tj ET
+BT /F1 9.6 Tf 62.0 245.2 Td (- Audit-log writes are non-cancellable \(separate transaction or outbox\)) Tj ET
+BT /F1 9.6 Tf 62.0 232.6 Td (- No PII in logs without masking \(IBAN, card, account, name, email\)) Tj ET
+BT /F1 9.6 Tf 62.0 220.0 Td (- Rate-limit on transaction endpoints \(Bucket4j or Spring Cloud Gateway\)) Tj ET
+BT /F1 9.8 Tf 50.0 207.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 191.6 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 178.8 Td () Tj ET
+BT /F2 14.0 Tf 50.0 155.0 Td (Sandbox baseline - split by scope) Tj ET
+BT /F1 9.8 Tf 50.0 135.0 Td () Tj ET
+BT /F1 9.8 Tf 50.0 119.2 Td (The settings below come in two halves. Project-level keys go into .claude/settings.json at) Tj ET
+BT /F1 9.8 Tf 50.0 106.4 Td (your repo root and can be edited by any developer on the project. Managed-only keys go into) Tj ET
+BT /F1 9.8 Tf 50.0 93.6 Td (the org's managed-settings file \(admin-deployed; e.g. /Library/Application) Tj ET
+BT /F1 9.8 Tf 50.0 80.8 Td (Support/ClaudeCode/managed-settings.json\) and CANNOT be overridden from the project. Don't) Tj ET
+BT /F1 9.8 Tf 50.0 68.0 Td (mix them - managed-only keys placed in project settings will be silently ignored.) Tj ET
+BT /F1 8 Tf 50 24 Td (CLAUDE_AGENTS_md_Cheatsheet.md) Tj ET
+endstream
+endobj
+11 0 obj
+<< /Length 4151 >>
+stream
+BT /F1 9.8 Tf 50.0 794.0 Td () Tj ET
+BT /F2 12.0 Tf 50.0 778.2 Td (Half A - Project-level \(in .claude/settings.json\)) Tj ET
+BT /F1 9.8 Tf 50.0 760.2 Td () Tj ET
+BT /F3 8.6 Tf 50.0 744.4 Td ({) Tj ET
+BT /F3 8.6 Tf 50.0 732.8 Td (  "permissions": {) Tj ET
+BT /F3 8.6 Tf 50.0 721.2 Td (    "defaultMode": "auto",) Tj ET
+BT /F3 8.6 Tf 50.0 709.6 Td (    "deny": [) Tj ET
+BT /F3 8.6 Tf 50.0 698.0 Td (      "Bash\(rm -rf *\)",) Tj ET
+BT /F3 8.6 Tf 50.0 686.4 Td (      "Bash\(git push origin main\)",) Tj ET
+BT /F3 8.6 Tf 50.0 674.8 Td (      "Bash\(DROP TABLE\)",) Tj ET
+BT /F3 8.6 Tf 50.0 663.2 Td (      "Bash\(TRUNCATE\)",) Tj ET
+BT /F3 8.6 Tf 50.0 651.6 Td (      "Read\(./.env*\)",) Tj ET
+BT /F3 8.6 Tf 50.0 640.0 Td (      "Write\(/.env*\)",) Tj ET
+BT /F3 8.6 Tf 50.0 628.4 Td (      "Write\(.github/**\)") Tj ET
+BT /F3 8.6 Tf 50.0 616.8 Td (    ],) Tj ET
+BT /F3 8.6 Tf 50.0 605.2 Td (    "ask": [) Tj ET
+BT /F3 8.6 Tf 50.0 593.6 Td (      "Bash\(npm install *\)",) Tj ET
+BT /F3 8.6 Tf 50.0 582.0 Td (      "Bash\(pip install *\)",) Tj ET
+BT /F3 8.6 Tf 50.0 570.4 Td (      "WebFetch\(*\)") Tj ET
+BT /F3 8.6 Tf 50.0 558.8 Td (    ]) Tj ET
+BT /F3 8.6 Tf 50.0 547.2 Td (  },) Tj ET
+BT /F3 8.6 Tf 50.0 535.6 Td (  "sandbox": {) Tj ET
+BT /F3 8.6 Tf 50.0 524.0 Td (    "enabled": true,) Tj ET
+BT /F3 8.6 Tf 50.0 512.4 Td (    "failIfUnavailable": true,) Tj ET
+BT /F3 8.6 Tf 50.0 500.8 Td (    "allowUnsandboxedCommands": false,) Tj ET
+BT /F3 8.6 Tf 50.0 489.2 Td (    "filesystem": {) Tj ET
+BT /F3 8.6 Tf 50.0 477.6 Td (      "denyRead": ["~/.aws/", "~/.ssh/", "./.env", "./secrets/*"],) Tj ET
+BT /F3 8.6 Tf 50.0 466.0 Td (      "denyWrite": ["~/", "/etc/", "/usr/**"]) Tj ET
+BT /F3 8.6 Tf 50.0 454.4 Td (    },) Tj ET
+BT /F3 8.6 Tf 50.0 442.8 Td (    "network": {) Tj ET
+BT /F3 8.6 Tf 50.0 431.2 Td (      "allowedDomains": [) Tj ET
+BT /F3 8.6 Tf 50.0 419.6 Td (        "github.com",) Tj ET
+BT /F3 8.6 Tf 50.0 408.0 Td (        "*.npmjs.org",) Tj ET
+BT /F3 8.6 Tf 50.0 396.4 Td (        "api.anthropic.com",) Tj ET
+BT /F3 8.6 Tf 50.0 384.8 Td (        "*.atlassian.net") Tj ET
+BT /F3 8.6 Tf 50.0 373.2 Td (      ]) Tj ET
+BT /F3 8.6 Tf 50.0 361.6 Td (    }) Tj ET
+BT /F3 8.6 Tf 50.0 350.0 Td (  }) Tj ET
+BT /F3 8.6 Tf 50.0 338.4 Td (}) Tj ET
+BT /F1 9.8 Tf 50.0 326.8 Td () Tj ET
+BT /F2 12.0 Tf 50.0 311.0 Td (Half B - Policy floor \(prefer the org's managed-settings file\)) Tj ET
+BT /F1 9.8 Tf 50.0 293.0 Td () Tj ET
+BT /F3 8.6 Tf 50.0 277.2 Td ({) Tj ET
+BT /F3 8.6 Tf 50.0 265.6 Td (  "permissions": {) Tj ET
+BT /F3 8.6 Tf 50.0 254.0 Td (    "disableBypassPermissionsMode": "disable") Tj ET
+BT /F3 8.6 Tf 50.0 242.4 Td (  },) Tj ET
+BT /F3 8.6 Tf 50.0 230.8 Td (  "allowManagedPermissionRulesOnly": true) Tj ET
+BT /F3 8.6 Tf 50.0 219.2 Td (}) Tj ET
+BT /F1 9.8 Tf 50.0 207.6 Td () Tj ET
+BT /F1 9.8 Tf 50.0 191.8 Td (Why these settings:) Tj ET
+BT /F1 9.6 Tf 62.0 179.0 Td (- permissions.defaultMode: "auto" - the recommended default. Claude's classifier decides per-) Tj ET
+BT /F1 9.6 Tf 50.0 166.4 Td (  action what needs approval. Far less friction than approving every file read; far smarter) Tj ET
+BT /F1 9.6 Tf 50.0 153.8 Td (  than blanket "yes to everything." Allow/Ask/Deny rules below are granular overrides on top of) Tj ET
+BT /F1 9.6 Tf 50.0 141.2 Td (  auto, not a replacement for it. \(Note: the key lives inside permissions, not at the top level) Tj ET
+BT /F1 9.6 Tf 50.0 128.6 Td (  - easy to get wrong by hand.\)) Tj ET
+BT /F1 9.6 Tf 62.0 116.0 Td (- permissions.deny - the non-negotiable list. Even if auto thinks an action is safe, deny rules) Tj ET
+BT /F1 9.6 Tf 50.0 103.4 Td (  win. Keep this list focused on operations that are dangerous regardless of context. Important) Tj ET
+BT /F1 9.6 Tf 50.0 90.8 Td (  caveat: permission rules have had documented bypass classes - Adversa AI Red Team disclosed a) Tj ET
+BT /F1 9.6 Tf 50.0 78.2 Td (  parser-cap bypass in April 2026 \(patched in v2.1.90\); eve.gd documented arbitrary-subprocess) Tj ET
+BT /F1 9.6 Tf 50.0 65.6 Td (  and chained-shell bypass classes the same month. Treat the deny list as defense-in-depth. The) Tj ET
+BT /F1 8 Tf 50 24 Td (CLAUDE_AGENTS_md_Cheatsheet.md) Tj ET
+endstream
+endobj
+12 0 obj
+<< /Length 4117 >>
+stream
+BT /F1 9.6 Tf 50.0 794.0 Td (  hard boundary is the sandbox below. The Bash\(DROP TABLE\) pattern is illustrative - real) Tj ET
+BT /F1 9.6 Tf 50.0 781.4 Td (  protection uses a PreToolUse hook with case-insensitive regex, since the glob won't catch) Tj ET
+BT /F1 9.6 Tf 50.0 768.8 Td (  drop table lowercase or DROP\\nTABLE.) Tj ET
+BT /F1 9.6 Tf 62.0 756.2 Td (- permissions.ask - the always-stop list. Auto might let these through; you want explicit human) Tj ET
+BT /F1 9.6 Tf 50.0 743.6 Td (  approval. Use for compliance, audit, or high-blast-radius operations.) Tj ET
+BT /F1 9.6 Tf 62.0 731.0 Td (- sandbox.enabled: true + failIfUnavailable: true - if the OS can't sandbox \(e.g. unsupported) Tj ET
+BT /F1 9.6 Tf 50.0 718.4 Td (  platform\), Claude refuses to run rather than degrading silently.) Tj ET
+BT /F1 9.6 Tf 62.0 705.8 Td (- sandbox.allowUnsandboxedCommands: false - blocks any command that the sandbox can't enforce) Tj ET
+BT /F1 9.6 Tf 50.0 693.2 Td (  against \(e.g. binaries that escape the OS-level isolation\). The default is permissive on some) Tj ET
+BT /F1 9.6 Tf 50.0 680.6 Td (  platforms; banking-grade deployments should explicitly set this false.) Tj ET
+BT /F1 9.6 Tf 62.0 668.0 Td (- denyRead covers .env, AWS / SSH credential dirs, and ./secrets/* at the OS level. Unlike) Tj ET
+BT /F1 9.6 Tf 50.0 655.4 Td (  permission rules, this can't be bypassed by a subprocess opening the file directly.) Tj ET
+BT /F1 9.6 Tf 62.0 642.8 Td (- denyWrite keeps the agent out of the home directory \(outside the project\), /etc \(system) Tj ET
+BT /F1 9.6 Tf 50.0 630.2 Td (  config\), and /usr \(system binaries\). The sandbox already denies write to the filesystem root) Tj ET
+BT /F1 9.6 Tf 50.0 617.6 Td (  by default, so listing / is redundant; we list ~/** explicitly because the home directory is) Tj ET
+BT /F1 9.6 Tf 50.0 605.0 Td (  otherwise a common write target.) Tj ET
+BT /F1 9.6 Tf 62.0 592.4 Td (- allowedDomains is the minimum for a dev session - add more only by review. Caveat: the built-) Tj ET
+BT /F1 9.6 Tf 50.0 579.8 Td (  in network proxy doesn't terminate TLS, so a broad allow like github.com permits domain) Tj ET
+BT /F1 9.6 Tf 50.0 567.2 Td (  fronting. For banking-grade isolation, deploy a TLS-terminating proxy and pin a CA cert via) Tj ET
+BT /F1 9.6 Tf 50.0 554.6 Td (  httpProxyPort / socksProxyPort.) Tj ET
+BT /F1 9.6 Tf 62.0 542.0 Td (- permissions.disableBypassPermissionsMode: "disable" blocks --dangerously-skip-permissions) Tj ET
+BT /F1 9.6 Tf 50.0 529.4 Td (  from the command line. Anthropic docs say it works from any settings scope, but for) Tj ET
+BT /F1 9.6 Tf 50.0 516.8 Td (  organizational policy it belongs in managed settings so individual developers cannot remove) Tj ET
+BT /F1 9.6 Tf 50.0 504.2 Td (  it casually.) Tj ET
+BT /F1 9.6 Tf 62.0 491.6 Td (- Managed-only allowManagedPermissionRulesOnly: true blocks per-project overrides of the) Tj ET
+BT /F1 9.6 Tf 50.0 479.0 Td (  managed permission set entirely. Combine with the disable above to get a real org-policy) Tj ET
+BT /F1 9.6 Tf 50.0 466.4 Td (  floor.) Tj ET
+BT /F1 9.8 Tf 50.0 453.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 438.0 Td (Sizing rule: if your deny + ask + allow rules together exceed ~15 entries per repo, your) Tj ET
+BT /F1 9.8 Tf 50.0 425.2 Td (CLAUDE.md is probably too thin. Better-described project context lets auto make the right) Tj ET
+BT /F1 9.8 Tf 50.0 412.4 Td (call without needing explicit overrides.) Tj ET
+BT /F1 9.8 Tf 50.0 399.6 Td () Tj ET
+BT /F1 9.8 Tf 50.0 383.8 Td (Caveat \(TLS\): the built-in network proxy does not terminate TLS. A broad allow like) Tj ET
+BT /F1 9.8 Tf 50.0 371.0 Td (github.com permits domain fronting. For banking-grade isolation, deploy a TLS-terminating) Tj ET
+BT /F1 9.8 Tf 50.0 358.2 Td (proxy and pin a CA cert inside the sandbox via httpProxyPort / socksProxyPort.) Tj ET
+BT /F1 9.8 Tf 50.0 345.4 Td () Tj ET
+BT /F1 9.8 Tf 50.0 329.6 Td (---) Tj ET
+BT /F1 9.8 Tf 50.0 316.8 Td () Tj ET
+BT /F1 9.8 Tf 50.0 301.0 Td (ITSS Workshop - 28 May 2026. Reference for the 90-day rollout.) Tj ET
+BT /F1 8 Tf 50 24 Td (CLAUDE_AGENTS_md_Cheatsheet.md) Tj ET
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 6 0 R /Annots [7 0 R 8 0 R] >>
+endobj
+14 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 9 0 R /Annots [] >>
+endobj
+15 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 10 0 R /Annots [] >>
+endobj
+16 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 11 0 R /Annots [] >>
+endobj
+17 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 12 0 R /Annots [] >>
+endobj
+18 0 obj
+<< /Title (CLAUDE_AGENTS_md_Cheatsheet.md) /Producer (basic markdown renderer) /CreationDate (D:20260526204550Z) >>
+endobj
+xref
+0 19
+0000000000 65535 f
+0000000015 00000 n
+0000000064 00000 n
+0000000150 00000 n
+0000000247 00000 n
+0000000349 00000 n
+0000000444 00000 n
+0000004807 00000 n
+0000004966 00000 n
+0000005139 00000 n
+0000009201 00000 n
+0000013480 00000 n
+0000017684 00000 n
+0000021854 00000 n
+0000022023 00000 n
+0000022181 00000 n
+0000022340 00000 n
+0000022499 00000 n
+0000022658 00000 n
+trailer
+<< /Size 19 /Root 1 0 R /Info 18 0 R >>
+startxref
+22790
+%%EOF
