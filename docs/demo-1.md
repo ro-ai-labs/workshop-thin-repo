@@ -72,20 +72,20 @@ Search for files related to permission checking, tool approval, or settings sche
 Pane A (Codex):
 
 ```
-Generate an interactive HTML architecture page at ./demo-examples/codex-architecture.html. Visualize Codex's modules (agent loop, tools, permissions, sandbox, plugins) with clickable file:// links to the actual source files in this repo. Use simple HTML + CSS, no external dependencies. Self-contained, openable in a browser.
+Generate an interactive HTML architecture page at `./../demo-examples/codex-architecture.html`. Visualize Codex's modules (agent loop, tools, permissions, sandbox, plugins) with clickable file:// links to the actual source files in this repo. Use simple HTML + CSS, no external dependencies. Self-contained, openable in a browser.
 ```
 
 Pane B (opencode):
 
 ```
-Generate an interactive HTML architecture page at ./demo-examples/opencode-architecture.html. Visualize opencode's modules (agent loop, tools, permissions, sandbox, plugins) with clickable file:// links to the actual source files in this repo. Use simple HTML + CSS, no external dependencies. Self-contained, openable in a browser.
+Generate an interactive HTML architecture page at `./../demo-examples/opencode-architecture.html`. Visualize opencode's modules (agent loop, tools, permissions, sandbox, plugins) with clickable file:// links to the actual source files in this repo. Use simple HTML + CSS, no external dependencies. Self-contained, openable in a browser.
 ```
 
 Live generation takes ~8–10 min. Open pre-rehearsed fallbacks instead:
 
 ```bash
-chrome-workshop ~/workshop/drive-share/demo-codex-architecture.html
-chrome-workshop ~/workshop/drive-share/demo-opencode-architecture.html
+chrome-workshop ./workshop/demo-examples/demo-codex-architecture.html
+chrome-workshop ./workshop/demo-examples/demo-opencode-architecture.html
 ```
 
 ---
@@ -95,10 +95,13 @@ chrome-workshop ~/workshop/drive-share/demo-opencode-architecture.html
 Inside the existing Pane A `claude` session:
 
 ```
+/plugin marketplace add Lum1104/Understand-Anything
+/plugin install understand-anything@understand-anything
+/reload-plugins
 /understand-dashboard
 ```
 
-Pre-generated the night before via `/understand` on `~/workshop/codex`.
+Pre-generated the night before via `/understand` on `./workshop/codex`.
 
 ---
 
@@ -113,7 +116,7 @@ Side-by-side narration of primitives visible in each diagram. No new Claude prom
 Open Pane C:
 
 ```bash
-cd ~/workshop
+cd ./workshop
 claude
 ```
 
@@ -131,7 +134,10 @@ Verbal callout only. No prompt.
 
 ---
 
-## P6 — Demo 1 Part 2: scaffold a marketplace
+## P6 — Demo 1 Part 2: scaffold a marketplace + a plugin derived from P2
+
+The demo plugin wraps the **P2 HTML-architecture prompt** as a reusable skill,
+so anyone in the org can run it in any repo without retyping the prompt.
 
 ### P6.1 — Live prompt in Pane C
 
@@ -139,45 +145,145 @@ Verbal callout only. No prompt.
 Use the plugin-dev:create-plugin skill to scaffold a Claude Code plugin
 MARKETPLACE at ~/workshop/itss-plugins/ that ITSS would own internally.
 Include:
-- .claude-plugin-marketplace.json (marketplace manifest)
+- .claude-plugin-marketplace.json (marketplace manifest, name "itss-plugins")
 - plugins/ directory
-- One sample plugin: plugins/aml-pattern-checks/ with plugin.json +
-  skills/aml-pattern-checks/SKILL.md stub (purpose: detect structuring
-  patterns in transaction lists; scaffold only, no implementation)
-- README.md explaining how to publish + install from this marketplace
+- One plugin: plugins/architecture-html/ with .claude-plugin/plugin.json +
+  skills/architecture-html/SKILL.md
+- The skill should wrap exactly the live prompt we ran in P2: generate
+  an interactive HTML architecture page at ./demo-examples/<repo>-architecture.html,
+  visualize agent loop + tools + permissions + sandbox + plugins with
+  clickable file:// links to actual source files, simple HTML + CSS,
+  no external dependencies, self-contained.
+- README.md explaining how to /plugin marketplace add + /plugin install
 Show the resulting file tree when done.
 ```
 
-Plain-prompt fallback (use only if `plugin-dev:create-plugin` insists on interactive Q&A):
+### P6.2 — Bootstrap fallback (paste verbatim if the live prompt stalls)
+
+```bash
+mkdir -p ~/workshop/itss-plugins/plugins/architecture-html/.claude-plugin
+mkdir -p ~/workshop/itss-plugins/plugins/architecture-html/skills/architecture-html
+
+cat > ~/workshop/itss-plugins/.claude-plugin-marketplace.json <<'EOF'
+{
+  "name": "itss-plugins",
+  "description": "Internal marketplace for ITSS",
+  "owner": "itss",
+  "plugins": [
+    {
+      "name": "architecture-html",
+      "source": "./plugins/architecture-html",
+      "description": "Generate an interactive HTML architecture page for any codebase"
+    }
+  ]
+}
+EOF
+
+cat > ~/workshop/itss-plugins/plugins/architecture-html/.claude-plugin/plugin.json <<'EOF'
+{
+  "name": "architecture-html",
+  "version": "0.1.0",
+  "description": "Generate an interactive HTML architecture page for any codebase"
+}
+EOF
+
+cat > ~/workshop/itss-plugins/plugins/architecture-html/skills/architecture-html/SKILL.md <<'EOF'
+---
+name: architecture-html
+description: Use when the user asks to generate an HTML architecture page, visualize a codebase's modules in a browser, or produce a clickable file:// architecture diagram for the current repo
+---
+
+# architecture-html
+
+Generate an interactive HTML architecture page for the current repo.
+
+## Output
+
+Write to `./demo-examples/<repo-name>-architecture.html` (create the directory
+if missing). `<repo-name>` comes from `package.json`, `Cargo.toml`,
+`pyproject.toml`, or the basename of the repo's `git remote get-url origin`.
+
+## Content
+
+Visualize the repo's modules in five sections:
+
+1. Agent loop
+2. Tool definitions and registration
+3. Permission / approval logic
+4. Sandbox or isolation mechanism
+5. Plugin / extension model
+
+For each module, include clickable `file://` links to actual source files in
+this repo with `file:line` precision where useful.
+
+## Constraints
+
+- Simple HTML + CSS only — no external dependencies, no JS frameworks.
+- Self-contained: openable directly in a browser via `file://`.
+- Use anchor links between sections for in-page navigation.
+
+## Process
+
+1. Identify the repo name (sources above).
+2. Scan `src/`, `packages/`, `codex-rs/`, or whatever the repo's top-level
+   source layout is, for the five categories above.
+3. Map each finding to `file:line` citations.
+4. Emit the HTML with one `<section>` per category, anchor links in a top
+   nav, and inline `file://` `href`s for every citation.
+EOF
+
+cat > ~/workshop/itss-plugins/README.md <<'EOF'
+# ITSS Plugins
+
+Internal Claude Code marketplace.
+
+## Install
 
 ```
-Scaffold a Claude Code plugin MARKETPLACE at ~/workshop/itss-plugins/ that
-ITSS would own internally. Reference the plugin-dev plugin (already installed
-from claude-plugins-official) for the exact file layout and manifest schema.
-Files to create:
-- .claude-plugin-marketplace.json (the marketplace manifest — name "itss-plugins",
-  one entry pointing at plugins/aml-pattern-checks/)
-- plugins/aml-pattern-checks/.claude-plugin/plugin.json
-- plugins/aml-pattern-checks/skills/aml-pattern-checks/SKILL.md (frontmatter
-  + 3-sentence purpose: detect structuring patterns in transaction lists;
-  scaffold only, no implementation)
-- README.md explaining how to /plugin marketplace add this directory and
-  /plugin install aml-pattern-checks@itss-plugins
-Show the resulting file tree with `tree ~/workshop/itss-plugins/` when done.
+/plugin marketplace add ~/workshop/itss-plugins
+/plugin install architecture-html@itss-plugins
 ```
 
-### P6.2 — Reveal
+## Plugins
+
+- **architecture-html** — generate an interactive HTML architecture page for
+  any codebase (clickable `file://` links to source).
+
+## Publish
+
+A marketplace is a git repo with a `.claude-plugin-marketplace.json` manifest.
+Host this directory on your internal git, and your team can `/plugin
+marketplace add <git-url>` to install from it.
+EOF
+```
+
+### P6.3 — Reveal
 
 ```bash
 tree ~/workshop/itss-plugins/
 ```
 
-### P6.3 — Install handshake (optional)
+### P6.4 — Install handshake (optional)
 
 Inside the Pane C `claude` session:
 
 ```
 /plugin marketplace add ~/workshop/itss-plugins
+/plugin install architecture-html@itss-plugins
+/reload-plugins
+```
+
+Run the skill on a different repo to prove it generalizes:
+
+```bash
+cd ~/workshop/opencode
+claude
+```
+
+In the `claude` session:
+
+```
+Use the architecture-html skill to produce the page for this repo.
 ```
 
 ---
