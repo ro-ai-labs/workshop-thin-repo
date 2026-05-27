@@ -207,3 +207,84 @@ Brief verbal callout only. MCP is the integration standard that makes the agent
 portable across vendors. Both Codex and opencode support MCP. Atlassian Rovo
 MCP for Jira/Confluence, GitHub MCP, maintained Postgres MCP alternatives.
 Full vendor list in the **MCP Supply Chain Review cheatsheet**.
+
+---
+
+## P6 — Demo 1 Part 2: Build & Own Your Marketplace (Slide 8, ~2–3 min)
+
+Continuity with P4: same Pane C session that ran `/plugin install
+hookify@claude-plugins-official`. Verbal bridge: *"Back to Pane C from earlier.
+Same primitives we mapped in Codex and opencode — now we use them. Watch how
+fast a private marketplace gets built when an SDK enforces the structure."*
+
+### P6.1 — Live prompt in Pane C (~60–90 sec)
+
+**Verbatim prompt (paste into Pane C's Claude Code session):**
+
+```
+Use the plugin-dev:create-plugin skill to scaffold a Claude Code plugin
+MARKETPLACE at ~/workshop/itss-plugins/ that ITSS would own internally.
+Include:
+- .claude-plugin-marketplace.json (marketplace manifest)
+- plugins/ directory
+- One sample plugin: plugins/aml-pattern-checks/ with plugin.json +
+  skills/aml-pattern-checks/SKILL.md stub (purpose: detect structuring
+  patterns in transaction lists; scaffold only, no implementation)
+- README.md explaining how to publish + install from this marketplace
+Show the resulting file tree when done.
+```
+
+**Plain-prompt fallback** — use only if `plugin-dev:create-plugin` insists on
+interactive Q&A:
+
+```
+Scaffold a Claude Code plugin MARKETPLACE at ~/workshop/itss-plugins/ that
+ITSS would own internally. Reference the plugin-dev plugin (already installed
+from claude-plugins-official) for the exact file layout and manifest schema.
+Files to create:
+- .claude-plugin-marketplace.json (the marketplace manifest — name "itss-plugins",
+  one entry pointing at plugins/aml-pattern-checks/)
+- plugins/aml-pattern-checks/.claude-plugin/plugin.json
+- plugins/aml-pattern-checks/skills/aml-pattern-checks/SKILL.md (frontmatter
+  + 3-sentence purpose: detect structuring patterns in transaction lists;
+  scaffold only, no implementation)
+- README.md explaining how to /plugin marketplace add this directory and
+  /plugin install aml-pattern-checks@itss-plugins
+Show the resulting file tree with `tree ~/workshop/itss-plugins/` when done.
+```
+
+### P6.2 — Reveal (~30 sec)
+
+After the file tree appears, run:
+
+```bash
+tree ~/workshop/itss-plugins/
+```
+
+**Narration:**
+> "A marketplace is a git repo with a manifest. Just files. You own it. You
+> maintain it like any other repo. Code review on a plugin = code review on
+> any code. That's governance."
+
+### P6.3 — Optional install handshake (~15 sec, CUT-IF-BEHIND)
+
+If timing permits, inside the Pane C Claude Code session:
+
+```
+/plugin marketplace add ~/workshop/itss-plugins
+```
+
+**Narration:**
+> "And the install side — same slash command you used to install hookify, just
+> pointing at YOUR marketplace path. Once this repo is hosted internally, your
+> team uses the same workflow."
+
+If running long: skip P6.3. The file-tree reveal in P6.2 lands the teaching on
+its own.
+
+**Recovery (30-second rule):** if the live prompt produces no visible file
+writes within 30 sec, switch to the L1 screencast at
+`~/workshop/demo-examples/itss-marketplace-scaffold.mp4` and narrate over it.
+If that's also unavailable, open the L2 still
+`~/workshop/demo-examples/itss-marketplace-tree.png` and walk the tree
+verbally.

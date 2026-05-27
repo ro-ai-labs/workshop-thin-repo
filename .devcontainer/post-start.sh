@@ -28,7 +28,8 @@ cat <<'EOF'
                      (then http://localhost:3001)
   View architecture: right-click ~/workshop/demo-examples/*.html → Show Preview
   Cheatsheets:       ~/workshop/docs/
-  Take-home plugin:  claude --plugin-dir ~/workshop/plugins/ailabs-arch-flows
+  Demo 1 Part 2:     in a `claude` session, ask the plugin-dev:create-plugin
+                     skill to scaffold a marketplace at ~/workshop/itss-plugins/
 
   Run `claude` in any demo dir to start a session.
 

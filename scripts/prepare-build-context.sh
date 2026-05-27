@@ -22,7 +22,7 @@ fi
 
 echo "==> Staging deliverables content into $DEST/deliverables-content/"
 rm -rf "$DEST/deliverables-content"
-mkdir -p "$DEST/deliverables-content"/{cheatsheets,pdfs,ship-it-with-ai,knowledge-base,plugins,demo-examples,scripts}
+mkdir -p "$DEST/deliverables-content"/{cheatsheets,pdfs,ship-it-with-ai,knowledge-base,demo-examples,scripts}
 
 cp "$DELIV/cheatsheets/"*.md            "$DEST/deliverables-content/cheatsheets/"
 cp "$DELIV/drive-share/"*.pdf           "$DEST/deliverables-content/pdfs/"
@@ -36,10 +36,8 @@ cp "$DELIV/drive-share/demo-codex-architecture.html" \
 cp "$DELIV/drive-share/demo-opencode-architecture.html" \
    "$DEST/deliverables-content/demo-examples/opencode-architecture-fallback.html"
 
-cp -r "$DELIV/plugins/ailabs-arch-flows" \
-      "$DEST/deliverables-content/plugins/ailabs-arch-flows"
-(cd "$DELIV/plugins" && zip -qr - ailabs-arch-flows) \
-   > "$DEST/deliverables-content/plugins/ailabs-arch-flows.zip"
+# Demo 1 Part 2 (Build & Own Your Marketplace) scaffolds itss-plugins/ live
+# via the plugin-dev:create-plugin skill — no pre-baked plugin to stage.
 
 cp "$DELIV/demo-3-setup/create_demo_repo.sh" \
    "$DEST/deliverables-content/scripts/create_demo_repo.sh"

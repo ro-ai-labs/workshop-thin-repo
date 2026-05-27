@@ -36,8 +36,7 @@ check "opencode repo"       test -f "$WORKSHOP/opencode/bun.lock"
 check "twenty repo"         test -f "$WORKSHOP/twenty/.env"
 check "spring-boot repo"    test -f "$WORKSHOP/spring-boot-pr-demo/pom.xml"
 check "demo-examples HTMLs" test -f "$WORKSHOP/demo-examples/codex-architecture-fallback.html"
-check "ailabs plugin src"   test -f "$WORKSHOP/plugins/ailabs-arch-flows/.claude-plugin/plugin.json"
-check "ailabs plugin zip"   test -f "$WORKSHOP/plugins/ailabs-arch-flows.zip"
+check "tree (Demo 1 P6.3)"  command -v tree
 
 echo "== Spring Boot demo branches =="
 check "spring-boot main branch" \
