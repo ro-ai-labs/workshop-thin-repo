@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Codex — Agentic Runtime Architecture</title>
+<title>Codex - Agentic Runtime Architecture</title>
 <style>
   :root {
     --bg: #0d1117;
@@ -252,10 +252,10 @@
 <header class="hero">
   <div class="hero-inner">
     <div class="eyebrow">Architecture Map</div>
-    <h1>Codex — Agentic Runtime Primitives</h1>
+    <h1>Codex - Agentic Runtime Primitives</h1>
     <p class="lede">
-      How the Codex CLI implements the eight named primitives of an agentic coding runtime — context window,
-      tools, permissions/sandbox, skills, plugins, MCP, memory, and subagents — plus the additional primitives
+      How the Codex CLI implements the eight named primitives of an agentic coding runtime - context window,
+      tools, permissions/sandbox, skills, plugins, MCP, memory, and subagents - plus the additional primitives
       that emerge from the codebase.
     </p>
     <div class="repo-line">
@@ -289,7 +289,7 @@
     <span class="section-num">01</span>
     <h2>Context Window</h2>
   </div>
-  <p class="tagline">How the conversation/turn state is assembled — what gets in, what gets evicted.</p>
+  <p class="tagline">How the conversation/turn state is assembled - what gets in, what gets evicted.</p>
 
   <div class="pillrow">
     <span class="pill">ContextManager</span>
@@ -302,7 +302,7 @@
   <div class="body">
     <p>
       The transcript lives in a single <code>ContextManager</code> that owns an ordered
-      <code>Vec&lt;ResponseItem&gt;</code> — every user message, model response, tool call, and tool output —
+      <code>Vec&lt;ResponseItem&gt;</code> - every user message, model response, tool call, and tool output -
       with a <code>history_version</code> counter bumped on rewrites and a <code>reference_context_item</code>
       that serves as the baseline for diffing settings changes between turns.
     </p>
@@ -312,7 +312,7 @@
       instructions, and turn-specific personality / output-schema overrides.
     </p>
     <p>
-      Eviction is driven by <strong>compaction</strong> — when the rolling token estimate approaches the model's
+      Eviction is driven by <strong>compaction</strong> - when the rolling token estimate approaches the model's
       context window, the system summarizes earlier turns. <code>InitialContextInjection</code> distinguishes
       pre-turn compaction (full context will be reinjected before the next user message) from mid-turn
       compaction (the summary stands in for what came before the last user message).
@@ -326,23 +326,23 @@
   <ul class="cite-list">
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/core/src/context_manager/history.rs#L34">codex-rs/core/src/context_manager/history.rs<span class="lineno">:34</span></a>
-      <span class="note"><code>ContextManager</code> struct — ordered <code>items: Vec&lt;ResponseItem&gt;</code>, <code>history_version</code>, <code>reference_context_item</code>.</span>
+      <span class="note"><code>ContextManager</code> struct - ordered <code>items: Vec&lt;ResponseItem&gt;</code>, <code>history_version</code>, <code>reference_context_item</code>.</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/core/src/client_common.rs#L25">codex-rs/core/src/client_common.rs<span class="lineno">:25</span></a>
-      <span class="note"><code>Prompt</code> struct — the per-turn input payload: <code>input</code>, <code>tools</code>, <code>base_instructions</code>, <code>personality</code>, <code>output_schema</code>.</span>
+      <span class="note"><code>Prompt</code> struct - the per-turn input payload: <code>input</code>, <code>tools</code>, <code>base_instructions</code>, <code>personality</code>, <code>output_schema</code>.</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/core/src/compact.rs#L50">codex-rs/core/src/compact.rs<span class="lineno">:50</span></a>
-      <span class="note"><code>InitialContextInjection</code> enum — controls whether a compaction summary embeds initial context (<code>BeforeLastUserMessage</code>) or defers re-injection (<code>DoNotInject</code>).</span>
+      <span class="note"><code>InitialContextInjection</code> enum - controls whether a compaction summary embeds initial context (<code>BeforeLastUserMessage</code>) or defers re-injection (<code>DoNotInject</code>).</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/core/src/context_manager/normalize.rs">codex-rs/core/src/context_manager/normalize.rs</a>
-      <span class="note">History normalization — collapses adjacent items, repairs orphaned tool-call/tool-output pairs before the prompt is built.</span>
+      <span class="note">History normalization - collapses adjacent items, repairs orphaned tool-call/tool-output pairs before the prompt is built.</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/core/src/realtime_context.rs#L29">codex-rs/core/src/realtime_context.rs<span class="lineno">:29</span></a>
-      <span class="note">Startup token budgets — current thread (1200), recent work (2200), workspace (1600), notes (300).</span>
+      <span class="note">Startup token budgets - current thread (1200), recent work (2200), workspace (1600), notes (300).</span>
     </li>
   </ul>
 </section>
@@ -353,7 +353,7 @@
     <span class="section-num">02</span>
     <h2>Tools</h2>
   </div>
-  <p class="tagline">Tool definitions, registry, and dispatch — from model output to handler invocation.</p>
+  <p class="tagline">Tool definitions, registry, and dispatch - from model output to handler invocation.</p>
 
   <div class="pillrow">
     <span class="pill">CoreToolRuntime trait</span>
@@ -387,27 +387,27 @@
   <ul class="cite-list">
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/core/src/tools/registry.rs#L44">codex-rs/core/src/tools/registry.rs<span class="lineno">:44</span></a>
-      <span class="note"><code>CoreToolRuntime</code> trait + <code>ToolRegistry</code> — registration, metadata, dispatch contract.</span>
+      <span class="note"><code>CoreToolRuntime</code> trait + <code>ToolRegistry</code> - registration, metadata, dispatch contract.</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/core/src/tools/router.rs#L34">codex-rs/core/src/tools/router.rs<span class="lineno">:34</span></a>
-      <span class="note"><code>ToolRouter</code> — converts model <code>ResponseItem</code>s into <code>ToolCall</code>s and routes by <code>tool_name</code>.</span>
+      <span class="note"><code>ToolRouter</code> - converts model <code>ResponseItem</code>s into <code>ToolCall</code>s and routes by <code>tool_name</code>.</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/core/src/tools/orchestrator.rs#L42">codex-rs/core/src/tools/orchestrator.rs<span class="lineno">:42</span></a>
-      <span class="note"><code>ToolOrchestrator</code> — coordinates approval → sandbox selection → execution → retry sequence.</span>
+      <span class="note"><code>ToolOrchestrator</code> - coordinates approval → sandbox selection → execution → retry sequence.</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/tools/src/tool_spec.rs">codex-rs/tools/src/tool_spec.rs</a>
-      <span class="note"><code>ToolSpec</code> — JSON-Schema-based spec shared with consumers outside the core crate.</span>
+      <span class="note"><code>ToolSpec</code> - JSON-Schema-based spec shared with consumers outside the core crate.</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/core/src/tools/handlers/shell.rs">codex-rs/core/src/tools/handlers/shell.rs</a>
-      <span class="note">Concrete handler — <code>ShellCommandHandler</code>, routed through the exec stack with sandbox + approval context.</span>
+      <span class="note">Concrete handler - <code>ShellCommandHandler</code>, routed through the exec stack with sandbox + approval context.</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/core/src/tools/handlers/apply_patch.rs">codex-rs/core/src/tools/handlers/apply_patch.rs</a>
-      <span class="note">Concrete handler — <code>apply_patch</code>, structured edits with Lark-grammar parsing.</span>
+      <span class="note">Concrete handler - <code>apply_patch</code>, structured edits with Lark-grammar parsing.</span>
     </li>
   </ul>
 </section>
@@ -452,7 +452,7 @@
   <ul class="cite-list">
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/execpolicy/src/decision.rs#L9">codex-rs/execpolicy/src/decision.rs<span class="lineno">:9</span></a>
-      <span class="note"><code>Decision</code> enum — <code>Allow</code>, <code>Prompt</code>, <code>Forbidden</code>. The atomic policy outcome.</span>
+      <span class="note"><code>Decision</code> enum - <code>Allow</code>, <code>Prompt</code>, <code>Forbidden</code>. The atomic policy outcome.</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/protocol/src/protocol.rs">codex-rs/protocol/src/protocol.rs</a>
@@ -460,11 +460,11 @@
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/core/src/tools/sandboxing.rs#L39">codex-rs/core/src/tools/sandboxing.rs<span class="lineno">:39</span></a>
-      <span class="note"><code>ApprovalStore</code> — in-memory cache of approvals keyed by serialized arguments; <code>with_cached_approval()</code> wraps the fetch-or-prompt flow.</span>
+      <span class="note"><code>ApprovalStore</code> - in-memory cache of approvals keyed by serialized arguments; <code>with_cached_approval()</code> wraps the fetch-or-prompt flow.</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/execpolicy/src/amend.rs">codex-rs/execpolicy/src/amend.rs</a>
-      <span class="note">Amend hook — appends user-approved prefix/network rules back into the persistent execpolicy.</span>
+      <span class="note">Amend hook - appends user-approved prefix/network rules back into the persistent execpolicy.</span>
     </li>
   </ul>
 
@@ -472,31 +472,31 @@
   <ul class="cite-list">
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/sandboxing/src/manager.rs#L23">codex-rs/sandboxing/src/manager.rs<span class="lineno">:23</span></a>
-      <span class="note"><code>SandboxType</code> enum + <code>get_platform_sandbox()</code> at <code>:48</code> — picks the default backend per OS.</span>
+      <span class="note"><code>SandboxType</code> enum + <code>get_platform_sandbox()</code> at <code>:48</code> - picks the default backend per OS.</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/sandboxing/src/seatbelt.rs">codex-rs/sandboxing/src/seatbelt.rs</a>
-      <span class="note"><strong>macOS</strong> — builds a Seatbelt SBPL profile from the <code>PermissionProfile</code>; invokes <code>/usr/bin/sandbox-exec</code>.</span>
+      <span class="note"><strong>macOS</strong> - builds a Seatbelt SBPL profile from the <code>PermissionProfile</code>; invokes <code>/usr/bin/sandbox-exec</code>.</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/sandboxing/src/landlock.rs">codex-rs/sandboxing/src/landlock.rs</a>
-      <span class="note"><strong>Linux</strong> entry — translates the permission profile into CLI args for the <code>codex-linux-sandbox</code> helper.</span>
+      <span class="note"><strong>Linux</strong> entry - translates the permission profile into CLI args for the <code>codex-linux-sandbox</code> helper.</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/linux-sandbox/src/linux_run_main.rs#L80">codex-rs/linux-sandbox/src/linux_run_main.rs<span class="lineno">:80</span></a>
-      <span class="note"><code>LandlockCommand</code> — in-helper CLI: applies <code>no_new_privs</code> + seccomp, then bwrap filesystem isolation.</span>
+      <span class="note"><code>LandlockCommand</code> - in-helper CLI: applies <code>no_new_privs</code> + seccomp, then bwrap filesystem isolation.</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/bwrap/src/lib.rs">codex-rs/bwrap/src/lib.rs</a>
-      <span class="note"><strong>Linux</strong> — bubblewrap orchestration crate used by the helper for the filesystem namespace.</span>
+      <span class="note"><strong>Linux</strong> - bubblewrap orchestration crate used by the helper for the filesystem namespace.</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/windows-sandbox-rs/src/setup.rs">codex-rs/windows-sandbox-rs/src/setup.rs</a>
-      <span class="note"><strong>Windows</strong> — orchestrates restricted token (<code>token.rs</code>), ACLs (<code>acl.rs</code>), and Windows Filtering Platform network rules (<code>wfp.rs</code>).</span>
+      <span class="note"><strong>Windows</strong> - orchestrates restricted token (<code>token.rs</code>), ACLs (<code>acl.rs</code>), and Windows Filtering Platform network rules (<code>wfp.rs</code>).</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/sandboxing/src/policy_transforms.rs">codex-rs/sandboxing/src/policy_transforms.rs</a>
-      <span class="note"><code>merge_permission_profiles()</code> / <code>intersect_permission_profiles()</code> — composes base + per-turn grants into the effective profile.</span>
+      <span class="note"><code>merge_permission_profiles()</code> / <code>intersect_permission_profiles()</code> - composes base + per-turn grants into the effective profile.</span>
     </li>
   </ul>
 </section>
@@ -507,7 +507,7 @@
     <span class="section-num">04</span>
     <h2>Skills</h2>
   </div>
-  <p class="tagline">Structured-prompt units — markdown + YAML frontmatter, loaded from layered roots.</p>
+  <p class="tagline">Structured-prompt units - markdown + YAML frontmatter, loaded from layered roots.</p>
 
   <div class="pillrow">
     <span class="pill">SKILL.md format</span>
@@ -520,7 +520,7 @@
     <p>
       A skill is a directory whose <code>SKILL.md</code> file carries YAML frontmatter
       (<code>name</code>, <code>description</code>, <code>metadata.short-description</code>) plus a markdown body.
-      Optional siblings — <code>scripts/</code>, <code>references/</code>, <code>assets/</code>, <code>agents/openai.yaml</code> —
+      Optional siblings - <code>scripts/</code>, <code>references/</code>, <code>assets/</code>, <code>agents/openai.yaml</code> -
       provide executables, lazily loaded docs, and output templates.
     </p>
     <p>
@@ -539,23 +539,23 @@
   <ul class="cite-list">
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/core-skills/src/model.rs#L12">codex-rs/core-skills/src/model.rs<span class="lineno">:12</span></a>
-      <span class="note"><code>SkillMetadata</code> — runtime struct: name, description, interface, dependencies, policy, path, scope, plugin_id.</span>
+      <span class="note"><code>SkillMetadata</code> - runtime struct: name, description, interface, dependencies, policy, path, scope, plugin_id.</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/core-skills/src/loader.rs#L39">codex-rs/core-skills/src/loader.rs<span class="lineno">:39</span></a>
-      <span class="note"><code>SkillFrontmatter</code> Serde struct — the on-disk YAML schema parsed from the SKILL.md header.</span>
+      <span class="note"><code>SkillFrontmatter</code> Serde struct - the on-disk YAML schema parsed from the SKILL.md header.</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/core-skills/src/loader.rs#L161">codex-rs/core-skills/src/loader.rs<span class="lineno">:161</span></a>
-      <span class="note"><code>load_skills_from_roots()</code> — async discovery + load orchestrator.</span>
+      <span class="note"><code>load_skills_from_roots()</code> - async discovery + load orchestrator.</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/core-skills/src/loader.rs#L271">codex-rs/core-skills/src/loader.rs<span class="lineno">:271</span></a>
-      <span class="note"><code>skill_roots_from_layer_stack_inner()</code> — the layered root list (repo → user → system → plugins).</span>
+      <span class="note"><code>skill_roots_from_layer_stack_inner()</code> - the layered root list (repo → user → system → plugins).</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/core-skills/src/manager.rs#L51">codex-rs/core-skills/src/manager.rs<span class="lineno">:51</span></a>
-      <span class="note"><code>SkillsManager</code> — caches loaded skills, supports cwd- and config-keyed invalidation.</span>
+      <span class="note"><code>SkillsManager</code> - caches loaded skills, supports cwd- and config-keyed invalidation.</span>
     </li>
   </ul>
 </section>
@@ -566,7 +566,7 @@
     <span class="section-num">05</span>
     <h2>Plugins</h2>
   </div>
-  <p class="tagline">The extension model — manifest schema, install path, bundled capabilities.</p>
+  <p class="tagline">The extension model - manifest schema, install path, bundled capabilities.</p>
 
   <div class="pillrow">
     <span class="pill">plugin.json manifest</span>
@@ -601,23 +601,23 @@
   <ul class="cite-list">
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/core-plugins/src/manifest.rs#L38">codex-rs/core-plugins/src/manifest.rs<span class="lineno">:38</span></a>
-      <span class="note"><code>PluginManifest</code> — the validated top-level manifest schema (post-path resolution).</span>
+      <span class="note"><code>PluginManifest</code> - the validated top-level manifest schema (post-path resolution).</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/core-plugins/src/manifest.rs#L62">codex-rs/core-plugins/src/manifest.rs<span class="lineno">:62</span></a>
-      <span class="note"><code>PluginManifestInterface</code> — UI surface: display name, descriptions, brand colour, icons, screenshots, capabilities.</span>
+      <span class="note"><code>PluginManifestInterface</code> - UI surface: display name, descriptions, brand colour, icons, screenshots, capabilities.</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/core-plugins/src/store.rs#L28">codex-rs/core-plugins/src/store.rs<span class="lineno">:28</span></a>
-      <span class="note"><code>PluginStore</code> — install paths, version resolution, cache layout constants (<code>plugins/cache</code>, <code>plugins/data</code>).</span>
+      <span class="note"><code>PluginStore</code> - install paths, version resolution, cache layout constants (<code>plugins/cache</code>, <code>plugins/data</code>).</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/core-plugins/src/loader.rs#L110">codex-rs/core-plugins/src/loader.rs<span class="lineno">:110</span></a>
-      <span class="note"><code>load_plugins_from_layer_stack()</code> — async loader: reads <code>[plugins]</code> from config, instantiates each plugin, merges capabilities.</span>
+      <span class="note"><code>load_plugins_from_layer_stack()</code> - async loader: reads <code>[plugins]</code> from config, instantiates each plugin, merges capabilities.</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/plugin/src/load_outcome.rs#L14">codex-rs/plugin/src/load_outcome.rs<span class="lineno">:14</span></a>
-      <span class="note"><code>LoadedPlugin&lt;M&gt;</code> — the per-plugin runtime view (skill roots, MCP servers, apps, hooks, error).</span>
+      <span class="note"><code>LoadedPlugin&lt;M&gt;</code> - the per-plugin runtime view (skill roots, MCP servers, apps, hooks, error).</span>
     </li>
   </ul>
 </section>
@@ -626,9 +626,9 @@
 <section id="mcp" class="anchor-offset">
   <div class="section-head">
     <span class="section-num">06</span>
-    <h2>MCP — Model Context Protocol</h2>
+    <h2>MCP - Model Context Protocol</h2>
   </div>
-  <p class="tagline">Client, server registration, and transport types — bridging external tools into the registry.</p>
+  <p class="tagline">Client, server registration, and transport types - bridging external tools into the registry.</p>
 
   <div class="pillrow">
     <span class="pill">McpConnectionManager</span>
@@ -643,8 +643,8 @@
       transport variants:
     </p>
     <ul>
-      <li><strong>Stdio</strong> — launches a subprocess with <code>command</code>, <code>args</code>, env vars, and cwd.</li>
-      <li><strong>StreamableHttp</strong> — connects over HTTP with optional OAuth bearer token and custom headers.</li>
+      <li><strong>Stdio</strong> - launches a subprocess with <code>command</code>, <code>args</code>, env vars, and cwd.</li>
+      <li><strong>StreamableHttp</strong> - connects over HTTP with optional OAuth bearer token and custom headers.</li>
     </ul>
     <p>
       <code>McpConnectionManager</code> is the control plane: it keeps a <code>HashMap</code> of running
@@ -659,23 +659,23 @@
   <ul class="cite-list">
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/config/src/mcp_types.rs#L424">codex-rs/config/src/mcp_types.rs<span class="lineno">:424</span></a>
-      <span class="note"><code>McpServerTransportConfig</code> enum — <code>Stdio { command, args, env, cwd }</code> and <code>StreamableHttp { url, bearer_token, headers }</code>.</span>
+      <span class="note"><code>McpServerTransportConfig</code> enum - <code>Stdio { command, args, env, cwd }</code> and <code>StreamableHttp { url, bearer_token, headers }</code>.</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/codex-mcp/src/connection_manager.rs#L71">codex-rs/codex-mcp/src/connection_manager.rs<span class="lineno">:71</span></a>
-      <span class="note"><code>McpConnectionManager</code> — owns the per-server client map, status events, tool routing.</span>
+      <span class="note"><code>McpConnectionManager</code> - owns the per-server client map, status events, tool routing.</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/rmcp-client/src/rmcp_client.rs#L77">codex-rs/rmcp-client/src/rmcp_client.rs<span class="lineno">:77</span></a>
-      <span class="note">RMCP client adapter — wraps the Rust MCP SDK; constructs transport-specific channels.</span>
+      <span class="note">RMCP client adapter - wraps the Rust MCP SDK; constructs transport-specific channels.</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/codex-mcp/src/mcp/mod.rs#L106">codex-rs/codex-mcp/src/mcp/mod.rs<span class="lineno">:106</span></a>
-      <span class="note"><code>effective_mcp_servers()</code> — merges config-declared servers, runtime-only adds, and plugin-provided servers.</span>
+      <span class="note"><code>effective_mcp_servers()</code> - merges config-declared servers, runtime-only adds, and plugin-provided servers.</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/codex-mcp/src/server.rs#L46">codex-rs/codex-mcp/src/server.rs<span class="lineno">:46</span></a>
-      <span class="note">Codex MCP server entry — Codex also <em>exposes</em> itself as an MCP server, not just consumes others.</span>
+      <span class="note">Codex MCP server entry - Codex also <em>exposes</em> itself as an MCP server, not just consumes others.</span>
     </li>
   </ul>
 </section>
@@ -684,9 +684,9 @@
 <section id="memory" class="anchor-offset">
   <div class="section-head">
     <span class="section-num">07</span>
-    <h2>Memory — AGENTS.md</h2>
+    <h2>Memory - AGENTS.md</h2>
   </div>
-  <p class="tagline">The always-loaded instruction file at the repo root — discovery, walk, injection.</p>
+  <p class="tagline">The always-loaded instruction file at the repo root - discovery, walk, injection.</p>
 
   <div class="pillrow">
     <span class="pill">AGENTS.md (Codex) ≈ CLAUDE.md (Claude)</span>
@@ -724,19 +724,19 @@
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/core/src/agents_md.rs#L48">codex-rs/core/src/agents_md.rs<span class="lineno">:48</span></a>
-      <span class="note"><code>AgentsMdManager</code> — owns the discovery walk and the global/project layering.</span>
+      <span class="note"><code>AgentsMdManager</code> - owns the discovery walk and the global/project layering.</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/core/src/agents_md.rs#L97">codex-rs/core/src/agents_md.rs<span class="lineno">:97</span></a>
-      <span class="note"><code>user_instructions()</code> — combines configured instructions, AGENTS.md content, and multi-agent hints into the final payload.</span>
+      <span class="note"><code>user_instructions()</code> - combines configured instructions, AGENTS.md content, and multi-agent hints into the final payload.</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/core/src/context/user_instructions.rs">codex-rs/core/src/context/user_instructions.rs</a>
-      <span class="note"><code>UserInstructions</code> contextual fragment — wraps the payload with the begin/end markers and inserts it into the prompt.</span>
+      <span class="note"><code>UserInstructions</code> contextual fragment - wraps the payload with the begin/end markers and inserts it into the prompt.</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/core/src/agents_md_tests.rs">codex-rs/core/src/agents_md_tests.rs</a>
-      <span class="note">The discovery walk's contract is locked in by these tests — useful reference for edge cases (no marker, multiple parents, etc.).</span>
+      <span class="note">The discovery walk's contract is locked in by these tests - useful reference for edge cases (no marker, multiple parents, etc.).</span>
     </li>
   </ul>
 </section>
@@ -765,7 +765,7 @@
       <code>AgentControl::spawn_agent_with_metadata()</code> to materialize a new thread.
     </p>
     <p>
-      The new thread gets a freshly built <code>Config</code> via <code>build_agent_spawn_config()</code> — base
+      The new thread gets a freshly built <code>Config</code> via <code>build_agent_spawn_config()</code> - base
       instructions are inherited from the parent, then role-specific overrides are applied if an
       <code>agent_type</code> was provided, followed by runtime-state overrides (sandbox policy, approval policy,
       environment selections). <code>SessionSource::SubAgent { ThreadSpawn { .. } }</code> records the parent
@@ -783,23 +783,23 @@
   <ul class="cite-list">
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/core/src/tools/handlers/multi_agents/spawn.rs#L43">codex-rs/core/src/tools/handlers/multi_agents/spawn.rs<span class="lineno">:43</span></a>
-      <span class="note"><code>handle_spawn_agent()</code> — the tool-call entry point; validates depth and builds the child <code>Config</code>.</span>
+      <span class="note"><code>handle_spawn_agent()</code> - the tool-call entry point; validates depth and builds the child <code>Config</code>.</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/core/src/tools/handlers/multi_agents/spawn.rs#L28">codex-rs/core/src/tools/handlers/multi_agents/spawn.rs<span class="lineno">:28</span></a>
-      <span class="note">Tool registration — <code>ToolName::namespaced(MULTI_AGENT_V1_NAMESPACE, "spawn_agent")</code>.</span>
+      <span class="note">Tool registration - <code>ToolName::namespaced(MULTI_AGENT_V1_NAMESPACE, "spawn_agent")</code>.</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/core/src/agent/control.rs#L202">codex-rs/core/src/agent/control.rs<span class="lineno">:202</span></a>
-      <span class="note"><code>AgentControl::spawn_agent_with_metadata()</code> — actually creates the new thread and registers it in the control plane.</span>
+      <span class="note"><code>AgentControl::spawn_agent_with_metadata()</code> - actually creates the new thread and registers it in the control plane.</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/core/src/session/multi_agents.rs">codex-rs/core/src/session/multi_agents.rs</a>
-      <span class="note">Session-side multi-agent plumbing — parent/child wiring, source tagging.</span>
+      <span class="note">Session-side multi-agent plumbing - parent/child wiring, source tagging.</span>
     </li>
     <li>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/tui/src/multi_agents.rs">codex-rs/tui/src/multi_agents.rs</a>
-      <span class="note">TUI integration — renders the parent/child agent tree and routes user input to the active agent.</span>
+      <span class="note">TUI integration - renders the parent/child agent tree and routes user input to the active agent.</span>
     </li>
   </ul>
 </section>
@@ -828,7 +828,7 @@
     </div>
 
     <div class="card">
-      <h4>Hooks — 10 lifecycle events</h4>
+      <h4>Hooks - 10 lifecycle events</h4>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/hooks/src/lib.rs#L84">codex-rs/hooks/src/lib.rs:84</a><br />
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/hooks/src/registry.rs">codex-rs/hooks/src/registry.rs</a>
       <p>
@@ -853,7 +853,7 @@
       <h4>Thread store abstraction</h4>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/thread-store/src/lib.rs">codex-rs/thread-store/src/lib.rs</a>
       <p>
-        Storage-neutral interface for thread persistence — local rollout files, RPC requests, remote storage
+        Storage-neutral interface for thread persistence - local rollout files, RPC requests, remote storage
         all sit behind the same trait so threads can move between backends.
       </p>
     </div>
@@ -863,7 +863,7 @@
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/cloud-tasks/src/lib.rs#L43">codex-rs/cloud-tasks/src/lib.rs:43</a>
       <p>
         Lets the local agent dispatch units of work to cloud-based runners for long-running operations and
-        offload — a remote-execution primitive layered on top of the same protocol the local runtime uses.
+        offload - a remote-execution primitive layered on top of the same protocol the local runtime uses.
       </p>
     </div>
 
@@ -890,7 +890,7 @@
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/code-mode/src/lib.rs">codex-rs/code-mode/src/lib.rs</a>
       <p>
         A nested tool-execution runtime: the agent can define executable code blocks with yield/wait
-        semantics — interactive code execution within an agent turn instead of a single fire-and-forget call.
+        semantics - interactive code execution within an agent turn instead of a single fire-and-forget call.
       </p>
     </div>
 
@@ -898,7 +898,7 @@
       <h4>Feedback &amp; diagnostics capture</h4>
       <a class="path" href="file:///workspaces/workshop-thin-repo/workshop/codex/codex-rs/feedback/src/lib.rs#L162">codex-rs/feedback/src/lib.rs:162</a>
       <p>
-        A ring buffer of logs and structured metadata that the user can attach to a Sentry report —
+        A ring buffer of logs and structured metadata that the user can attach to a Sentry report -
         bug-reporting and telemetry are part of the runtime, not bolted on.
       </p>
     </div>
@@ -922,7 +922,7 @@
   <a href="file:///workspaces/workshop-thin-repo/workshop/codex"><code>/workspaces/workshop-thin-repo/workshop/codex</code></a>.
   All links use the <code>file://</code> scheme and open the source directly in your browser /
   editor's <code>file://</code> handler. Line numbers reference current HEAD; struct positions can shift as the
-  workspace evolves — search by symbol if a citation lands a few lines off.
+  workspace evolves - search by symbol if a citation lands a few lines off.
 </footer>
 
 </body>

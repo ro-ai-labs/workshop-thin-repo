@@ -30,34 +30,33 @@
   "remoteUser": "vscode",
   "updateRemoteUserUID": true,
 
-  // Ensure the host-side bind-mount sources exist before docker tries to bind
-  // them. Without this, participants who haven't run `claude login` on host
-  // get "source path does not exist" from docker and the container fails to
-  // start. Empty files are harmless — claude treats them as "no auth", and a
-  // `claude login` inside the container writes back through the bind to the
-  // host, so subsequent reopens carry the token over.
-  "initializeCommand": "mkdir -p \"${localEnv:HOME}/.claude\" && touch \"${localEnv:HOME}/.claude.json\" \"${localEnv:HOME}/.claude/.credentials.json\"",
-
   "mounts": [
-    // Claude auth bridges host <-> container via two narrow bind mounts.
-    // `claude login` works in either direction; the file lives on the host.
-    "source=${localEnv:HOME}/.claude.json,target=/home/vscode/.claude.json,type=bind,consistency=cached",
-    "source=${localEnv:HOME}/.claude/.credentials.json,target=/home/vscode/.claude/.credentials.json,type=bind,consistency=cached",
+    // Whole-home named volume - single source of robustness for everything
+    // user-side (auth, plugins, shell history, nvm, claude CLI, playwright cache).
+    //
+    // Why a volume instead of host bind mounts:
+    //   Docker Desktop on WSL2 snapshots each *file*-level WSL→container bind
+    //   into /run/desktop/mnt/host/wsl/docker-desktop-bind-mounts/<distro>/<hash>.
+    //   That snapshot dir is wiped on every Docker Desktop or WSL restart, and
+    //   `docker start` then fails with "no such file or directory" on the cached
+    //   hash path. Named volumes live in Docker's own storage - unaffected.
+    //
+    // Behaviour vs. the previous bind-mount setup:
+    //   • Auth no longer syncs host ↔ container. Run `claude login` once inside
+    //     the container; the volume preserves the token across restarts and
+    //     rebuilds. Host's ~/.claude is independent.
+    //   • First container creation populates the volume from the image's
+    //     /home/vscode (nvm, Claude CLI, Playwright Chromium cache, etc.).
+    //   • Subsequent rebuilds reuse the existing volume - Dockerfile changes
+    //     that touch /home/vscode won't propagate. To force a fresh home:
+    //         docker volume rm itss-workshop-home
+    "source=itss-workshop-home,target=/home/vscode,type=volume",
 
-    // Named volumes — persist post-create's heavy work across container rebuilds.
-    // The workspace bind-mount already preserves $WORKSHOP_HOME/{codex,opencode,twenty}
-    // (incl. node_modules + .yarn/cache on the host filesystem). The named volumes
-    // below cover what lives OUTSIDE the workspace bind:
+    // Volumes outside /home/vscode - preserve heavy build artifacts across rebuilds:
     //   • cargo registry + git caches (codex's `cargo fetch` results)
-    //   • bun's global install cache (opencode's package downloads)
     //   • Docker-in-Docker's storage (Twenty's Postgres data + compose state)
     "source=itss-workshop-cargo,target=/usr/local/cargo,type=volume",
-    "source=itss-workshop-bun,target=/home/vscode/.bun,type=volume",
-    "source=itss-workshop-dind,target=/var/lib/docker,type=volume",
-    // Plugins live in a named volume so manual `/plugin add ...` installs
-    // done inside the container persist across rebuilds. Auth (.claude.json
-    // + .credentials.json) stays bind-mounted to the host above.
-    "source=itss-workshop-plugins,target=/home/vscode/.claude/plugins,type=volume"
+    "source=itss-workshop-dind,target=/var/lib/docker,type=volume"
   ],
 
   "containerEnv": {

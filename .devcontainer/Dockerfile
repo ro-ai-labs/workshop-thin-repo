@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.6
-# ITSS Workshop 2026 — devcontainer image (linux/amd64 only)
+# ITSS Workshop 2026 - devcontainer image (linux/amd64 only)
 # Apple Silicon and ARM PCs are NOT supported by this image. Those users follow
 # docs/HOST_SETUP.md for manual host setup instead.
 # Build with: docker buildx build --platform linux/amd64 ...
@@ -31,7 +31,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 LABEL org.opencontainers.image.source="https://github.com/ro-ai-labs/itss-workshop-2026"
-LABEL org.opencontainers.image.description="ITSS Workshop May 28 2026 — Devcontainer"
+LABEL org.opencontainers.image.description="ITSS Workshop May 28 2026 - Devcontainer"
 
 # ---- Layer 2: Node 24.5 via NodeSource + Corepack (Yarn 4.13, pnpm) ----
 RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash - \
@@ -88,7 +88,7 @@ RUN corepack prepare yarn@4.13.0 --activate \
 # Twenty's .nvmrc pins 24.5.0 exactly. The apt-installed system Node 24.x
 # (Layer 2) already satisfies engines: ^24.5.0, but having nvm available with
 # 24.5.0 pre-cached lets participants follow Twenty's docs verbatim and avoids
-# any network hit at demo time. Installs as vscode user — nvm lives in $HOME.
+# any network hit at demo time. Installs as vscode user - nvm lives in $HOME.
 ENV NVM_DIR=/home/vscode/.nvm
 RUN curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash \
  && bash -c '. "$NVM_DIR/nvm.sh" && nvm install 24.5.0 && nvm alias default 24.5.0 && nvm cache clear' \
@@ -105,9 +105,9 @@ RUN curl -fsSL https://claude.ai/install.sh | bash \
 
 # Plugins are NOT baked. Participants install them at workshop time via
 # `claude /plugin add <name>@claude-plugins-official` (or the equivalent inside
-# a `claude` session). The named volume mounted at /home/vscode/.claude/plugins
-# persists those installs across container rebuilds — see devcontainer.json.
-# Pre-create the dir so claude doesn't trip over a missing path on first run.
+# a `claude` session). They persist in the itss-workshop-home named volume
+# mounted at /home/vscode (see devcontainer.json) along with the auth token
+# from `claude login`. Pre-create the dir so claude doesn't trip on first run.
 USER root
 RUN mkdir -p /home/vscode/.claude/plugins \
  && chown -R vscode:vscode /home/vscode/.claude

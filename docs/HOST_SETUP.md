@@ -1,6 +1,6 @@
 # Manual host setup (devcontainer fallback)
 
-Use this if the devcontainer doesn't work for you — most commonly because you're
+Use this if the devcontainer doesn't work for you - most commonly because you're
 on **Apple Silicon (M1/M2/M3) or an ARM PC** where the linux/amd64 image won't
 run at usable speed.
 
@@ -90,7 +90,7 @@ Pick a working directory; the workshop expects `./workshop/`:
 ```bash
 mkdir -p ./workshop && cd ./workshop
 
-# Demo 1a: Codex CLI (Rust) — read-only architecture exploration
+# Demo 1a: Codex CLI (Rust) - read-only architecture exploration
 git clone https://github.com/ro-ai-labs/codex.git
 cd codex && git checkout demo && (cd codex-rs && cargo fetch) && cd ..
 
@@ -157,13 +157,13 @@ Test: `chrome-workshop ./workshop/codex/demo-examples/codex-architecture.html`
 
 The PDF cheatsheets aren't auto-installed in this manual path. Ask Mihai for the
 Drive folder link, or grab them from the workshop-thin-repo (they're not in the
-git tree — they're baked into the container image only). Mihai will share a
+git tree - they're baked into the container image only). Mihai will share a
 public Drive folder on workshop morning.
 
 ## You're set
 
 The demos work the same way as in the container. The only thing you give up is
-the auto-managed environment — when something breaks (Twenty migration fails,
+the auto-managed environment - when something breaks (Twenty migration fails,
 Postgres won't start), you debug it on your host instead of `docker compose down -v`.
 
 If you hit blockers, ask in the workshop Slack channel.

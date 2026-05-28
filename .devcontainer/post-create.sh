@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# post-create.sh — runs once when the container is first created.
+# post-create.sh - runs once when the container is first created.
 #
 # Bootstraps the workshop:
 #   1. Creates the symlinks doc paths assume (./workshop, drive-share)
@@ -38,7 +38,7 @@ if [ ! -e "$HOME/workshop" ] && [ "$HOME/workshop" != "$WORKSHOP_HOME" ]; then
   ln -s "$WORKSHOP_HOME" "$HOME/workshop"
 fi
 
-# drive-share is committed in the thin repo — expose it under $WORKSHOP_HOME too.
+# drive-share is committed in the thin repo - expose it under $WORKSHOP_HOME too.
 if [ ! -e "$WORKSHOP_HOME/drive-share" ]; then
   ln -s "$WORKSPACE_FOLDER/drive-share" "$WORKSHOP_HOME/drive-share"
 fi

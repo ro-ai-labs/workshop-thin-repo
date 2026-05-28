@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # scripts/smoke-test.sh
-# Verifies the IMAGE only — toolchains, baked plugins, caches.
+# Verifies the IMAGE only - toolchains, baked plugins, caches.
 # Demo repos + per-repo deps are NOT in the image (post-create.sh materialises
 # them on the workspace mount), so we don't check for them here.
 # Non-zero exit on any failure.

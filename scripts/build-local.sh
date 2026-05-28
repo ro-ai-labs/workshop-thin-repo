@@ -7,7 +7,7 @@ set -euo pipefail
 ROOT=$(cd "$(dirname "$0")/.." && pwd)
 cd "$ROOT"
 
-# Image is toolchain-only — demo repos are cloned by post-create.sh on first
+# Image is toolchain-only - demo repos are cloned by post-create.sh on first
 # reopen, and plugins are installed manually inside the container via
 # `/plugin add`. Nothing host-specific gets baked in; no staging step needed.
 

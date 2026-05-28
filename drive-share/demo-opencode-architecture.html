@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>opencode — Architecture of an agentic coding runtime</title>
+<title>opencode - Architecture of an agentic coding runtime</title>
 <style>
   :root {
     --bg: #0e1014;
@@ -290,10 +290,10 @@
 <body>
 
 <header class="top">
-  <h1><span class="mono">opencode</span> — architecture of an agentic coding runtime</h1>
+  <h1><span class="mono">opencode</span> - architecture of an agentic coding runtime</h1>
   <p class="lede">
     A map of how <code>opencode</code> implements the eight named primitives of an agentic
-    coding runtime — the context window, tools, permissions and sandbox, skills,
+    coding runtime - the context window, tools, permissions and sandbox, skills,
     plugins, MCP, memory (AGENTS.md), and subagents. Every claim links back to a
     <code>file:line</code> in this repo.
   </p>
@@ -342,7 +342,7 @@
     <div class="panes">
       <div class="pane">
         <h3>Assembly</h3>
-        <p>The system prompt is built fresh each turn — provider preamble, environment block, then memory and skills are concatenated and sent up front.</p>
+        <p>The system prompt is built fresh each turn - provider preamble, environment block, then memory and skills are concatenated and sent up front.</p>
         <ul class="cites">
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/session/system.ts">session/system.ts<span class="ln">:19–33</span></a>
@@ -350,23 +350,23 @@
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/session/system.ts">session/system.ts<span class="ln">:48–63</span></a>
-            <span class="desc"><code>environment()</code> — cwd, git status, platform, date block</span>
+            <span class="desc"><code>environment()</code> - cwd, git status, platform, date block</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/session/system.ts">session/system.ts<span class="ln">:65–77</span></a>
-            <span class="desc"><code>skills()</code> — emits the structured skill registry as text</span>
+            <span class="desc"><code>skills()</code> - emits the structured skill registry as text</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/session/llm/request.ts">session/llm/request.ts<span class="ln">:54–186</span></a>
-            <span class="desc"><code>LLMRequestPrep.prepare()</code> — merges agent + provider + user system, applies plugin transforms, resolves enabled tools</span>
+            <span class="desc"><code>LLMRequestPrep.prepare()</code> - merges agent + provider + user system, applies plugin transforms, resolves enabled tools</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/session/message-v2.ts">session/message-v2.ts<span class="ln">:630–691</span></a>
-            <span class="desc"><code>toModelMessagesEffect()</code> — serialises internal parts to AI&nbsp;SDK <code>ModelMessage[]</code>, expands media, optionally strips it</span>
+            <span class="desc"><code>toModelMessagesEffect()</code> - serialises internal parts to AI&nbsp;SDK <code>ModelMessage[]</code>, expands media, optionally strips it</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/session/reminders.ts">session/reminders.ts<span class="ln">:14–89</span></a>
-            <span class="desc"><code>SessionReminders.apply()</code> — splices plan-mode / build-mode reminders into the user turn</span>
+            <span class="desc"><code>SessionReminders.apply()</code> - splices plan-mode / build-mode reminders into the user turn</span>
           </li>
         </ul>
       </div>
@@ -377,19 +377,19 @@
         <ul class="cites">
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/session/overflow.ts">session/overflow.ts<span class="ln">:8–32</span></a>
-            <span class="desc"><code>isOverflow()</code> / <code>usable()</code> — compares input+output tokens against <code>model.limit.input</code></span>
+            <span class="desc"><code>isOverflow()</code> / <code>usable()</code> - compares input+output tokens against <code>model.limit.input</code></span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/session/compaction.ts">session/compaction.ts<span class="ln">:298–342</span></a>
-            <span class="desc"><code>SessionCompaction.prune()</code> — backward sweep that erases old tool outputs once <code>PRUNE_PROTECT</code> (40k) is exceeded, protecting the last 2 turns and skill outputs</span>
+            <span class="desc"><code>SessionCompaction.prune()</code> - backward sweep that erases old tool outputs once <code>PRUNE_PROTECT</code> (40k) is exceeded, protecting the last 2 turns and skill outputs</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/session/compaction.ts">session/compaction.ts<span class="ln">:225–294</span></a>
-            <span class="desc"><code>select()</code> — picks the recent N turns within a token budget; splits the final turn if needed</span>
+            <span class="desc"><code>select()</code> - picks the recent N turns within a token budget; splits the final turn if needed</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/session/compaction.ts">session/compaction.ts<span class="ln">:344–582</span></a>
-            <span class="desc"><code>process()</code> — strips media, runs the compaction agent with the summary template, tracks <code>tail_start_id</code> for replay</span>
+            <span class="desc"><code>process()</code> - strips media, runs the compaction agent with the summary template, tracks <code>tail_start_id</code> for replay</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/session/processor.ts">session/processor.ts<span class="ln">:780–849</span></a>
@@ -404,19 +404,19 @@
         <ul class="cites">
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/session/llm.ts">session/llm.ts<span class="ln">:81–341</span></a>
-            <span class="desc"><code>LLM.run()</code> — picks runtime, captures prepared messages, sets telemetry, dispatches</span>
+            <span class="desc"><code>LLM.run()</code> - picks runtime, captures prepared messages, sets telemetry, dispatches</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/session/llm.ts">session/llm.ts<span class="ln">:343–367</span></a>
-            <span class="desc"><code>LLM.stream()</code> — wraps <code>run()</code> with an <code>AbortController</code> and adapts events</span>
+            <span class="desc"><code>LLM.stream()</code> - wraps <code>run()</code> with an <code>AbortController</code> and adapts events</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/session/llm/ai-sdk.ts">session/llm/ai-sdk.ts<span class="ln">:61–252</span></a>
-            <span class="desc"><code>LLMAISDK.toLLMEvents()</code> — converts Vercel AI SDK <code>fullStream</code> events to normalised <code>LLMEvent</code></span>
+            <span class="desc"><code>LLMAISDK.toLLMEvents()</code> - converts Vercel AI SDK <code>fullStream</code> events to normalised <code>LLMEvent</code></span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/session/llm/native-runtime.ts">session/llm/native-runtime.ts<span class="ln">:66–102</span></a>
-            <span class="desc"><code>LLMNativeRuntime.stream()</code> — opt-in path to <code>@opencode-ai/llm</code> for OpenAI / Anthropic / opencode</span>
+            <span class="desc"><code>LLMNativeRuntime.stream()</code> - opt-in path to <code>@opencode-ai/llm</code> for OpenAI / Anthropic / opencode</span>
           </li>
         </ul>
       </div>
@@ -427,7 +427,7 @@
         <ul class="cites">
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/session/instruction.ts">session/instruction.ts<span class="ln">:154–168</span></a>
-            <span class="desc"><code>Instruction.system()</code> — assembles the AGENTS.md / CLAUDE.md / CONTEXT.md blob</span>
+            <span class="desc"><code>Instruction.system()</code> - assembles the AGENTS.md / CLAUDE.md / CONTEXT.md blob</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/session/prompt.ts">session/prompt.ts<span class="ln">:1435–1441</span></a>
@@ -458,7 +458,7 @@
       <code>execute()</code> body, and a <code>Context</code> handle that gives it a permission
       gate and metadata channel. <code>Tool.define</code> wraps every tool with validation,
       output truncation, and span tracing. A central <b>registry</b> assembles three
-      sources — builtins, plugin tools, and MCP tools — and filters them per
+      sources - builtins, plugin tools, and MCP tools - and filters them per
       (provider, model, agent) tuple.
     </p>
 
@@ -469,23 +469,23 @@
         <ul class="cites">
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/tool/tool.ts">tool/tool.ts<span class="ln">:149–167</span></a>
-            <span class="desc"><code>Tool.define(id, effect)</code> — returns <code>Info&lt;P, R&gt;</code>; the <code>wrap()</code> at <code>:158</code> injects everything below</span>
+            <span class="desc"><code>Tool.define(id, effect)</code> - returns <code>Info&lt;P, R&gt;</code>; the <code>wrap()</code> at <code>:158</code> injects everything below</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/tool/tool.ts">tool/tool.ts<span class="ln">:34–44</span></a>
-            <span class="desc"><code>Context</code> — <code>sessionID</code>, <code>messageID</code>, <code>agent</code>, <code>abort</code>, <code>ask()</code>, <code>metadata()</code></span>
+            <span class="desc"><code>Context</code> - <code>sessionID</code>, <code>messageID</code>, <code>agent</code>, <code>abort</code>, <code>ask()</code>, <code>metadata()</code></span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/tool/tool.ts">tool/tool.ts<span class="ln">:46–51</span></a>
-            <span class="desc"><code>ExecuteResult</code> — <code>title</code>, <code>metadata</code>, <code>output</code>, optional <code>attachments[]</code></span>
+            <span class="desc"><code>ExecuteResult</code> - <code>title</code>, <code>metadata</code>, <code>output</code>, optional <code>attachments[]</code></span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/tool/tool.ts">tool/tool.ts<span class="ln">:109–142</span></a>
-            <span class="desc">wrap body — schema decode → <code>InvalidArgumentsError</code> → execute → <code>truncate()</code> → span attrs</span>
+            <span class="desc">wrap body - schema decode → <code>InvalidArgumentsError</code> → execute → <code>truncate()</code> → span attrs</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/tool/truncate.ts">tool/truncate.ts<span class="ln">:34–142</span></a>
-            <span class="desc"><code>Truncate.output()</code> — clips at <code>max_lines</code> / <code>max_bytes</code>, persists overflow to a tmp file referenced by hint</span>
+            <span class="desc"><code>Truncate.output()</code> - clips at <code>max_lines</code> / <code>max_bytes</code>, persists overflow to a tmp file referenced by hint</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/tool/invalid.ts">tool/invalid.ts<span class="ln">:14–19</span></a>
@@ -500,19 +500,19 @@
         <ul class="cites">
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/tool/registry.ts">tool/registry.ts<span class="ln">:73–80</span></a>
-            <span class="desc"><code>Registry.Service</code> — <code>all()</code>, <code>tools(model, agent)</code>, <code>named()</code>, <code>ids()</code></span>
+            <span class="desc"><code>Registry.Service</code> - <code>all()</code>, <code>tools(model, agent)</code>, <code>named()</code>, <code>ids()</code></span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/tool/registry.ts">tool/registry.ts<span class="ln">:199–220</span></a>
-            <span class="desc">plugin tools — scans <code>{tool,tools}/*.{js,ts}</code> via dynamic import, wraps via <code>fromPlugin()</code></span>
+            <span class="desc">plugin tools - scans <code>{tool,tools}/*.{js,ts}</code> via dynamic import, wraps via <code>fromPlugin()</code></span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/tool/registry.ts">tool/registry.ts<span class="ln">:225–244</span></a>
-            <span class="desc">builtins — shell, read, edit, glob, grep, write, task, … initialised in parallel</span>
+            <span class="desc">builtins - shell, read, edit, glob, grep, write, task, … initialised in parallel</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/tool/registry.ts">tool/registry.ts<span class="ln">:316–361</span></a>
-            <span class="desc"><code>tools()</code> — filters per model+provider, fires <code>"tool.definition"</code> plugin hook, emits JSON schema</span>
+            <span class="desc"><code>tools()</code> - filters per model+provider, fires <code>"tool.definition"</code> plugin hook, emits JSON schema</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/session/tools.ts">session/tools.ts<span class="ln">:42–73</span></a>
@@ -520,18 +520,18 @@
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/session/tools.ts">session/tools.ts<span class="ln">:84–201</span></a>
-            <span class="desc">execution wrapper — fires <code>tool.execute.before</code>/<code>after</code> plugin hooks, bridges Effect→Promise for the AI&nbsp;SDK</span>
+            <span class="desc">execution wrapper - fires <code>tool.execute.before</code>/<code>after</code> plugin hooks, bridges Effect→Promise for the AI&nbsp;SDK</span>
           </li>
         </ul>
       </div>
 
       <div class="pane">
-        <h3>Builtin tools — full lifecycle</h3>
+        <h3>Builtin tools - full lifecycle</h3>
         <p>Each builtin shows the pattern in miniature: a schema, an <code>execute()</code> that calls <code>ctx.ask()</code> before doing anything observable, and structured metadata for the UI.</p>
         <ul class="cites">
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/tool/read.ts">tool/read.ts<span class="ln">:29–37</span></a>
-            <span class="desc">schema — <code>filePath</code> (absolute), optional <code>offset</code>, <code>limit</code></span>
+            <span class="desc">schema - <code>filePath</code> (absolute), optional <code>offset</code>, <code>limit</code></span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/tool/read.ts">tool/read.ts<span class="ln">:227–232</span></a>
@@ -539,15 +539,15 @@
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/tool/edit.ts">tool/edit.ts<span class="ln">:69–208</span></a>
-            <span class="desc">string-replace edit — acquires file lock, asks for <code>edit</code> permission with diff in metadata, publishes <code>File.Edited</code></span>
+            <span class="desc">string-replace edit - acquires file lock, asks for <code>edit</code> permission with diff in metadata, publishes <code>File.Edited</code></span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/tool/shell.ts">tool/shell.ts<span class="ln">:260–410</span></a>
-            <span class="desc">shell — parses bash with tree-sitter, expands vars/symlinks, collects every command-prefix and path that needs permission</span>
+            <span class="desc">shell - parses bash with tree-sitter, expands vars/symlinks, collects every command-prefix and path that needs permission</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/tool/shell.ts">tool/shell.ts<span class="ln">:424–596</span></a>
-            <span class="desc"><code>run()</code> — spawns child process, streams stdout/stderr, races abort/timeout, truncates oversized output</span>
+            <span class="desc"><code>run()</code> - spawns child process, streams stdout/stderr, races abort/timeout, truncates oversized output</span>
           </li>
         </ul>
       </div>
@@ -579,7 +579,7 @@
       <code>allow</code> / <code>ask</code> / <code>deny</code>; user replies are
       <code>once</code> / <code>always</code> / <code>reject</code>. There is, deliberately, <b>no
       OS-level sandbox</b>: shells inherit the user's full UID. Containment is
-      application-level — every side-effectful tool calls <code>ctx.ask()</code> before
+      application-level - every side-effectful tool calls <code>ctx.ask()</code> before
       acting, and shell commands are parsed so opencode can ask for each
       command-prefix and each path the script will touch.
     </p>
@@ -602,11 +602,11 @@
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/permission/index.ts">permission/index.ts<span class="ln">:171–211</span></a>
-            <span class="desc"><code>Permission.ask()</code> — evaluates every pattern; first <code>deny</code> wins, otherwise waits on user reply</span>
+            <span class="desc"><code>Permission.ask()</code> - evaluates every pattern; first <code>deny</code> wins, otherwise waits on user reply</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/permission/index.ts">permission/index.ts<span class="ln">:213–269</span></a>
-            <span class="desc"><code>reply()</code> — <code>once</code> resolves now; <code>always</code> appends to <code>approved</code> and auto-resolves any pending request that now matches; <code>reject</code> rejects the chain</span>
+            <span class="desc"><code>reply()</code> - <code>once</code> resolves now; <code>always</code> appends to <code>approved</code> and auto-resolves any pending request that now matches; <code>reject</code> rejects the chain</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/permission/evaluate.ts">permission/evaluate.ts<span class="ln">:1</span></a>
@@ -614,11 +614,11 @@
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/permission/arity.ts">permission/arity.ts<span class="ln">:1–161</span></a>
-            <span class="desc">bash command-prefix table — <code>git</code>=2, <code>npm run</code>=3, <code>docker compose</code>=3, … used to normalise commands before matching</span>
+            <span class="desc">bash command-prefix table - <code>git</code>=2, <code>npm run</code>=3, <code>docker compose</code>=3, … used to normalise commands before matching</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/config/permission.ts">config/permission.ts<span class="ln">:16–37</span></a>
-            <span class="desc">named permissions — <code>read</code>, <code>edit</code>, <code>glob</code>, <code>grep</code>, <code>list</code>, <code>bash</code>, <code>task</code>, <code>external_directory</code>, <code>webfetch</code>, <code>websearch</code>, <code>skill</code></span>
+            <span class="desc">named permissions - <code>read</code>, <code>edit</code>, <code>glob</code>, <code>grep</code>, <code>list</code>, <code>bash</code>, <code>task</code>, <code>external_directory</code>, <code>webfetch</code>, <code>websearch</code>, <code>skill</code></span>
           </li>
         </ul>
       </div>
@@ -632,23 +632,23 @@
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/shell/shell.ts">shell/shell.ts<span class="ln">:10–20</span></a>
-            <span class="desc"><code>META</code> table — only marks incompatible shells (<code>fish</code>, <code>nu</code>) as <code>deny: true</code></span>
+            <span class="desc"><code>META</code> table - only marks incompatible shells (<code>fish</code>, <code>nu</code>) as <code>deny: true</code></span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/shell/shell.ts">shell/shell.ts<span class="ln">:28–57</span></a>
-            <span class="desc"><code>killTree()</code> — platform-aware process-tree teardown (<code>taskkill</code> on Windows, signals on Unix)</span>
+            <span class="desc"><code>killTree()</code> - platform-aware process-tree teardown (<code>taskkill</code> on Windows, signals on Unix)</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/tool/external-directory.ts">tool/external-directory.ts<span class="ln">:16–44</span></a>
-            <span class="desc"><code>assertExternalDirectory()</code> — the only path-boundary check, and it's just another <code>ctx.ask()</code></span>
+            <span class="desc"><code>assertExternalDirectory()</code> - the only path-boundary check, and it's just another <code>ctx.ask()</code></span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/agent/subagent-permissions.ts">agent/subagent-permissions.ts<span class="ln">:17–34</span></a>
-            <span class="desc"><code>deriveSubagentSessionPermission()</code> — subagents inherit parent denies; <code>todowrite</code> and <code>task</code> default-denied</span>
+            <span class="desc"><code>deriveSubagentSessionPermission()</code> - subagents inherit parent denies; <code>todowrite</code> and <code>task</code> default-denied</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/tool/shell/prompt.ts">tool/shell/prompt.ts<span class="ln">:22–34</span></a>
-            <span class="desc"><code>shell</code> params — <code>command</code>, optional <code>timeout</code>, <code>workdir</code>, <code>description</code>; no sandbox flag</span>
+            <span class="desc"><code>shell</code> params - <code>command</code>, optional <code>timeout</code>, <code>workdir</code>, <code>description</code>; no sandbox flag</span>
           </li>
         </ul>
       </div>
@@ -658,7 +658,7 @@
       <b>The sandbox is the permission prompt.</b> Opencode does <em>not</em> use Seatbelt,
       bubblewrap, restricted tokens, seccomp, or any other OS-level confinement.
       Once a <code>shell</code> call is approved, the child process runs with the user's full
-      privileges — it can read, write, and network anywhere. Containment is built
+      privileges - it can read, write, and network anywhere. Containment is built
       entirely on (a) parsing shell commands to surface every command-prefix and
       every path for permission, and (b) every other tool calling <code>ctx.ask()</code>
       before doing anything observable. If you want real isolation, run opencode
@@ -676,7 +676,7 @@
       <span class="tag">structured prompt unit</span>
     </div>
     <p class="lede">
-      A skill is a <code>SKILL.md</code> file — YAML frontmatter (<code>name</code>,
+      A skill is a <code>SKILL.md</code> file - YAML frontmatter (<code>name</code>,
       <code>description</code>) plus a markdown body. All discovered skills are listed in
       the system prompt; the model invokes one by calling a single <code>skill</code>
       tool with the skill's <code>name</code>. The tool's output is the skill body wrapped
@@ -690,7 +690,7 @@
         <ul class="cites">
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/skill/index.ts">skill/index.ts<span class="ln">:52–58</span></a>
-            <span class="desc"><code>isSkillFrontmatter()</code> — validates <code>name</code> (required) + <code>description</code> (optional) YAML</span>
+            <span class="desc"><code>isSkillFrontmatter()</code> - validates <code>name</code> (required) + <code>description</code> (optional) YAML</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/skill/index.ts">skill/index.ts<span class="ln">:186–194</span></a>
@@ -702,19 +702,19 @@
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/skill/index.ts">skill/index.ts<span class="ln">:210–227</span></a>
-            <span class="desc">config-driven paths and URLs — <code>config.skills.paths[]</code> + <code>config.skills.urls[]</code></span>
+            <span class="desc">config-driven paths and URLs - <code>config.skills.paths[]</code> + <code>config.skills.urls[]</code></span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/skill/index.ts">skill/index.ts<span class="ln">:274–279</span></a>
-            <span class="desc">built-in skill — <code>customize-opencode</code> registered first, overridable by disk</span>
+            <span class="desc">built-in skill - <code>customize-opencode</code> registered first, overridable by disk</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/skill/discovery.ts">skill/discovery.ts</a>
-            <span class="desc"><code>Discovery.pull()</code> — fetches remote skill packs via HTTP <code>index.json</code></span>
+            <span class="desc"><code>Discovery.pull()</code> - fetches remote skill packs via HTTP <code>index.json</code></span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/config/skills.ts">config/skills.ts<span class="ln">:3–10</span></a>
-            <span class="desc">user-facing schema — <code>skills: { paths?, urls? }</code></span>
+            <span class="desc">user-facing schema - <code>skills: { paths?, urls? }</code></span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/skill/prompt/customize-opencode.md">skill/prompt/customize-opencode.md</a>
@@ -729,15 +729,15 @@
         <ul class="cites">
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/tool/skill.ts">tool/skill.ts<span class="ln">:14–22</span></a>
-            <span class="desc">schema — single <code>name: string</code> that must match a discovered skill</span>
+            <span class="desc">schema - single <code>name: string</code> that must match a discovered skill</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/tool/skill.ts">tool/skill.ts<span class="ln">:23–69</span></a>
-            <span class="desc">execute — <code>skill.require()</code>, <code>ctx.ask()</code>, list bundled files, render XML output</span>
+            <span class="desc">execute - <code>skill.require()</code>, <code>ctx.ask()</code>, list bundled files, render XML output</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/tool/skill.ts">tool/skill.ts<span class="ln">:47–63</span></a>
-            <span class="desc">output shape — <code>&lt;skill_content name="…"&gt;</code> wrapping the body + base directory + up to 10 bundled files</span>
+            <span class="desc">output shape - <code>&lt;skill_content name="…"&gt;</code> wrapping the body + base directory + up to 10 bundled files</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/tool/skill.txt">tool/skill.txt</a>
@@ -752,7 +752,7 @@
     </div>
 
     <div class="callout info">
-      Skill outputs are <b>protected</b> from the prune sweep — see context-window
+      Skill outputs are <b>protected</b> from the prune sweep - see context-window
       §01: <code>compaction.ts:298–342</code>. Once the model has loaded a skill, that
       reference stays in the window even as older tool outputs are erased.
     </div>
@@ -785,11 +785,11 @@
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/plugin/src/index.ts">packages/plugin/src/index.ts<span class="ln">:56–66</span></a>
-            <span class="desc"><code>PluginInput</code> — client SDK, project context, shell access</span>
+            <span class="desc"><code>PluginInput</code> - client SDK, project context, shell access</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/plugin/src/index.ts">packages/plugin/src/index.ts<span class="ln">:222–333</span></a>
-            <span class="desc"><code>Hooks</code> interface — <code>event</code>, <code>config</code>, <code>tool</code>, <code>auth</code>, <code>provider</code>, <code>chat.message</code>, <code>chat.params</code>, <code>chat.headers</code>, <code>tool.execute.before</code>/<code>after</code>, <code>shell.env</code></span>
+            <span class="desc"><code>Hooks</code> interface - <code>event</code>, <code>config</code>, <code>tool</code>, <code>auth</code>, <code>provider</code>, <code>chat.message</code>, <code>chat.params</code>, <code>chat.headers</code>, <code>tool.execute.before</code>/<code>after</code>, <code>shell.env</code></span>
           </li>
         </ul>
       </div>
@@ -799,11 +799,11 @@
         <ul class="cites">
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/plugin/index.ts">plugin/index.ts<span class="ln">:58</span></a>
-            <span class="desc"><code>Plugin.Service</code> — the <code>init()</code> entrypoint that loads everyone and collects hooks</span>
+            <span class="desc"><code>Plugin.Service</code> - the <code>init()</code> entrypoint that loads everyone and collects hooks</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/plugin/index.ts">plugin/index.ts<span class="ln">:215–276</span></a>
-            <span class="desc">sequential apply — keeps registration deterministic; <code>trigger&lt;Name&gt;</code> dispatches across plugins</span>
+            <span class="desc">sequential apply - keeps registration deterministic; <code>trigger&lt;Name&gt;</code> dispatches across plugins</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/plugin/loader.ts">plugin/loader.ts<span class="ln">:85–235</span></a>
@@ -830,11 +830,11 @@
         <ul class="cites">
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/config/plugin.ts">config/plugin.ts<span class="ln">:1–85</span></a>
-            <span class="desc">spec types — string, <code>[name, options]</code>, or <code>file://./path</code>; deduplication by package name or URL</span>
+            <span class="desc">spec types - string, <code>[name, options]</code>, or <code>file://./path</code>; deduplication by package name or URL</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/config/plugin.ts">config/plugin.ts<span class="ln">:29–36</span></a>
-            <span class="desc">local discovery — auto-scans <code>{plugin,plugins}/*.{ts,js}</code> next to the config</span>
+            <span class="desc">local discovery - auto-scans <code>{plugin,plugins}/*.{ts,js}</code> next to the config</span>
           </li>
         </ul>
       </div>
@@ -848,7 +848,7 @@
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/plugin/azure.ts">plugin/azure.ts<span class="ln">:1–26</span></a>
-            <span class="desc">simplest auth plugin shape — API key prompt</span>
+            <span class="desc">simplest auth plugin shape - API key prompt</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/plugin/codex.ts">plugin/codex.ts</a> ·
@@ -873,7 +873,7 @@
     </div>
     <p class="lede">
       Opencode is an MCP <b>client</b>. It connects to user-configured MCP servers
-      across three transports — <b>stdio</b>, <b>Streamable HTTP</b>, <b>SSE</b> — and
+      across three transports - <b>stdio</b>, <b>Streamable HTTP</b>, <b>SSE</b> - and
       hoists every server's tools into the same registry as builtins. Remote
       transports get an OAuth provider with dynamic client registration; tokens
       land in <code>mcp-auth.json</code>.
@@ -885,31 +885,31 @@
         <ul class="cites">
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/mcp/index.ts">mcp/index.ts<span class="ln">:4–6</span></a>
-            <span class="desc">imports — <code>StreamableHTTPClientTransport</code>, <code>SSEClientTransport</code>, <code>StdioClientTransport</code></span>
+            <span class="desc">imports - <code>StreamableHTTPClientTransport</code>, <code>SSEClientTransport</code>, <code>StdioClientTransport</code></span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/mcp/index.ts">mcp/index.ts<span class="ln">:282</span></a>
-            <span class="desc"><code>Transport</code> union — three-way discriminated</span>
+            <span class="desc"><code>Transport</code> union - three-way discriminated</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/mcp/index.ts">mcp/index.ts<span class="ln">:421–454</span></a>
-            <span class="desc"><code>connectLocal()</code> — spawns subprocess via stdio with cwd + env injection</span>
+            <span class="desc"><code>connectLocal()</code> - spawns subprocess via stdio with cwd + env injection</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/mcp/index.ts">mcp/index.ts<span class="ln">:304–419</span></a>
-            <span class="desc"><code>connectRemote()</code> — tries StreamableHTTP, falls back to SSE; surfaces <code>needs_auth</code> / <code>needs_client_registration</code></span>
+            <span class="desc"><code>connectRemote()</code> - tries StreamableHTTP, falls back to SSE; surfaces <code>needs_auth</code> / <code>needs_client_registration</code></span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/mcp/index.ts">mcp/index.ts<span class="ln">:456–481</span></a>
-            <span class="desc"><code>create()</code> — top-level dispatcher: local vs remote</span>
+            <span class="desc"><code>create()</code> - top-level dispatcher: local vs remote</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/mcp/index.ts">mcp/index.ts<span class="ln">:93–99</span></a>
-            <span class="desc">status union — <code>connected | disabled | failed | needs_auth | needs_client_registration</code></span>
+            <span class="desc">status union - <code>connected | disabled | failed | needs_auth | needs_client_registration</code></span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/mcp/index.ts">mcp/index.ts<span class="ln">:533–581</span></a>
-            <span class="desc">init &amp; finalizer — boots configured servers, kills child descendants on shutdown</span>
+            <span class="desc">init &amp; finalizer - boots configured servers, kills child descendants on shutdown</span>
           </li>
         </ul>
       </div>
@@ -919,19 +919,19 @@
         <ul class="cites">
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/mcp/index.ts">mcp/index.ts<span class="ln">:128–155</span></a>
-            <span class="desc"><code>listTools()</code> — queries the server with a tolerant fallback schema</span>
+            <span class="desc"><code>listTools()</code> - queries the server with a tolerant fallback schema</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/mcp/index.ts">mcp/index.ts<span class="ln">:158–186</span></a>
-            <span class="desc"><code>convertMcpTool()</code> — wraps an MCP tool as AI&nbsp;SDK <code>dynamicTool</code></span>
+            <span class="desc"><code>convertMcpTool()</code> - wraps an MCP tool as AI&nbsp;SDK <code>dynamicTool</code></span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/mcp/index.ts">mcp/index.ts<span class="ln">:663–696</span></a>
-            <span class="desc"><code>tools()</code> — collects per-server tools, prefixes them by sanitised server name, filters to <code>status: "connected"</code></span>
+            <span class="desc"><code>tools()</code> - collects per-server tools, prefixes them by sanitised server name, filters to <code>status: "connected"</code></span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/mcp/index.ts">mcp/index.ts<span class="ln">:508–520</span></a>
-            <span class="desc"><code>watch()</code> — subscribes to <code>ToolListChanged</code>, publishes <code>ToolsChanged</code> on the bus</span>
+            <span class="desc"><code>watch()</code> - subscribes to <code>ToolListChanged</code>, publishes <code>ToolsChanged</code> on the bus</span>
           </li>
         </ul>
       </div>
@@ -942,15 +942,15 @@
         <ul class="cites">
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/config/mcp.ts">config/mcp.ts<span class="ln">:4–19</span></a>
-            <span class="desc">local — <code>{ type: "local", command: [...], environment?, enabled?, timeout? }</code></span>
+            <span class="desc">local - <code>{ type: "local", command: [...], environment?, enabled?, timeout? }</code></span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/config/mcp.ts">config/mcp.ts<span class="ln">:39–55</span></a>
-            <span class="desc">remote — <code>{ type: "remote", url, headers?, oauth?, enabled?, timeout? }</code></span>
+            <span class="desc">remote - <code>{ type: "remote", url, headers?, oauth?, enabled?, timeout? }</code></span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/config/mcp.ts">config/mcp.ts<span class="ln">:21–37</span></a>
-            <span class="desc">OAuth subconfig — <code>clientId?</code>, <code>clientSecret?</code>, <code>scope?</code>, <code>callbackPort</code> (default 19876)</span>
+            <span class="desc">OAuth subconfig - <code>clientId?</code>, <code>clientSecret?</code>, <code>scope?</code>, <code>callbackPort</code> (default 19876)</span>
           </li>
         </ul>
       </div>
@@ -976,7 +976,7 @@
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/tool/mcp-websearch.ts">tool/mcp-websearch.ts</a>
-            <span class="desc">an MCP-backed builtin — direct JSON-RPC POST to an HTTP MCP server</span>
+            <span class="desc">an MCP-backed builtin - direct JSON-RPC POST to an HTTP MCP server</span>
           </li>
         </ul>
       </div>
@@ -989,7 +989,7 @@
   <section class="primitive" id="memory">
     <div class="head">
       <span class="num">07</span>
-      <h2>Memory <span style="color:var(--fg-mute); font-weight: 400">— AGENTS.md handling</span></h2>
+      <h2>Memory <span style="color:var(--fg-mute); font-weight: 400">- AGENTS.md handling</span></h2>
       <span class="tag">always-loaded instructions</span>
     </div>
     <p class="lede">
@@ -997,7 +997,7 @@
       <code>CLAUDE.md</code> and <code>CONTEXT.md</code> as fallbacks. Discovery is a two-tier
       walk: a global layer under <code>~/.config/opencode/</code> (and <code>~/.claude/</code>),
       then a project layer that uses <b>findUp</b> from the cwd to the worktree root
-      — <em>first match wins</em>. On every file read, opencode also walks the file's
+      - <em>first match wins</em>. On every file read, opencode also walks the file's
       directory upward to splice in nearby per-folder instruction files.
     </p>
 
@@ -1007,19 +1007,19 @@
         <ul class="cites">
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/session/instruction.ts">session/instruction.ts<span class="ln">:14–18</span></a>
-            <span class="desc">filename priority — <code>AGENTS.md</code> → <code>CLAUDE.md</code> (if <code>!disableClaudeCodePrompt</code>) → <code>CONTEXT.md</code></span>
+            <span class="desc">filename priority - <code>AGENTS.md</code> → <code>CLAUDE.md</code> (if <code>!disableClaudeCodePrompt</code>) → <code>CONTEXT.md</code></span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/session/instruction.ts">session/instruction.ts<span class="ln">:64–88</span></a>
-            <span class="desc">global layer — <code>~/.config/opencode/AGENTS.md</code> and <code>~/.claude/CLAUDE.md</code></span>
+            <span class="desc">global layer - <code>~/.config/opencode/AGENTS.md</code> and <code>~/.claude/CLAUDE.md</code></span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/session/instruction.ts">session/instruction.ts<span class="ln">:122–131</span></a>
-            <span class="desc">project layer — <code>fs.findUp()</code> from cwd to worktree root; first match wins (no stacking of every ancestor)</span>
+            <span class="desc">project layer - <code>fs.findUp()</code> from cwd to worktree root; first match wins (no stacking of every ancestor)</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/session/instruction.ts">session/instruction.ts<span class="ln">:134–149</span></a>
-            <span class="desc">custom <code>config.instructions[]</code> — local globs, absolute paths, or <code>http(s)://</code> URLs with 5s timeout</span>
+            <span class="desc">custom <code>config.instructions[]</code> - local globs, absolute paths, or <code>http(s)://</code> URLs with 5s timeout</span>
           </li>
         </ul>
       </div>
@@ -1029,19 +1029,19 @@
         <ul class="cites">
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/session/instruction.ts">session/instruction.ts<span class="ln">:109–152</span></a>
-            <span class="desc"><code>systemPaths()</code> — full resolved list of instruction files</span>
+            <span class="desc"><code>systemPaths()</code> - full resolved list of instruction files</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/session/instruction.ts">session/instruction.ts<span class="ln">:154–168</span></a>
-            <span class="desc"><code>system()</code> — reads each and yields <code>Instructions from: {path}\n{content}</code> blocks</span>
+            <span class="desc"><code>system()</code> - reads each and yields <code>Instructions from: {path}\n{content}</code> blocks</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/session/instruction.ts">session/instruction.ts<span class="ln">:170–176</span></a>
-            <span class="desc"><code>find()</code> — locate the first instruction file in a single directory</span>
+            <span class="desc"><code>find()</code> - locate the first instruction file in a single directory</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/session/instruction.ts">session/instruction.ts<span class="ln">:178–220</span></a>
-            <span class="desc"><code>resolve()</code> — on each file read, walks the file's directory upward to the worktree and attaches any nearby <code>AGENTS.md</code>, once per message</span>
+            <span class="desc"><code>resolve()</code> - on each file read, walks the file's directory upward to the worktree and attaches any nearby <code>AGENTS.md</code>, once per message</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/session/prompt.ts">session/prompt.ts<span class="ln">:1435–1441</span></a>
@@ -1049,7 +1049,7 @@
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/AGENTS.md">AGENTS.md</a>
-            <span class="desc">the repo's own top-level instructions — proof of dogfooding</span>
+            <span class="desc">the repo's own top-level instructions - proof of dogfooding</span>
           </li>
         </ul>
       </div>
@@ -1057,7 +1057,7 @@
 
     <div class="callout info">
       <b>First match wins.</b> If you have an <code>AGENTS.md</code> in
-      <code>~/.config/opencode/</code> and another at the repo root, both load — global +
+      <code>~/.config/opencode/</code> and another at the repo root, both load - global +
       project. But within the project walk, only the first <code>AGENTS.md</code> found
       between cwd and the worktree root is picked. Per-subdirectory instructions
       get layered in dynamically when files in those subdirs are read.
@@ -1074,9 +1074,9 @@
       <span class="tag">isolated dispatch</span>
     </div>
     <p class="lede">
-      The <code>task</code> tool spawns a fresh session — separate message history,
+      The <code>task</code> tool spawns a fresh session - separate message history,
       its own system prompt from the picked agent, its own permission ruleset
-      derived from the parent — and returns the subagent's final reply as a single
+      derived from the parent - and returns the subagent's final reply as a single
       string to the parent. Subagents can be invoked synchronously or backgrounded
       via <code>background: true</code>.
     </p>
@@ -1087,7 +1087,7 @@
         <ul class="cites">
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/tool/task.ts">tool/task.ts<span class="ln">:47–52</span></a>
-            <span class="desc">params — <code>description</code>, <code>prompt</code>, <code>subagent_type</code>, optional <code>task_id</code> (resume), optional <code>background</code></span>
+            <span class="desc">params - <code>description</code>, <code>prompt</code>, <code>subagent_type</code>, optional <code>task_id</code> (resume), optional <code>background</code></span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/tool/task.ts">tool/task.ts<span class="ln">:143–159</span></a>
@@ -1095,15 +1095,15 @@
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/tool/task.ts">tool/task.ts<span class="ln">:164–167</span></a>
-            <span class="desc">model — subagent's <code>model</code> override wins; otherwise inherits parent's <code>(providerID, modelID)</code></span>
+            <span class="desc">model - subagent's <code>model</code> override wins; otherwise inherits parent's <code>(providerID, modelID)</code></span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/tool/task.ts">tool/task.ts<span class="ln">:184–200</span></a>
-            <span class="desc">isolated context — fresh <code>messageID</code>, fresh message history scoped to the new session; forces tool restrictions (<code>todowrite</code>, <code>task</code>) unless explicitly enabled</span>
+            <span class="desc">isolated context - fresh <code>messageID</code>, fresh message history scoped to the new session; forces tool restrictions (<code>todowrite</code>, <code>task</code>) unless explicitly enabled</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/tool/task.ts">tool/task.ts<span class="ln">:273–278</span></a>
-            <span class="desc">result flow — sync (foreground) or async (background) reply returned as <code>&lt;task&gt;</code> XML carrying the session id</span>
+            <span class="desc">result flow - sync (foreground) or async (background) reply returned as <code>&lt;task&gt;</code> XML carrying the session id</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/tool/task.txt">tool/task.txt</a>
@@ -1117,19 +1117,19 @@
         <ul class="cites">
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/agent/agent.ts">agent/agent.ts<span class="ln">:29–50</span></a>
-            <span class="desc"><code>Agent.Info</code> — <code>name</code>, <code>mode: "subagent" | "primary" | "all"</code>, <code>permission</code>, optional <code>model</code> / <code>prompt</code> / <code>temperature</code></span>
+            <span class="desc"><code>Agent.Info</code> - <code>name</code>, <code>mode: "subagent" | "primary" | "all"</code>, <code>permission</code>, optional <code>model</code> / <code>prompt</code> / <code>temperature</code></span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/agent/agent.ts">agent/agent.ts<span class="ln">:384–451</span></a>
-            <span class="desc"><code>Agent.generate()</code> — LLM-synthesises a new agent definition from a description (returns <code>{ identifier, whenToUse, systemPrompt }</code>)</span>
+            <span class="desc"><code>Agent.generate()</code> - LLM-synthesises a new agent definition from a description (returns <code>{ identifier, whenToUse, systemPrompt }</code>)</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/agent/subagent-permissions.ts">agent/subagent-permissions.ts<span class="ln">:17–34</span></a>
-            <span class="desc"><code>deriveSubagentSessionPermission()</code> — child inherits parent agent's <code>edit</code> denies, parent session denies, and gets default-denies for <code>todowrite</code> + <code>task</code></span>
+            <span class="desc"><code>deriveSubagentSessionPermission()</code> - child inherits parent agent's <code>edit</code> denies, parent session denies, and gets default-denies for <code>todowrite</code> + <code>task</code></span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/agent/prompt/explore.txt">agent/prompt/explore.txt</a>
-            <span class="desc">read-only exploration agent — grep/glob/read only</span>
+            <span class="desc">read-only exploration agent - grep/glob/read only</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/agent/prompt/scout.txt">agent/prompt/scout.txt</a>
@@ -1151,7 +1151,7 @@
 
     <div class="callout note">
       <b>Privilege monotonicity.</b> A subagent can never do something its parent
-      agent's ruleset forbade — denies cascade. It also can't recursively spawn
+      agent's ruleset forbade - denies cascade. It also can't recursively spawn
       its own <code>task</code> calls or write to the parent's todo list unless the agent
       definition explicitly re-enables them.
     </div>
@@ -1179,15 +1179,15 @@
         <ul class="cites">
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/session/processor.ts">session/processor.ts<span class="ln">:305–689</span></a>
-            <span class="desc"><code>handleEvent()</code> — the event dispatcher: routes reasoning / text / tool-call / tool-result events as the stream arrives</span>
+            <span class="desc"><code>handleEvent()</code> - the event dispatcher: routes reasoning / text / tool-call / tool-result events as the stream arrives</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/session/processor.ts">session/processor.ts<span class="ln">:780–849</span></a>
-            <span class="desc"><code>SessionProcessor.process()</code> — the actual heartbeat: pull events, route tool calls through permission, accumulate parts</span>
+            <span class="desc"><code>SessionProcessor.process()</code> - the actual heartbeat: pull events, route tool calls through permission, accumulate parts</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/session/run-state.ts">session/run-state.ts</a>
-            <span class="desc">per-run mutable state — abort signal, step counters</span>
+            <span class="desc">per-run mutable state - abort signal, step counters</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/session/retry.ts">session/retry.ts</a>
@@ -1205,11 +1205,11 @@
         <ul class="cites">
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/bus/index.ts">bus/index.ts</a>
-            <span class="desc"><code>Bus.Service</code> — Effect <code>PubSub</code>; subscribe at <code>yield*</code>-time so callers don't miss publishes during stream start</span>
+            <span class="desc"><code>Bus.Service</code> - Effect <code>PubSub</code>; subscribe at <code>yield*</code>-time so callers don't miss publishes during stream start</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/bus/bus-event.ts">bus/bus-event.ts</a>
-            <span class="desc"><code>BusEvent.define</code> — typed event constructor</span>
+            <span class="desc"><code>BusEvent.define</code> - typed event constructor</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/bus/global.ts">bus/global.ts</a>
@@ -1228,7 +1228,7 @@
         <ul class="cites">
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/tool/plan.ts">tool/plan.ts</a>
-            <span class="desc"><code>plan_enter</code> / <code>plan_exit</code> — flips the session into / out of plan mode</span>
+            <span class="desc"><code>plan_enter</code> / <code>plan_exit</code> - flips the session into / out of plan mode</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/tool/plan-enter.txt">tool/plan-enter.txt</a> ·
@@ -1247,7 +1247,7 @@
         <ul class="cites">
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/storage/schema.sql.ts">storage/schema.sql.ts</a>
-            <span class="desc">SQLite via Drizzle — sessions, parts, permissions, sync events, projects</span>
+            <span class="desc">SQLite via Drizzle - sessions, parts, permissions, sync events, projects</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/storage/db.bun.ts">storage/db.bun.ts</a> ·
@@ -1256,7 +1256,7 @@
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/config/config.ts">config/config.ts</a>
-            <span class="desc"><code>Config.Service</code> — layered defaults → project file → env → CLI flags, all schema-validated</span>
+            <span class="desc"><code>Config.Service</code> - layered defaults → project file → env → CLI flags, all schema-validated</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/config/parse.ts">config/parse.ts</a>
@@ -1270,7 +1270,7 @@
         <ul class="cites">
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/index.ts">src/index.ts</a>
-            <span class="desc">process entry — boots the Effect runtime</span>
+            <span class="desc">process entry - boots the Effect runtime</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/cli/bootstrap.ts">cli/bootstrap.ts</a>
@@ -1283,7 +1283,7 @@
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/lsp/lsp.ts">lsp/lsp.ts</a>
-            <span class="desc">LSP client — language servers feeding diagnostics into the <code>lsp</code> tool and edit results</span>
+            <span class="desc">LSP client - language servers feeding diagnostics into the <code>lsp</code> tool and edit results</span>
           </li>
           <li>
             <a href="file:///workspaces/workshop-thin-repo/workshop/opencode/packages/opencode/src/snapshot/index.ts">snapshot/index.ts</a>
@@ -1296,7 +1296,7 @@
 
   <footer>
     A static, self-contained snapshot of <code>packages/opencode/src/</code> as of branch <code>demo</code>.
-    Links use absolute <code>file://</code> URLs — they resolve as long as this tree stays at
+    Links use absolute <code>file://</code> URLs - they resolve as long as this tree stays at
     <code>/workspaces/workshop-thin-repo/workshop/opencode</code>.
   </footer>
 </main>

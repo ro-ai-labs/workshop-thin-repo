@@ -1,4 +1,4 @@
-# Demo 1 — Live Architecture Review: Codex (Rust) + opencode (TypeScript)
+# Demo 1 - Live Architecture Review: Codex (Rust) + opencode (TypeScript)
 
 Target repos:
 - Pane A: `./workshop/codex`
@@ -7,11 +7,15 @@ Target repos:
 
 ---
 
-## Pre-flight — install required plugins
+```
+/tui fullscreen
+/
+
+## Pre-flight - install required plugins
 
 One-time per container; persisted by the `itss-workshop-plugins` named volume.
 
-`claude-plugins-official` ships built-in — no `marketplace add` needed.
+`claude-plugins-official` ships built-in - no `marketplace add` needed.
 Only the third-party `Lum1104/Understand-Anything` requires an explicit
 `marketplace add`.
 
@@ -24,7 +28,7 @@ Only the third-party `Lum1104/Understand-Anything` requires an explicit
 /plugin install understand-anything@understand-anything
 ```
 
-`hookify` is **not** installed here — it gets installed live in P4. If
+`hookify` is **not** installed here - it gets installed live in P4. If
 hookify is already installed from a prior container session, uninstall it
 first (`/plugin uninstall hookify`) so the P4 install is a real live moment.
 
@@ -52,7 +56,7 @@ claude
 
 ---
 
-## P1 — Side-by-side architecture review
+## P1 - Side-by-side architecture review
 
 Paste in **both** Pane A and Pane B:
 
@@ -60,13 +64,13 @@ Paste in **both** Pane A and Pane B:
 Explain the architecture of this codebase. Map (a) the agent loop, (b) tool definitions and registration, (c) permission/approval logic, (d) sandbox or isolation mechanism, (e) plugin/extension model. Cite file:line for each finding.
 ```
 
-Recovery — output too shallow:
+Recovery - output too shallow:
 
 ```
 Look at the plugins/ directory and explain the plugin manifest structure.
 ```
 
-Recovery — permission system not found:
+Recovery - permission system not found:
 
 ```
 Search for files related to permission checking, tool approval, or settings schema. Then explain how the Allow/Ask/Deny model is configured.
@@ -74,34 +78,34 @@ Search for files related to permission checking, tool approval, or settings sche
 
 ---
 
-## P2 — Architecture HTML
+## P2 - Architecture HTML
 
 Both prompts ask the agent to map the **8 named primitives of an agentic
 coding runtime** (open set):
 
-1. **context window** — turn/state assembly, what gets in, what gets evicted
-2. **tools** — definitions, registration, invocation
-3. **permissions / sandbox** — Allow/Ask/Deny model + sandbox mechanism (Seatbelt / bubblewrap / restricted tokens / path validation, etc.)
-4. **skills** — the structured-prompt unit, where they live, how they load
-5. **plugins** — extension model, manifest schema, install path
-6. **MCP** — Model Context Protocol client, server registration, transport types
-7. **memory** — AGENTS.md / CLAUDE.md (always-loaded instruction file at repo root)
-8. **subagents** — dispatch pattern that spawns a fresh agent instance with bounded prompt and isolated context
+1. **context window** - turn/state assembly, what gets in, what gets evicted
+2. **tools** - definitions, registration, invocation
+3. **permissions / sandbox** - Allow/Ask/Deny model + sandbox mechanism (Seatbelt / bubblewrap / restricted tokens / path validation, etc.)
+4. **skills** - the structured-prompt unit, where they live, how they load
+5. **plugins** - extension model, manifest schema, install path
+6. **MCP** - Model Context Protocol client, server registration, transport types
+7. **memory** - AGENTS.md / CLAUDE.md (always-loaded instruction file at repo root)
+8. **subagents** - dispatch pattern that spawns a fresh agent instance with bounded prompt and isolated context
 
 Pane A (Codex):
 
 ```
-Generate an interactive HTML architecture page at `./demo-examples/codex-architecture.html`.
+Generate an interactive HTML architecture page at `./../demo-examples/codex-architecture.html`.
 
 Map this repo's implementation of the 8 named primitives of an agentic coding runtime:
-1. context window — how the conversation/turn state is assembled, what gets in, what gets evicted
-2. tools — definitions, registration, invocation
-3. permissions / sandbox — Allow/Ask/Deny model AND the sandbox mechanism (Seatbelt / bubblewrap / restricted tokens / path validation)
-4. skills — the structured-prompt unit, where they live, how they're loaded
-5. plugins — extension model, manifest schema, install path
-6. MCP — Model Context Protocol client, server registration, transport types
-7. memory — AGENTS.md / CLAUDE.md handling (the always-loaded instruction file at repo root)
-8. subagents — dispatch pattern that spawns a fresh agent instance with bounded prompt and isolated context
+1. context window - how the conversation/turn state is assembled, what gets in, what gets evicted
+2. tools - definitions, registration, invocation
+3. permissions / sandbox - Allow/Ask/Deny model AND the sandbox mechanism (Seatbelt / bubblewrap / restricted tokens / path validation)
+4. skills - the structured-prompt unit, where they live, how they're loaded
+5. plugins - extension model, manifest schema, install path
+6. MCP - Model Context Protocol client, server registration, transport types
+7. memory - AGENTS.md / CLAUDE.md handling (the always-loaded instruction file at repo root)
+8. subagents - dispatch pattern that spawns a fresh agent instance with bounded prompt and isolated context
 
 For each primitive, include clickable file:// links to actual source files in this repo with file:line precision.
 
@@ -111,23 +115,23 @@ Visual layout:
 - Simple HTML + CSS, no external dependencies, no JS frameworks
 - Self-contained, openable directly in a browser
 
-The 8 primitives are an open set — surface anything additional that emerges from the codebase (agent loop, hooks, etc.) in an "Additional" section at the bottom.
+The 8 primitives are an open set - surface anything additional that emerges from the codebase (agent loop, hooks, etc.) in an "Additional" section at the bottom.
 ```
 
 Pane B (opencode):
 
 ```
-Generate an interactive HTML architecture page at `./demo-examples/opencode-architecture.html`.
+Generate an interactive HTML architecture page at `./../demo-examples/opencode-architecture.html`.
 
 Map this repo's implementation of the 8 named primitives of an agentic coding runtime:
-1. context window — how the conversation/turn state is assembled, what gets in, what gets evicted
-2. tools — definitions, registration, invocation
-3. permissions / sandbox — Allow/Ask/Deny model AND the sandbox mechanism (Seatbelt / bubblewrap / restricted tokens / path validation)
-4. skills — the structured-prompt unit, where they live, how they're loaded
-5. plugins — extension model, manifest schema, install path
-6. MCP — Model Context Protocol client, server registration, transport types
-7. memory — AGENTS.md / CLAUDE.md handling (the always-loaded instruction file at repo root)
-8. subagents — dispatch pattern that spawns a fresh agent instance with bounded prompt and isolated context
+1. context window - how the conversation/turn state is assembled, what gets in, what gets evicted
+2. tools - definitions, registration, invocation
+3. permissions / sandbox - Allow/Ask/Deny model AND the sandbox mechanism (Seatbelt / bubblewrap / restricted tokens / path validation)
+4. skills - the structured-prompt unit, where they live, how they're loaded
+5. plugins - extension model, manifest schema, install path
+6. MCP - Model Context Protocol client, server registration, transport types
+7. memory - AGENTS.md / CLAUDE.md handling (the always-loaded instruction file at repo root)
+8. subagents - dispatch pattern that spawns a fresh agent instance with bounded prompt and isolated context
 
 For each primitive, include clickable file:// links to actual source files in this repo with file:line precision.
 
@@ -137,12 +141,12 @@ Visual layout:
 - Simple HTML + CSS, no external dependencies, no JS frameworks
 - Self-contained, openable directly in a browser
 
-The 8 primitives are an open set — surface anything additional that emerges from the codebase (agent loop, hooks, etc.) in an "Additional" section at the bottom.
+The 8 primitives are an open set - surface anything additional that emerges from the codebase (agent loop, hooks, etc.) in an "Additional" section at the bottom.
 ```
 
-### Generic version (run on any repo — Monday take-home)
+### Generic version (run on any repo - Monday take-home)
 
-This is the canonical take-home prompt — generic scope decomposition, parallel
+This is the canonical take-home prompt - generic scope decomposition, parallel
 subagents, validation pass. Use it on any repo (not just agentic-coding runtimes).
 The Pane A/B prompts above are the workshop-specific variants that lock the
 8-primitive shape for the side-by-side reveal; this one adapts to whatever
@@ -252,7 +256,7 @@ chrome-workshop ./workshop/drive-share/demo-opencode-architecture.html
 
 ---
 
-## P2.5 — Understand-Anything dashboard
+## P2.5 - Understand-Anything dashboard
 
 Inside the existing Pane A `claude` session (`understand-anything` was
 installed in Pre-flight; just open the pre-generated dashboard):
@@ -265,13 +269,13 @@ Pre-generated the night before via `/understand` on `./workshop/codex`.
 
 ---
 
-## P3 — Walk-through (no new prompt)
+## P3 - Walk-through (no new prompt)
 
 Side-by-side narration of primitives visible in each diagram. No new Claude prompt.
 
 ---
 
-## P4 — Hookify: install, trigger, author a custom rule
+## P4 - Hookify: install, trigger, author a custom rule
 
 Open Pane C:
 
@@ -280,7 +284,7 @@ cd ./workshop
 claude
 ```
 
-### P4.1 — Install
+### P4.1 - Install
 
 Inside the `claude` session:
 
@@ -288,11 +292,11 @@ Inside the `claude` session:
 /plugin install hookify@claude-plugins-official
 ```
 
-Rules are active immediately — no restart or reload step needed.
+Rules are active immediately - no restart or reload step needed.
 
-### P4.2 — Inspect the bundled rules
+### P4.2 - Inspect the bundled rules
 
-Hookify ships with example rules — markdown files with YAML frontmatter,
+Hookify ships with example rules - markdown files with YAML frontmatter,
 versionable in git, readable by humans. The plugin loads them from its own
 `examples/` directory and from `.claude/hookify.<rule-name>.local.md` in the
 current repo.
@@ -327,11 +331,11 @@ This command could delete important files. Please:
 ```
 
 Rule fields:
-- **event:** `bash` | `file` | `stop` | `prompt` | `all` — which hook trigger fires the rule
+- **event:** `bash` | `file` | `stop` | `prompt` | `all` - which hook trigger fires the rule
 - **pattern:** regex matched against the command (`bash`), the new file content (`file`), the transcript (`stop`), or the prompt (`prompt`)
 - **action:** `warn` (show message, allow) | `block` (prevent the operation)
 
-### P4.3 — Trigger the dangerous-rm rule
+### P4.3 - Trigger the dangerous-rm rule
 
 In the `claude` session, ask Claude to run a destructive command:
 
@@ -342,7 +346,7 @@ Run this for me: rm -rf /tmp/hookify-demo-target
 The hookify rule blocks the bash call and surfaces the rule's message to
 Claude. Claude reports back that the operation was blocked.
 
-### P4.4 — Author a new rule live: "test-first for components"
+### P4.4 - Author a new rule live: "test-first for components"
 
 The frontend-TDD pattern the workshop teaches needs a guardrail. Hookify
 can't see git's staged-files state from a bash event (the `command` field
@@ -354,12 +358,12 @@ schema (`field`s: `file_path / new_text / old_text / content` for file
 events; `operator`s: `regex_match / contains / equals / not_contains /
 starts_with / ends_with`).
 
-Author the rule via `/hookify` (interactive) — or paste the bootstrap below.
+Author the rule via `/hookify` (interactive) - or paste the bootstrap below.
 
 **Live prompt (via interactive `/hookify`):**
 
 ```
-/hookify Block writing a *.tsx file unless the path also contains .test. — frontend TDD discipline, write the test file first.
+/hookify Block writing a *.tsx file unless the path also contains .test. - frontend TDD discipline, write the test file first.
 ```
 
 **Bootstrap fallback** (paste verbatim if the interactive flow stalls):
@@ -396,16 +400,16 @@ This rule blocks creating a `.tsx` file whose path doesn't contain
 EOF
 ```
 
-### P4.5 — Verify the new rule loaded
+### P4.5 - Verify the new rule loaded
 
 ```
 /hookify:list
 ```
 
 The list now shows `test-first-for-tsx` alongside the bundled examples.
-Rules are active immediately — no restart needed.
+Rules are active immediately - no restart needed.
 
-### P4.6 — Trigger the new rule
+### P4.6 - Trigger the new rule
 
 Ask Claude to create a component without writing the test first:
 
@@ -424,31 +428,31 @@ PR review like any other code. It's diffable, blameable, revertable. The
 team's discipline is committed to the repo, not stored in a wiki nobody reads.
 
 **Other useful rule events to mention** (no need to demo, just name them):
-- `event: file` — fires on Edit / Write / MultiEdit. Use for "warn on
+- `event: file` - fires on Edit / Write / MultiEdit. Use for "warn on
   console.log", "block edits to .env*", "require type annotations".
-- `event: stop` — fires when the agent tries to stop. Use for "block stop
+- `event: stop` - fires when the agent tries to stop. Use for "block stop
   if no tests ran this session".
-- `event: prompt` — fires on user prompt submission. Use for "warn if the
+- `event: prompt` - fires on user prompt submission. Use for "warn if the
   prompt looks like a credential paste".
 
 ---
 
-## P5 — MCP name-drop
+## P5 - MCP name-drop
 
 Verbal callout only. No prompt.
 
 ---
 
-## P6 — Demo 1 Part 2: scaffold a marketplace + a plugin derived from the generic prompt
+## P6 - Demo 1 Part 2: scaffold a marketplace + a plugin derived from the generic prompt
 
 The demo plugin wraps the **generic Repo Architecture Mapping prompt** (the
-Monday take-home variant from P2 above) as a reusable skill — so anyone in
+Monday take-home variant from P2 above) as a reusable skill - so anyone in
 the org can run it on any repo (legacy or otherwise) without retyping the
 multi-line prompt. The P2 Pane A/B variants are workshop-only, locked to
 the 8-primitive shape; the productionized plugin uses the generic version
 that adapts to whatever codebase it's pointed at.
 
-### P6.1 — Live prompt in Pane C
+### P6.1 - Live prompt in Pane C
 
 ```
 Use the plugin-dev:create-plugin skill to scaffold a Claude Code plugin
@@ -463,7 +467,7 @@ Include:
   variant). Its body is:
     * Orchestrator first pass on top-level + README + package manifests
     * Decompose into 3–5 exploration scopes (entry / business logic /
-      data layer / integrations / infrastructure — adjusted per repo size)
+      data layer / integrations / infrastructure - adjusted per repo size)
     * Dispatch one subagent per scope via the Task tool, each returning a
       structured markdown table per module with file:line citations
     * Synthesize, resolve overlaps, build coherent architecture model
@@ -476,7 +480,7 @@ Include:
 Show the resulting file tree when done.
 ```
 
-### P6.2 — Bootstrap fallback (paste verbatim if the live prompt stalls)
+### P6.2 - Bootstrap fallback (paste verbatim if the live prompt stalls)
 
 ```bash
 mkdir -p ./workshop/itss-plugins/plugins/architecture-html/.claude-plugin
@@ -550,7 +554,7 @@ Each subagent gets:
 
 - Scope name + one-sentence purpose
 - 1–3 starting directories or files
-- Output contract: structured markdown with a table per module —
+- Output contract: structured markdown with a table per module -
   `Module | Purpose (one sentence) | Key files (file:line) | Notable patterns | Open questions`
 - Quality bar: every claim has a file:line citation. No claims without
   citations. Don't invent paths. If something is unclear, flag it as an
@@ -574,7 +578,7 @@ Required structure:
 - **Per module:** name, one-line purpose, key files as clickable `file://`
   links using ABSOLUTE paths to this repo (use the current working
   directory's absolute path as the prefix).
-- **Cross-cutting patterns section** — if multiple subagents observed the
+- **Cross-cutting patterns section** - if multiple subagents observed the
   same pattern across scopes (dependency injection style, async pattern,
   error-handling convention).
 - **Footer:** list of top-level directories/files NOT covered (so the reader
@@ -622,7 +626,7 @@ Internal Claude Code marketplace.
 
 ## Plugins
 
-- **architecture-html** — generate an interactive HTML architecture page for
+- **architecture-html** - generate an interactive HTML architecture page for
   any codebase (clickable `file://` links to source).
 
 ## Publish
@@ -633,13 +637,13 @@ marketplace add <git-url>` to install from it.
 EOF
 ```
 
-### P6.3 — Reveal
+### P6.3 - Reveal
 
 ```bash
 tree ./workshop/itss-plugins/
 ```
 
-### P6.4 — Install handshake (optional)
+### P6.4 - Install handshake (optional)
 
 Inside the Pane C `claude` session:
 
@@ -648,7 +652,7 @@ Inside the Pane C `claude` session:
 /plugin install architecture-html@itss-plugins
 ```
 
-Run the skill on a NON-agentic repo to prove it generalizes — Twenty CRM
+Run the skill on a NON-agentic repo to prove it generalizes - Twenty CRM
 makes the point cleanly (no agent loop, no subagents, just a regular
 TypeScript monorepo):
 
@@ -665,7 +669,7 @@ Use the architecture-html skill to produce the page for this repo.
 
 Expected: `./docs/architecture-map.html` with sections for entry points,
 NestJS server, Vite/React front, GraphQL bridge, Postgres + Redis
-infrastructure — read-only, validated `file://` links, no architectural
+infrastructure - read-only, validated `file://` links, no architectural
 invention.
 
 ---

@@ -5,7 +5,7 @@
 source-of-truth: docs/superpowers/specs/2026-05-27-itss-workshop-devcontainer-design.md
 
 # Demo repos (cloned at container creation by .devcontainer/post-create.sh
-# from .devcontainer/versions.env — see that file for the machine-readable form).
+# from .devcontainer/versions.env - see that file for the machine-readable form).
 # Not baked into the image; live on the workspace bind-mount for persistence.
 codex:
   repo: https://github.com/ro-ai-labs/codex.git
@@ -42,7 +42,7 @@ plugins-suggested:
   - plugin-dev @ claude-plugins-official
   - understand-anything @ Lum1104/Understand-Anything
 
-# Image — built locally by each participant from .devcontainer/Dockerfile.
+# Image - built locally by each participant from .devcontainer/Dockerfile.
 # No container registry, no pull, no auth tokens.
 local-tag: itss-workshop:local
 platforms: linux/amd64   # x86_64 only. Apple Silicon / ARM PCs follow docs/HOST_SETUP.md

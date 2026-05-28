@@ -86,15 +86,69 @@ of where Opportunity lives before being asked to extend it.
 ## Prompt 2 - Build the feature with superpowers (with before/after Playwright e2e)
 
 ```
-Use superpowers to build a new feature: Opportunity Confidence. Let's start by brainstorming about it and the defining the specifications. Every Opportunity in the database should have a confidence field that defaults to 20%, and in the frontend Opportunities tab show that confidence per row, let me change it to any value 0-100%, and add an Expected Value column equal to confidence × amount per row with a footer total across all visible rows. Before you touch any code, run a baseline Playwright e2e against the running Twenty dev server - log in, go to Opportunities, and assert that today there's no Confidence field on a row and no Expected Value column - that locks in the starting state. After the feature is built, run Playwright again against the same dev server: set Confidence to 75 on the first opportunity, blur to save, reload, and assert that Confidence persists as 75, that Expected Value equals 75% × amount, and that the footer total updates across all visible rows. Use the accessibility tree for assertions, not pixel screenshots, and make sure `.playwright-mcp/` is in `.gitignore` so traces and debug screenshots don't end up in commits. Self-review at the end with an explicit before-vs-after comparison drawn from the two Playwright runs.
+Use superpowers and let's brainstorm against the spec below - confirm every
+detail with me before moving to a plan or any code.
+
+NEW FEATURE - Opportunity Confidence + Expected Value
+
+- New field `confidence` on Opportunity: integer 0-100
+  (percentage, NOT decimal). Default 20. Backfill existing rows
+  with 20.
+- Inline row editor in the Opportunities list - spinbutton,
+  min 0, max 100, step 1. Blur to save.
+- New `Expected Value` column on each row: confidence/100 ×
+  amount, currency-formatted the same way `amount` is.
+- Footer total: sum of Expected Value across all visible rows
+  on the current page. Update reactively when any row's
+  confidence changes.
+- Expose both `confidence` (raw integer) and the computed
+  expected value on the Opportunity GraphQL DTO so the public
+  API exposes both.
+
+IMPLEMENTATION GOTCHA - metadata cache
+
+Twenty keys its metadata cache by `workspace.metadataVersion`.
+Generate migrations through `database:migrate:generate` - that
+pipeline bumps `metadataVersion` for you. Hand-rolled SQL or
+direct edits to metadata tables do NOT bump it, and the new
+field won't appear in GraphQL introspection or the UI. After
+the migration runs, verify the field shows up in GraphQL
+introspection before trusting it from the frontend.
+
+VALIDATION - Playwright e2e, before AND after (both mandatory)
+
+Before any code change, drive Playwright MCP against the
+running Twenty dev server. Log in, navigate to Opportunities,
+and assert via the accessibility tree that there is NO
+Confidence spinbutton on any row and NO Expected Value column
+header. This is the baseline.
+
+After the feature is built, drive Playwright MCP again. On
+the first Opportunity row: set Confidence to 75, blur to save,
+reload the page, and assert via the accessibility tree that:
+- Confidence persists as 75 after reload
+- Expected Value equals (75/100) × amount, currency-formatted
+- Footer total equals Σ(confidence/100 × amount) across the
+  visible rows and updates when another row's confidence changes
+
+Use the accessibility tree (`getByRole`, `getByLabel`), never
+pixel screenshots. Add `.playwright-mcp/` to `.gitignore` so MCP
+traces don't end up in commits.
 ```
 
-Superpowers self-paces through brainstorm, plan, execute, self-review. Natural
-pause points in the live session: after the brainstorm settles, after the plan
-is written, after execution finishes. Confirm and let it carry on.
+Superpowers self-paces brainstorm → plan → execute → self-review.
+Confirm at each natural pause and let it carry on.
 
-Push back if the agent invents a spec detail or skips either Playwright run.
-Both before AND after e2e must happen.
+### Pushback triggers - facilitator's reset list
+
+Most discipline (TDD, plan completeness, brainstorm-before-code) is
+enforced by superpowers itself. These three aren't, so watch for them:
+
+| Trigger | Reset |
+|---|---|
+| Agent invents a spec detail (audit log, separate settings page, etc.) | Reject; the spec in the prompt is the contract |
+| Agent skips the baseline or the post-impl Playwright run | Reject the completion claim |
+| Field added but doesn't show in UI / GraphQL introspection | Stale metadata cache - check whether the migration went through `database:migrate:generate` (which bumps `workspace.metadataVersion`) before debugging anything else |
 
 ---
 

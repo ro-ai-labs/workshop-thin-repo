@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# post-start.sh — runs every time the container starts.
+# post-start.sh - runs every time the container starts.
 # Ensures Twenty's compose stack is up; prints the welcome banner.
 set -u
 
@@ -15,13 +15,13 @@ fi
 cat <<EOF
 
   ╭─────────────────────────────────────────────────────────────╮
-  │  ITSS Workshop 2026 — Container ready                       │
+  │  ITSS Workshop 2026 - Container ready                       │
   ╰─────────────────────────────────────────────────────────────╯
 
   Demos live under \$WORKSHOP_HOME (= ./workshop):
-    • codex/        Demo 1 — Rust architecture (read-only)
-    • opencode/     Demo 1 — TypeScript architecture (read-only)
-    • twenty/       Demo 2 — Superpowers feature build
+    • codex/        Demo 1 - Rust architecture (read-only)
+    • opencode/     Demo 1 - TypeScript architecture (read-only)
+    • twenty/       Demo 2 - Superpowers feature build
 
   Start Twenty UI:   cd ./workshop/twenty && yarn start
                      (then http://localhost:3001)

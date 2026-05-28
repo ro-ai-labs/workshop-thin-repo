@@ -5,11 +5,11 @@
 *.tar
 *.tar.gz
 
-# build-context/ is unused (plugins are no longer baked into the image —
+# build-context/ is unused (plugins are no longer baked into the image -
 # participants install them manually via `/plugin add` inside the container).
 /build-context/
 
-# Demo repos — cloned into here by .devcontainer/post-create.sh at first reopen.
+# Demo repos - cloned into here by .devcontainer/post-create.sh at first reopen.
 # Lives on the host filesystem via the workspace bind-mount, so edits persist.
 /workshop/
 

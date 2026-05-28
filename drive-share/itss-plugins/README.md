@@ -10,7 +10,7 @@ Internal Claude Code plugin marketplace owned by **ITSS**. Houses workflow plugi
 
 ## Installation
 
-### 1 — register the marketplace
+### 1 - register the marketplace
 
 In any Claude Code session:
 
@@ -26,7 +26,7 @@ Or from a Git source once this repo is published:
 
 Claude Code reads `.claude-plugin-marketplace.json` at the marketplace root to discover available plugins.
 
-### 2 — install a plugin
+### 2 - install a plugin
 
 ```
 /plugin install architecture-html@itss-plugins
@@ -34,7 +34,7 @@ Claude Code reads `.claude-plugin-marketplace.json` at the marketplace root to d
 
 That pulls the plugin's `skills/`, `agents/`, `hooks/`, and `commands/` (where applicable) into your session.
 
-### 3 — verify
+### 3 - verify
 
 ```
 /plugin list
@@ -53,7 +53,7 @@ After install, just ask:
 1. Survey the repo's top-level layout, README, and primary manifest.
 2. Dispatch parallel Explore subagents (one per agentic-runtime primitive).
 3. Verify every cited file/line exists on disk.
-4. Write `./demo-examples/<repo>-architecture.html` — a single self-contained HTML file with embedded CSS, no external dependencies.
+4. Write `./demo-examples/<repo>-architecture.html` - a single self-contained HTML file with embedded CSS, no external dependencies.
 5. Walk every `file://` link in the output and report the resolve rate.
 
 Open the result by double-clicking it (or `xdg-open` / `open`).
@@ -92,4 +92,4 @@ See the [Claude Code plugin docs](https://docs.claude.com/en/docs/claude-code/pl
 
 ## License
 
-Internal — ITSS use only.
+Internal - ITSS use only.

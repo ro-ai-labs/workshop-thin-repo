@@ -54,7 +54,7 @@ to e.g. 3010, then right-click → Show Preview again.
 
 ## `/plugin list` shows no plugins
 
-Expected on first reopen — plugins are **not** baked into the image; install
+Expected on first reopen - plugins are **not** baked into the image; install
 them yourself inside a `claude` session. They persist across rebuilds via the
 `itss-workshop-plugins` named volume mounted at `/home/vscode/.claude/plugins`.
 
@@ -64,7 +64,7 @@ them yourself inside a `claude` session. They persist across rebuilds via the
 /plugin install superpowers@claude-plugins-official
 /plugin install plugin-dev@claude-plugins-official
 /plugin install understand-anything@understand-anything
-# ...etc — see docs/demo-1.md pre-flight for the full set
+# ...etc - see docs/demo-1.md pre-flight for the full set
 ```
 
 If the named volume gets corrupted, reset it from the host:
@@ -79,7 +79,7 @@ docker volume rm itss-workshop-plugins
 Decline. None of the demos need GitHub auth. If you want it for your own repos
 later, sign in then.
 
-## Apple Silicon (M1/M2/M3) or ARM PC — image won't run
+## Apple Silicon (M1/M2/M3) or ARM PC - image won't run
 
 The container is `linux/amd64` only and we don't ship `linux/arm64`. Running
 the amd64 image under Docker Desktop on Apple Silicon technically works via
