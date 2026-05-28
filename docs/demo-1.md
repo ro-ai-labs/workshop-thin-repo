@@ -1,8 +1,8 @@
 # Demo 1 - Live Architecture Review: Codex (Rust) + opencode (TypeScript)
 
 Target repos:
-- Pane A: `./workshop/codex`
-- Pane B: `./workshop/opencode`
+- Tab Codex: `./workshop/codex`
+- Tab OpenCode: `./workshop/opencode`
 - Pane C: `./workshop/` (used for live plugin install in P4)
 
 ---
