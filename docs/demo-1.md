@@ -9,7 +9,7 @@ Target repos:
 
 ```
 /tui fullscreen
-/
+```
 
 ## Pre-flight - install required plugins
 
